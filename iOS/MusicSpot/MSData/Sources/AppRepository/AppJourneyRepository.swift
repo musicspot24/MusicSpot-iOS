@@ -69,7 +69,7 @@ public final class AppJourneyRepository: JourneyRepository {
         do {
             let id = journey.id
             let predicate = #Predicate<JourneyLocalDataSource> { dataSource in
-                return dataSource.journeyID == consume id
+                dataSource.journeyID == consume id
             }
             let descriptor = FetchDescriptor(predicate: consume predicate)
 

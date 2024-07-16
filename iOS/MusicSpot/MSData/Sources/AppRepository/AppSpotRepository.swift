@@ -31,7 +31,7 @@ public final class AppSpotRepository: SpotRepository {
     public func addSpot(_ spot: Spot, to journey: Journey) throws {
         let id = journey.id
         let predicate = #Predicate<JourneyLocalDataSource> { dataSource in
-            return dataSource.journeyID == consume id
+            dataSource.journeyID == consume id
         }
         let descriptor = FetchDescriptor(predicate: consume predicate)
 

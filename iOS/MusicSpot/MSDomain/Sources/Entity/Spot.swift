@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Spot
 
-public struct Spot {
+public struct Spot: Identifiable {
 
     // MARK: Lifecycle
 
@@ -38,38 +38,7 @@ public struct Spot {
 
 }
 
-// MARK: - RequestableSpot
-
-public struct RequestableSpot {
-
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(
-        journeyID: String,
-        coordinate: Coordinate,
-        timestamp: Date,
-        photoData: Data)
-    {
-        self.journeyID = journeyID
-        self.coordinate = coordinate
-        self.timestamp = timestamp
-        self.photoData = photoData
-    }
-
-    // MARK: Public
-
-    // MARK: - Properties
-
-    public let journeyID: String
-    public let coordinate: Coordinate
-    public let timestamp: Date
-    public let photoData: Data
-
-}
-
-// MARK: - Spot + CustomStringConvertible
+// MARK: CustomStringConvertible
 
 extension Spot: CustomStringConvertible {
     public var description: String {

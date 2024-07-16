@@ -10,10 +10,12 @@ import SwiftUI
 @MainActor
 extension Rewind: View {
     public var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView(selection: $selectedJourney) {
+            ForEach(selectedJourney.spots) { spot in
+                Text(spot.id)
+            }
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
-}
-
-#Preview {
-    Rewind()
 }
