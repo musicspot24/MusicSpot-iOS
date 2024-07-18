@@ -7,32 +7,47 @@
 
 import SwiftUI
 
+import MSExtension
+
 @MainActor
 extension Rewind: View {
 
     // MARK: Public
 
     public var body: some View {
-        Text(selectedJourney.spots.first!.id)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .foregroundStyle(.white)
-            .background(.black)
-            .overlay(progressBar(), alignment: .top)
-            .onReceive(timer) { _ in
-                if timerProgress < CGFloat(selectedJourney.spots.count) {
-                    // timer duration 0.1
-                    timerProgress += (0.1 / Metric.progressDuration)
-                }
+        let photoURLs = selectedJourney.spots.flatMap(\.photoURLs)
+
+        // TODO: Cache 가능한 형태로 변경
+        AsyncImage(url: photoURLs[safe: currentIndex]) { image in
+            image.resizable()
+        } placeholder: {
+            ProgressView()
+                .controlSize(.regular)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(.black)
+        .overlay(progressBar(), alignment: .top)
+        .onReceive(timer) { _ in
+            if timerProgress < CGFloat(photoURLs.count) {
+                // timer duration 0.1
+                timerProgress += (0.1 / Metric.progressDuration)
+                let index = min(Int(timerProgress), photoURLs.count - 1)
+                currentIndex = consume index
+            } else { // 종료
             }
+        }
     }
 
     // MARK: Private
 
+    // MARK: - View
+
     @ViewBuilder
     private func progressBar() -> some View {
         HStack(spacing: Metric.progressSpacing) {
-            let spots = selectedJourney.spots
-            ForEach(Array(zip(spots.indices, spots)), id: \.0) { index, _ in
+            let photos = selectedJourney.spots.flatMap(\.photoURLs)
+
+            ForEach(Array(zip(photos.indices, photos)), id: \.0) { index, _ in
                 GeometryReader { proxy in
                     let width = proxy.size.width
 
@@ -56,4 +71,8 @@ extension Rewind: View {
         .frame(height: Metric.progressHeight)
         .padding(.horizontal)
     }
+
+    // MARK: - Functions
+
+    private func updateStory() { }
 }

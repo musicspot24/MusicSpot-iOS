@@ -27,7 +27,7 @@ public struct Rewind {
         static let progressSpacing: CGFloat = 5.0
         static let progressHeight: CGFloat = 1.5
         /// 사진 하나의 출력 시간(s)
-        static let progressDuration: CGFloat = 3.0
+        static let progressDuration: CGFloat = 5.0
     }
 
     // MARK: - Global
@@ -41,5 +41,6 @@ public struct Rewind {
     // Timer.TimerPublisher는 `ConnectablePublisher` -> `connect()`로 연결해줘야 share가 시작된다.
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     @State var timerProgress: CGFloat = .zero
+    @State var currentIndex: Int = .zero
 
 }
