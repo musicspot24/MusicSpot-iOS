@@ -33,7 +33,6 @@ public final class AppUserUseCase: UserUseCase {
         userState.currentUserID
     }
 
-
     @discardableResult
     public func registerNewUser() async throws(UserError) -> String { // swiftlint:disable:this all
         // 사용중인 유저 존재 여부 확인
