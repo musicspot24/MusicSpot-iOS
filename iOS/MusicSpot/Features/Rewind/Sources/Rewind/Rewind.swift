@@ -35,10 +35,10 @@ extension Rewind: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
-        .overlay(alignment: .bottom) {
-            progressView()
-        }
         .background(.black)
+        .overlay(alignment: .bottom) {
+            imageCarouselView()
+        }
         .onReceive(timer) { _ in
             if timerProgress < CGFloat(photoURLs.count) {
                 // timer duration 0.1
@@ -46,6 +46,7 @@ extension Rewind: View {
                 let index = min(Int(timerProgress), photoURLs.count - 1)
                 currentIndex = consume index
             } else { // 종료
+                // TODO: 모든 미디어 출력 후 행동 구현
             }
         }
     }
@@ -56,10 +57,10 @@ extension Rewind: View {
 
     @ViewBuilder
     private func progressView() -> some View {
-        let photos = selectedJourney.spots.flatMap(\.photoURLs)
+        let photoURLs = selectedJourney.photoURLs
 
         HStack(spacing: Metric.progressSpacing) {
-            ForEach(Array(zip(photos.indices, photos)), id: \.0) { index, _ in
+            ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { index, _ in
                 GeometryReader { proxy in
                     let width = proxy.size.width
 
@@ -84,7 +85,48 @@ extension Rewind: View {
         .frame(height: Metric.progressHeight)
     }
 
-    // MARK: - Functions
+    @ViewBuilder
+    private func imageCarouselView() -> some View {
+        let photoURLs = selectedJourney.photoURLs
 
-    private func updateStory() { }
+        GeometryReader { proxy in
+            let size = proxy.size
+
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: Metric.carouselSpacing) {
+                    ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
+                        AsyncImage(url: photoURL) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(
+                                        width: Metric.carouselItemWidth,
+                                        height: Metric.carouselItemHeight)
+                                    .clipShape(.rect(cornerRadius: Metric.carouselItemCornerRadius))
+
+                            case .empty, .failure:
+                                RoundedRectangle(cornerRadius: Metric.carouselItemCornerRadius)
+                                    .fill(.thinMaterial)
+                                    .frame(
+                                        width: Metric.carouselItemWidth,
+                                        height: Metric.carouselItemHeight)
+
+                            @unknown default:
+                                ProgressView()
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal)
+                .scrollTargetLayout()
+            }
+            .safeAreaPadding(.horizontal, (size.width - Metric.carouselItemWidth) / 2)
+            .scrollIndicators(.never)
+            .scrollTargetBehavior(.viewAligned)
+            .scrollPosition(id: Binding($currentIndex))
+        }
+        .frame(height: Metric.carouselHeight)
+    }
 }

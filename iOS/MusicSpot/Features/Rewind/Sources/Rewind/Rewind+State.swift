@@ -26,6 +26,11 @@ public struct Rewind {
     enum Metric {
         static let progressSpacing: CGFloat = 5.0
         static let progressHeight: CGFloat = 1.5
+        static let carouselSpacing: CGFloat = 5.0
+        static let carouselHeight: CGFloat = 70.0
+        static let carouselItemWidth: CGFloat = 50.0
+        static let carouselItemHeight: CGFloat = 60.0
+        static let carouselItemCornerRadius: CGFloat = 8.0
         /// 사진 하나의 출력 시간(s)
         static let progressDuration: CGFloat = 5.0
     }
