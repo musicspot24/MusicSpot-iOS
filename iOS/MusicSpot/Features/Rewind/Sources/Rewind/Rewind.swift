@@ -17,16 +17,28 @@ extension Rewind: View {
     public var body: some View {
         let photoURLs = selectedJourney.spots.flatMap(\.photoURLs)
 
-        // TODO: Cache 가능한 형태로 변경
-        AsyncImage(url: photoURLs[safe: currentIndex]) { image in
-            image.resizable()
-        } placeholder: {
-            ProgressView()
-                .controlSize(.regular)
+        GeometryReader { _ in
+            // TODO: Cache 가능한 형태로 변경
+            AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image.resizable()
+                case .failure:
+                    ProgressView()
+                @unknown default:
+                    ProgressView()
+                }
+            }
+            .aspectRatio(contentMode: .fill)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .ignoresSafeArea()
+        .overlay(alignment: .bottom) {
+            progressView()
+        }
         .background(.black)
-        .overlay(progressBar(), alignment: .top)
         .onReceive(timer) { _ in
             if timerProgress < CGFloat(photoURLs.count) {
                 // timer duration 0.1
@@ -43,10 +55,10 @@ extension Rewind: View {
     // MARK: - View
 
     @ViewBuilder
-    private func progressBar() -> some View {
-        HStack(spacing: Metric.progressSpacing) {
-            let photos = selectedJourney.spots.flatMap(\.photoURLs)
+    private func progressView() -> some View {
+        let photos = selectedJourney.spots.flatMap(\.photoURLs)
 
+        HStack(spacing: Metric.progressSpacing) {
             ForEach(Array(zip(photos.indices, photos)), id: \.0) { index, _ in
                 GeometryReader { proxy in
                     let width = proxy.size.width
@@ -60,16 +72,16 @@ extension Rewind: View {
 
                     Capsule()
                         .fill(.gray.opacity(0.5))
-                        .overlay(
+                        .overlay(alignment: .leading) {
                             Capsule()
                                 .fill(.white)
-                                .frame(width: width * tailTrimmedProgress),
-                            alignment: .leading)
+                                .frame(width: width * tailTrimmedProgress)
+                        }
                 }
             }
         }
-        .frame(height: Metric.progressHeight)
         .padding(.horizontal)
+        .frame(height: Metric.progressHeight)
     }
 
     // MARK: - Functions
