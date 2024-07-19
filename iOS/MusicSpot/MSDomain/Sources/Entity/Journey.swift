@@ -45,6 +45,12 @@ public struct Journey: Identifiable {
     public private(set) var playlist: [Music]
     public private(set) var isTraveling: Bool
 
+    /// 여정에 저장된 모든 사진/영상의 URL
+    // TODO: 영상 추가 후 네이밍 변경
+    public var photoURLs: [URL] {
+        spots.flatMap(\.photoURLs)
+    }
+
 }
 
 // MARK: - Mutating Functions
