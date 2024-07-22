@@ -8,6 +8,7 @@
 import SwiftUI
 
 import MSExtension
+import MSSwiftUI
 
 @MainActor
 extension Rewind: View {
@@ -17,7 +18,8 @@ extension Rewind: View {
     public var body: some View {
         let photoURLs = selectedJourney.spots.flatMap(\.photoURLs)
 
-        GeometryReader { _ in
+        VStack {
+            Spacer()
             // TODO: Cache 가능한 형태로 변경
             AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
                 switch phase {
@@ -31,7 +33,8 @@ extension Rewind: View {
                     ProgressView()
                 }
             }
-            .aspectRatio(contentMode: .fill)
+            .aspectRatio(contentMode: .fit)
+            Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea()
@@ -56,77 +59,65 @@ extension Rewind: View {
     // MARK: - View
 
     @ViewBuilder
-    private func progressView() -> some View {
-        let photoURLs = selectedJourney.photoURLs
-
-        HStack(spacing: Metric.progressSpacing) {
-            ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { index, _ in
-                GeometryReader { proxy in
-                    let width = proxy.size.width
-
-                    // 현재 index 뒤의 progress는 음수가 되어 증가 X
-                    let progress = timerProgress - CGFloat(consume index)
-                    // progress보다 왼쪽인 부분 자르기
-                    let headTrimmedProgress = max(consume progress, 0.0)
-                    // progress보다 오른쪽인 부분 자르기
-                    let tailTrimmedProgress = min(consume headTrimmedProgress, 1.0)
-
-                    Capsule()
-                        .fill(.gray.opacity(0.5))
-                        .overlay(alignment: .leading) {
-                            Capsule()
-                                .fill(.white)
-                                .frame(width: width * tailTrimmedProgress)
-                        }
-                }
-            }
-        }
-        .padding(.horizontal)
-        .frame(height: Metric.progressHeight)
-    }
-
-    @ViewBuilder
     private func imageCarouselView() -> some View {
         let photoURLs = selectedJourney.photoURLs
 
         GeometryReader { proxy in
-            let size = proxy.size
+            let width = proxy.size.width
 
-            ScrollView(.horizontal) {
-                LazyHStack(spacing: Metric.carouselSpacing) {
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(alignment: .bottom) {
                     ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
-                        AsyncImage(url: photoURL) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(
-                                        width: Metric.carouselItemWidth,
-                                        height: Metric.carouselItemHeight)
-                                    .clipShape(.rect(cornerRadius: Metric.carouselItemCornerRadius))
-
-                            case .empty, .failure:
-                                RoundedRectangle(cornerRadius: Metric.carouselItemCornerRadius)
-                                    .fill(.thinMaterial)
-                                    .frame(
-                                        width: Metric.carouselItemWidth,
-                                        height: Metric.carouselItemHeight)
-
-                            @unknown default:
-                                ProgressView()
-                            }
-                        }
+                        cardView(photoURL: photoURL)
                     }
                 }
-                .padding(.horizontal)
                 .scrollTargetLayout()
             }
-            .safeAreaPadding(.horizontal, (size.width - Metric.carouselItemWidth) / 2)
-            .scrollIndicators(.never)
+            .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($currentIndex))
+            // TODO: 스크롤 중 타이머 비활성화
         }
         .frame(height: Metric.carouselHeight)
+    }
+
+    @ViewBuilder
+    private func cardView(photoURL: URL?) -> some View {
+        GeometryReader { proxy in
+            let size = proxy.size
+            let minX = round(proxy.frame(in: .scrollView).minX)
+
+            let offsetRatio = consume minX / (Metric.carouselItemWidth + Metric.carouselSpacing)
+            let normalizedDistance = min(abs(consume offsetRatio), 1.0)
+            let itemScaleFactorDistance = Metric.carouselItemMaxScaleFactor - Metric.carouselItemMinScaleFactor
+            let scaleFactor = Metric.carouselItemMaxScaleFactor - consume normalizedDistance * consume itemScaleFactorDistance
+
+            let increasedWidth = Metric.carouselItemWidth * (scaleFactor - 1)
+
+            AsyncImage(url: photoURL) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .clipped()
+
+                case .empty, .failure:
+                    Rectangle().fill(.thinMaterial)
+
+                @unknown default:
+                    fatalError()
+                }
+            }
+            .frame(width: Metric.carouselItemWidth * consume scaleFactor, height: size.height)
+            .clipShape(.rect(cornerRadius: 8.0))
+            // 중앙 아이템의 넓이가 늘어난만큼(increasedWidth) 바로 다음 아이템의 offsetX가 증가
+            // 그 다음 아이템들은 늘어나는 넓이의 최댓값만큼 고정 offsetX 증가
+            .offset(
+                x: offsetRatio > 0
+                    ? (Metric.carouselItemWidth - consume increasedWidth)
+                    : .zero)
+        }
+        .frame(width: Metric.carouselItemWidth, height: Metric.carouselHeight)
     }
 }
