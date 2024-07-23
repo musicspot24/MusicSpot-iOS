@@ -46,6 +46,7 @@ public struct Rewind {
     // Timer.TimerPublisher는 `ConnectablePublisher` -> `connect()`로 연결해줘야 share가 시작된다.
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     @State var timerProgress: CGFloat = .zero
+
     @State var currentIndex: Int = .zero
     @State var contentOffsetX: CGFloat?
 

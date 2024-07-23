@@ -68,16 +68,25 @@ extension Rewind: View {
                     }
                 }
                 .scrollTargetLayout()
+                .onScrollOffsetChange(for: .scrollView(axis: .horizontal)) { offset in
+                    self.contentOffsetX = offset?.x
+                }
             }
+            .coordinateSpace(.scrollView(axis: .horizontal))
             .simultaneousGesture(
                 DragGesture()
-                    .onChanged { value in
-                        print("Dragging \(value)")
+                    .onChanged { _ in
+                        timer.upstream.connect().cancel()
                     }
-                    .onEnded { value in
-                        print("Ended \(value)")
+                    .onEnded { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                            let index = (contentOffsetX ?? .zero) / Metric.carouselItemWidth
+                            currentIndex = Int(floor(index))
+                            // TODO: Update timerProgress, not currentIndex
+                            timer = Timer.publish(every: 0.1, on: .main, in: .default).autoconnect()
+                        }
                     })
-            .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
+            .contentMargins(.horizontal, (consume width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($currentIndex))
             .scrollIndicators(.never)
