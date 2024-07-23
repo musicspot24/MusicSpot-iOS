@@ -62,21 +62,21 @@ extension Rewind: View {
             let width = proxy.size.width
 
             ScrollView(.horizontal) {
-                GeometryReader { scrollProxy in
-                    let contentOffsetX = scrollProxy.bounds(
-                        of: .scrollView(axis: .horizontal))?.origin.x
-
-                    LazyHStack(alignment: .bottom) {
-                        ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
-                            cardView(photoURL: photoURL)
-                        }
-                    }
-                    .scrollTargetLayout()
-                    .onChange(of: contentOffsetX, initial: false) {
-                        // TODO: 스크롤 중 타이머 비활성화
+                LazyHStack(alignment: .bottom) {
+                    ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
+                        cardView(photoURL: photoURL)
                     }
                 }
+                .scrollTargetLayout()
             }
+            .simultaneousGesture(
+                DragGesture()
+                    .onChanged { value in
+                        print("Dragging \(value)")
+                    }
+                    .onEnded { value in
+                        print("Ended \(value)")
+                    })
             .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($currentIndex))
