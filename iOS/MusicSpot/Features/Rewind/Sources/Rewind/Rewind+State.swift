@@ -47,5 +47,6 @@ public struct Rewind {
     @State var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     @State var timerProgress: CGFloat = .zero
     @State var currentIndex: Int = .zero
+    @State var contentOffsetX: CGFloat?
 
 }

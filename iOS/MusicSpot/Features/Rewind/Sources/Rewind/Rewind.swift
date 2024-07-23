@@ -65,18 +65,26 @@ extension Rewind: View {
         GeometryReader { proxy in
             let width = proxy.size.width
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(alignment: .bottom) {
-                    ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
-                        cardView(photoURL: photoURL)
+            ScrollView(.horizontal) {
+                GeometryReader { scrollProxy in
+                    let contentOffsetX = scrollProxy.bounds(
+                        of: .scrollView(axis: .horizontal))?.origin.x
+
+                    LazyHStack(alignment: .bottom) {
+                        ForEach(Array(zip(photoURLs.indices, photoURLs)), id: \.0) { _, photoURL in
+                            cardView(photoURL: photoURL)
+                        }
+                    }
+                    .scrollTargetLayout()
+                    .onChange(of: contentOffsetX, initial: false) {
+                        // TODO: 스크롤 중 타이머 비활성화
                     }
                 }
-                .scrollTargetLayout()
             }
             .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($currentIndex))
-            // TODO: 스크롤 중 타이머 비활성화
+            .scrollIndicators(.never)
         }
         .frame(height: Metric.carouselHeight)
     }
@@ -90,7 +98,8 @@ extension Rewind: View {
             let offsetRatio = consume minX / (Metric.carouselItemWidth + Metric.carouselSpacing)
             let normalizedDistance = min(abs(consume offsetRatio), 1.0)
             let itemScaleFactorDistance = Metric.carouselItemMaxScaleFactor - Metric.carouselItemMinScaleFactor
-            let scaleFactor = Metric.carouselItemMaxScaleFactor - consume normalizedDistance * consume itemScaleFactorDistance
+            let normalizedFactoredDistance = consume normalizedDistance * consume itemScaleFactorDistance
+            let scaleFactor = Metric.carouselItemMaxScaleFactor - consume normalizedFactoredDistance
 
             let increasedWidth = Metric.carouselItemWidth * (scaleFactor - 1)
 
