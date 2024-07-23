@@ -18,25 +18,21 @@ extension Rewind: View {
     public var body: some View {
         let photoURLs = selectedJourney.spots.flatMap(\.photoURLs)
 
-        VStack {
-            Spacer()
-            // TODO: Cache 가능한 형태로 변경
-            AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                case .success(let image):
-                    image.resizable()
-                case .failure:
-                    ProgressView()
-                @unknown default:
-                    ProgressView()
-                }
+        // TODO: Cache 가능한 형태로 변경
+        AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
+            switch phase {
+            case .empty:
+                ProgressView()
+            case .success(let image):
+                image.resizable()
+            case .failure:
+                ProgressView()
+            @unknown default:
+                ProgressView()
             }
-            .aspectRatio(contentMode: .fit)
-            Spacer()
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .aspectRatio(contentMode: .fit)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         .ignoresSafeArea()
         .background(.black)
         .overlay(alignment: .bottom) {
