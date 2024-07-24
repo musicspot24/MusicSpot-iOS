@@ -79,10 +79,10 @@ extension Rewind: View {
                         timer.upstream.connect().cancel()
                     }
                     .onEnded { _ in
-                        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+                        DispatchQueue.main.async {
                             let index = (contentOffsetX ?? .zero) / Metric.carouselItemWidth
-                            currentIndex = Int(floor(index))
-                            // TODO: Update timerProgress, not currentIndex
+                            let rangedIndex = min(max(0, Int(index)), photoURLs.count)
+                            timerProgress = CGFloat(rangedIndex)
                             timer = Timer.publish(every: 0.1, on: .main, in: .default).autoconnect()
                         }
                     })
