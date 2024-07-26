@@ -8,7 +8,7 @@
 import SwiftUI
 
 import Entity
-import Rewind
+import RewindPresentation
 
 struct ContentView: View {
     @State var selectedJourney = Journey(
@@ -43,7 +43,7 @@ struct ContentView: View {
         isTraveling: true)
 
     var body: some View {
-        Rewind(selectedJourney: $selectedJourney)
+        RewindView(selectedJourney: $selectedJourney)
     }
 }
 

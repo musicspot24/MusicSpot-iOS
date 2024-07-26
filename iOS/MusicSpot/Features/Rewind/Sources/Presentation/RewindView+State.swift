@@ -1,6 +1,6 @@
 //
-//  Rewind+State.swift
-//  Rewind
+//  RewindView+State.swift
+//  Presentation
 //
 //  Created by 이창준 on 7/15/24.
 //
@@ -9,7 +9,7 @@ import SwiftUI
 
 import Entity
 
-public struct Rewind {
+public struct RewindView {
 
     // MARK: Lifecycle
 
@@ -20,20 +20,6 @@ public struct Rewind {
     }
 
     // MARK: Internal
-
-    // MARK: - Constants
-
-    enum Metric {
-        static let carouselSpacing: CGFloat = 4.0
-        static let carouselHeight: CGFloat = 60.0
-        static let carouselItemWidth: CGFloat = 40.0
-        static let carouselItemMinScaleFactor: CGFloat = 1.0
-        static let carouselItemMaxScaleFactor: CGFloat = 2.0
-        static let carouselItemCornerRadius: CGFloat = 8.0
-
-        /// 사진 하나의 출력 시간(s)
-        static let progressDuration: CGFloat = 5.0
-    }
 
     // MARK: - Global
 

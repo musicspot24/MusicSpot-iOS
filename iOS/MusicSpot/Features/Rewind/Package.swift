@@ -11,12 +11,18 @@ extension String {
     var fromRootPath: String {
         "../" + self
     }
+
+    var fromSourcePath: String {
+        "Sources/" + self
+    }
 }
 
 // MARK: - Target
 
 private enum Target {
     static let rewind = "Rewind"
+    static let presentation = "Presentation"
+    static let service = "Service"
 }
 
 // MARK: - Dependency
@@ -41,7 +47,11 @@ let package = Package(
     products: [
         .library(
             name: Target.rewind,
-            targets: [Target.rewind]),
+            targets: [
+                Target.presentation,
+                Target.service
+            ].map { Target.rewind + $0 }
+        ),
     ],
     dependencies: [
         .package(
@@ -56,7 +66,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: Target.rewind,
+            name: Target.rewind + Target.presentation,
             dependencies: [
                 .product(
                     name: Dependency.MSDomain.entity,
@@ -65,9 +75,24 @@ let package = Package(
                     name: Dependency.MSFusion.msSwiftUI,
                     package: Dependency.MSFusion.package),
             ],
+            path: Target.presentation.fromSourcePath,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
                     package: "SwiftLint"),
             ]),
-    ])
+        .target(
+            name: Target.rewind + Target.service,
+            dependencies: [
+                .product(
+                    name: Dependency.MSDomain.entity,
+                    package: Dependency.MSDomain.package),
+            ],
+            path: Target.service.fromSourcePath,
+            plugins: [
+                .plugin(
+                    name: "SwiftLintBuildToolPlugin",
+                    package: "SwiftLint"),
+            ]),
+    ]
+)
