@@ -49,9 +49,8 @@ let package = Package(
             name: Target.rewind,
             targets: [
                 Target.presentation,
-                Target.service
-            ].map { Target.rewind + $0 }
-        ),
+                Target.service,
+            ].map { Target.rewind + $0 }),
     ],
     dependencies: [
         .package(
@@ -96,5 +95,4 @@ let package = Package(
                     package: "SwiftLint"),
             ]),
     ],
-    swiftLanguageVersions: [.v6]
-)
+    swiftLanguageVersions: [.v6])
