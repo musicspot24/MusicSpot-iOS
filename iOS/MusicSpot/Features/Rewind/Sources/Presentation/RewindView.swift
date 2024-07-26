@@ -17,7 +17,7 @@ extension RewindView: View {
     // MARK: Public
 
     public var body: some View {
-        let photoURLs = selectedJourney.spots.flatMap(\.photoURLs)
+        let photoURLs = service.selectedJourney.spots.flatMap(\.photoURLs)
 
         // TODO: Cache 가능한 형태로 변경
         AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
@@ -71,7 +71,7 @@ extension RewindView: View {
 
     @ViewBuilder
     private func imageCarouselView() -> some View {
-        let photoURLs = selectedJourney.photoURLs
+        let photoURLs = service.selectedJourney.photoURLs
 
         GeometryReader { proxy in
             let width = proxy.size.width
@@ -94,7 +94,7 @@ extension RewindView: View {
                         service.timer.upstream.connect().cancel()
                     }
                     .onEnded { _ in
-                        DispatchQueue.main.async {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + .microseconds(500)) {
                             let index = (contentOffsetX ?? .zero) / Metric.carouselItemWidth
                             let rangedIndex = min(max(0, Int(index)), photoURLs.count)
                             service.timerProgress = CGFloat(rangedIndex)

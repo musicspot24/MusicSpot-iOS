@@ -12,6 +12,7 @@
 		FD95E6852C46CBB0005914D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD95E6842C46CBB0005914D0 /* Assets.xcassets */; };
 		FD95E6882C46CBB0005914D0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD95E6872C46CBB0005914D0 /* Preview Assets.xcassets */; };
 		FD95E6962C46CBC8005914D0 /* Rewind in Frameworks */ = {isa = PBXBuildFile; productRef = FD95E6952C46CBC8005914D0 /* Rewind */; };
+		FDC5579A2C53F1250027EDAC /* Rewind in Frameworks */ = {isa = PBXBuildFile; productRef = FDC557992C53F1250027EDAC /* Rewind */; };
 		FDFE0DBE2C5383E500FD251B /* Rewind in Frameworks */ = {isa = PBXBuildFile; productRef = FDFE0DBD2C5383E500FD251B /* Rewind */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +31,7 @@
 			files = (
 				FD95E6962C46CBC8005914D0 /* Rewind in Frameworks */,
 				FDFE0DBE2C5383E500FD251B /* Rewind in Frameworks */,
+				FDC5579A2C53F1250027EDAC /* Rewind in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +92,7 @@
 			packageProductDependencies = (
 				FD95E6952C46CBC8005914D0 /* Rewind */,
 				FDFE0DBD2C5383E500FD251B /* Rewind */,
+				FDC557992C53F1250027EDAC /* Rewind */,
 			);
 			productName = RewindDemo;
 			productReference = FD95E67D2C46CBAF005914D0 /* RewindDemo.app */;
@@ -120,7 +123,7 @@
 			);
 			mainGroup = FD95E6742C46CBAF005914D0;
 			packageReferences = (
-				FDFE0DBC2C5383E400FD251B /* XCLocalSwiftPackageReference "../Rewind" */,
+				FDC557982C53F1250027EDAC /* XCLocalSwiftPackageReference "../Rewind" */,
 			);
 			productRefGroup = FD95E67E2C46CBAF005914D0 /* Products */;
 			projectDirPath = "";
@@ -367,7 +370,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FDFE0DBC2C5383E400FD251B /* XCLocalSwiftPackageReference "../Rewind" */ = {
+		FDC557982C53F1250027EDAC /* XCLocalSwiftPackageReference "../Rewind" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Rewind;
 		};
@@ -375,6 +378,10 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		FD95E6952C46CBC8005914D0 /* Rewind */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Rewind;
+		};
+		FDC557992C53F1250027EDAC /* Rewind */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Rewind;
 		};

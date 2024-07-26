@@ -16,9 +16,7 @@ public struct RewindView {
 
     // MARK: - Initializer
 
-    public init(selectedJourney: Binding<Journey>) {
-        _selectedJourney = selectedJourney
-    }
+    public init() { }
 
     // MARK: Internal
 
@@ -27,8 +25,6 @@ public struct RewindView {
     // MARK: - Shared
 
     @Environment(RewindService.self) var service
-
-    @Binding var selectedJourney: Journey
 
     // MARK: - Local
 

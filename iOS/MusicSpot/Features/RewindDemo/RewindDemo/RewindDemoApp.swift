@@ -11,7 +11,7 @@ import SwiftUI
 struct RewindDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(selectedJourney: .sample)
         }
     }
 }

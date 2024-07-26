@@ -9,21 +9,21 @@ import SwiftUI
 
 import Entity
 import RewindPresentation
+import RewindService
 
 struct ContentView: View {
-    @State var selectedJourney = Journey(
-        id: UUID().uuidString,
-        title: "Sample",
-        date: .init(start: .now),
-        coordinates: [],
+    @State private var service: RewindService
+
+    init(selectedJourney: Journey) {
+        self.service = RewindService(journey: selectedJourney)
+    }
 
     var body: some View {
-        RewindView(selectedJourney: $selectedJourney)
+        RewindView()
+            .environment(service)
     }
 }
 
 #Preview {
-    let selectedJourney = Journey(
-
-    ContentView(selectedJourney: selectedJourney)
+    ContentView(selectedJourney: .sample)
 }
