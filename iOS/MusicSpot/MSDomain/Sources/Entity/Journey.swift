@@ -84,11 +84,33 @@ extension Journey {
     public static let sample = Journey(
         id: UUID().uuidString,
         title: "Sample",
-        date: Timestamp(start: .now),
+        date: .init(start: .now),
         coordinates: [],
-        spots: [],
+        spots: [
+            .init(id: UUID().uuidString, coordinate: .init(), timestamp: .now, photoURLs: [
+                URL(string: "https://picsum.photos/seed/picsum/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum2/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum3/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum4/600/800")!,
+            ]),
+            .init(id: UUID().uuidString, coordinate: .init(), timestamp: .now, photoURLs: [
+                URL(string: "https://picsum.photos/seed/picsum5/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum6/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum7/600/800")!,
+            ]),
+            .init(id: UUID().uuidString, coordinate: .init(), timestamp: .now, photoURLs: [
+                URL(string: "https://picsum.photos/seed/picsum8/600/800")!,
+            ]),
+            .init(id: UUID().uuidString, coordinate: .init(), timestamp: .now, photoURLs: [
+                URL(string: "https://picsum.photos/seed/picsum9/600/800")!,
+                URL(string: "https://picsum.photos/seed/picsum10/600/800")!,
+            ]),
+            .init(id: UUID().uuidString, coordinate: .init(), timestamp: .now, photoURLs: [
+                URL(string: "https://picsum.photos/seed/picsum11/600/800")!,
+            ]),
+        ],
         playlist: [],
-        isTraveling: false)
+        isTraveling: true)
 }
 
 // MARK: CustomStringConvertible
