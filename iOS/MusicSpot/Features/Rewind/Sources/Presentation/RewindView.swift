@@ -9,6 +9,7 @@ import SwiftUI
 
 import MSExtension
 import MSSwiftUI
+import RewindService
 
 @MainActor
 extension RewindView: View {
@@ -52,11 +53,11 @@ extension RewindView: View {
         .overlay(alignment: .bottom) {
             imageCarouselView()
         }
-        .onReceive(timer) { _ in
-            if timerProgress < CGFloat(photoURLs.count) {
+        .onReceive(service.timer) { _ in
+            if service.timerProgress < CGFloat(photoURLs.count) {
                 // timer duration 0.1
-                timerProgress += (0.1 / Metric.progressDuration)
-                let index = min(Int(timerProgress), photoURLs.count - 1)
+                service.timerProgress += (0.1 / Metric.progressDuration)
+                let index = min(Int(service.timerProgress), photoURLs.count - 1)
                 currentIndex = consume index
             } else { // 종료
                 // TODO: 모든 미디어 출력 후 행동 구현
@@ -90,14 +91,14 @@ extension RewindView: View {
             .simultaneousGesture(
                 DragGesture()
                     .onChanged { _ in
-                        timer.upstream.connect().cancel()
+                        service.timer.upstream.connect().cancel()
                     }
                     .onEnded { _ in
                         DispatchQueue.main.async {
                             let index = (contentOffsetX ?? .zero) / Metric.carouselItemWidth
                             let rangedIndex = min(max(0, Int(index)), photoURLs.count)
-                            timerProgress = CGFloat(rangedIndex)
-                            timer = Timer.publish(every: 0.1, on: .main, in: .default).autoconnect()
+                            service.timerProgress = CGFloat(rangedIndex)
+                            service.timer = Timer.publish(every: 0.1, on: .main, in: .default).autoconnect()
                         }
                     })
             .contentMargins(.horizontal, (consume width - Metric.carouselItemWidth) / 2)

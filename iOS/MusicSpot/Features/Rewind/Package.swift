@@ -68,6 +68,7 @@ let package = Package(
         .target(
             name: Target.rewind + Target.presentation,
             dependencies: [
+                .target(name: Target.rewind + Target.service),
                 .product(
                     name: Dependency.MSDomain.entity,
                     package: Dependency.MSDomain.package),
@@ -94,5 +95,6 @@ let package = Package(
                     name: "SwiftLintBuildToolPlugin",
                     package: "SwiftLint"),
             ]),
-    ]
+    ],
+    swiftLanguageVersions: [.v6]
 )
