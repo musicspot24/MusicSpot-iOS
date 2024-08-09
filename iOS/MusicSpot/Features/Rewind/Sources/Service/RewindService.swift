@@ -18,7 +18,7 @@ public final class RewindService {
     // MARK: - Initializer
 
     public init(journey: Journey) {
-        self.selectedJourney = journey
+        selectedJourney = journey
     }
 
     // MARK: Public
