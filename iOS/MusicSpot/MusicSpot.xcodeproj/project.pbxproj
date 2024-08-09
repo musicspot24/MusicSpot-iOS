@@ -7,18 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FD0C9DB32C1486C900431233 /* MSSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FD0C9DB22C1486C900431233 /* MSSwiftUI */; };
-		FD0C9DB62C1486D300431233 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = FD0C9DB52C1486D300431233 /* Home */; };
 		FD40A5062BCD55D300518B9F /* MusicSpotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD40A5052BCD55D300518B9F /* MusicSpotApp.swift */; };
 		FD40A50A2BCD55D400518B9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD40A5092BCD55D400518B9F /* Assets.xcassets */; };
 		FD40A50E2BCD55D400518B9F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD40A50D2BCD55D400518B9F /* Preview Assets.xcassets */; };
 		FD93FDFB2C421B2B00BDCDE1 /* .swiftformat in Resources */ = {isa = PBXBuildFile; fileRef = FD93FDFA2C421B2B00BDCDE1 /* .swiftformat */; };
-		FDAD84D62C0F5713003DB689 /* MSSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDAD84D52C0F5713003DB689 /* MSSwiftUI */; };
-		FDAD84D92C0F5721003DB689 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = FDAD84D82C0F5721003DB689 /* Home */; };
-		FDDA4E022C14AA5B00670AEF /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = FDDA4E012C14AA5B00670AEF /* Home */; };
-		FDDA4E052C14AA6500670AEF /* MSSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDDA4E042C14AA6500670AEF /* MSSwiftUI */; };
-		FDED74082C2BF5990076CBC6 /* Home in Frameworks */ = {isa = PBXBuildFile; productRef = FDED74072C2BF5990076CBC6 /* Home */; };
-		FDED740B2C2BF5AE0076CBC6 /* MSSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDED740A2C2BF5AE0076CBC6 /* MSSwiftUI */; };
+		FDB297A62C65BD2300837D6C /* MSSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = FDB297A52C65BD2300837D6C /* MSSwiftUI */; };
+		FDB297A92C65BDF400837D6C /* SwiftLintFramework in Frameworks */ = {isa = PBXBuildFile; productRef = FDB297A82C65BDF400837D6C /* SwiftLintFramework */; };
 		FDED740D2C2BF6150076CBC6 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = FDED740C2C2BF6150076CBC6 /* .swiftlint.yml */; };
 		FDED740F2C2BF6240076CBC6 /* .pre-commit-config.yaml in Resources */ = {isa = PBXBuildFile; fileRef = FDED740E2C2BF6240076CBC6 /* .pre-commit-config.yaml */; };
 		FDED74152C2C15BF0076CBC6 /* MSCoreKit in Resources */ = {isa = PBXBuildFile; fileRef = FDED74102C2C15BF0076CBC6 /* MSCoreKit */; };
@@ -64,14 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FDAD84D62C0F5713003DB689 /* MSSwiftUI in Frameworks */,
-				FD0C9DB62C1486D300431233 /* Home in Frameworks */,
-				FD0C9DB32C1486C900431233 /* MSSwiftUI in Frameworks */,
-				FDDA4E022C14AA5B00670AEF /* Home in Frameworks */,
-				FDED740B2C2BF5AE0076CBC6 /* MSSwiftUI in Frameworks */,
-				FDDA4E052C14AA6500670AEF /* MSSwiftUI in Frameworks */,
-				FDAD84D92C0F5721003DB689 /* Home in Frameworks */,
-				FDED74082C2BF5990076CBC6 /* Home in Frameworks */,
+				FDB297A92C65BDF400837D6C /* SwiftLintFramework in Frameworks */,
+				FDB297A62C65BD2300837D6C /* MSSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +80,7 @@
 				FDD0C7FE2BCD5B73004FB9C0 /* Features */,
 				FD40A5042BCD55D300518B9F /* MusicSpot */,
 				FD40A5032BCD55D300518B9F /* Products */,
+				FDB297A42C65BD2300837D6C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,6 +120,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		FDB297A42C65BD2300837D6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FDD0C7FE2BCD5B73004FB9C0 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,18 +152,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				FD7EFF122C0E154400093637 /* PBXTargetDependency */,
 			);
 			name = MusicSpot;
 			packageProductDependencies = (
-				FDAD84D52C0F5713003DB689 /* MSSwiftUI */,
-				FDAD84D82C0F5721003DB689 /* Home */,
-				FD0C9DB22C1486C900431233 /* MSSwiftUI */,
-				FD0C9DB52C1486D300431233 /* Home */,
-				FDDA4E012C14AA5B00670AEF /* Home */,
-				FDDA4E042C14AA6500670AEF /* MSSwiftUI */,
-				FDED74072C2BF5990076CBC6 /* Home */,
-				FDED740A2C2BF5AE0076CBC6 /* MSSwiftUI */,
+				FDB297A52C65BD2300837D6C /* MSSwiftUI */,
+				FDB297A82C65BDF400837D6C /* SwiftLintFramework */,
 			);
 			productName = MusicSpot;
 			productReference = FD40A5022BCD55D300518B9F /* MusicSpot.app */;
@@ -198,9 +187,9 @@
 			);
 			mainGroup = FD40A4F92BCD55D300518B9F;
 			packageReferences = (
-				FD7EFF102C0E149E00093637 /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				FDED74062C2BF5990076CBC6 /* XCLocalSwiftPackageReference "Features/Home" */,
 				FDED74092C2BF5AE0076CBC6 /* XCLocalSwiftPackageReference "MSFusion" */,
+				FDB297A72C65BDF400837D6C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 			);
 			productRefGroup = FD40A5032BCD55D300518B9F /* Products */;
 			projectDirPath = "";
@@ -257,13 +246,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		FD7EFF122C0E154400093637 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = FD7EFF112C0E154400093637 /* SwiftLintBuildToolPlugin */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FD40A50F2BCD55D400518B9F /* Debug */ = {
@@ -505,53 +487,25 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		FD7EFF102C0E149E00093637 /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
+		FDB297A72C65BDF400837D6C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.55.1;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.56.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FD0C9DB22C1486C900431233 /* MSSwiftUI */ = {
+		FDB297A52C65BD2300837D6C /* MSSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MSSwiftUI;
 		};
-		FD0C9DB52C1486D300431233 /* Home */ = {
+		FDB297A82C65BDF400837D6C /* SwiftLintFramework */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Home;
-		};
-		FD7EFF112C0E154400093637 /* SwiftLintBuildToolPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = FD7EFF102C0E149E00093637 /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintBuildToolPlugin";
-		};
-		FDAD84D52C0F5713003DB689 /* MSSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MSSwiftUI;
-		};
-		FDAD84D82C0F5721003DB689 /* Home */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Home;
-		};
-		FDDA4E012C14AA5B00670AEF /* Home */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Home;
-		};
-		FDDA4E042C14AA6500670AEF /* MSSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MSSwiftUI;
-		};
-		FDED74072C2BF5990076CBC6 /* Home */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Home;
-		};
-		FDED740A2C2BF5AE0076CBC6 /* MSSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MSSwiftUI;
+			package = FDB297A72C65BDF400837D6C /* XCRemoteSwiftPackageReference "SwiftLint" */;
+			productName = SwiftLintFramework;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
