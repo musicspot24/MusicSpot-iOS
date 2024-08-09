@@ -8,10 +8,7 @@ only_rules:
   - legacy_nsgeometry_functions
   - operator_usage_whitespace
   - return_arrow_whitespace
-  - trailing_newline
   - unused_optional_binding
-  - vertical_whitespace
-  - void_return
   - unowned_variable_capture
   - custom_rules
 
@@ -19,6 +16,9 @@ excluded:
   - Carthage
   - Pods
   - .build
+  - _legacy
+  - ".*Test\\.swift"
+  - ".*Tests\\.swift"
 
 colon:
   apply_to_dictionaries: false

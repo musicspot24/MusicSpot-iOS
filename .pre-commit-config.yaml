@@ -1,15 +1,15 @@
 repos:
-#  - repo: https://github.com/realm/SwiftLint
-#    rev: 0.55.1
-#    hooks:
-#      - id: swiftlint
-#        name: SwiftLint for MusicSpot v2
-#        entry: swiftlint lint --fix --progress "iOS/MusicSpot/"
-#        language: swift
-#        types: [swift]
-#        always_run: true
+  - repo: https://github.com/realm/SwiftLint
+    rev: 0.56.1
+    hooks:
+      - id: swiftlint
+        name: SwiftLint for MusicSpot v2
+        entry: swiftlint lint --fix --config "iOS/.swiftlint.yml" "iOS/MusicSpot/"
+        language: swift
+        types: [swift]
+        always_run: true
   - repo: https://github.com/nicklockwood/SwiftFormat
-    rev: 0.54.1
+    rev: 0.54.3
     hooks:
       - id: swiftformat
         name: SwiftFormat for MusicSpot v2
