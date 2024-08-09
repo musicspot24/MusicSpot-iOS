@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: swiftlint
         name: SwiftLint for MusicSpot v2
-        entry: swiftlint lint --fix --config "iOS/.swiftlint.yml" "iOS/MusicSpot/"
+        entry: swiftlint lint --config "iOS/.swiftlint.yml" "iOS/MusicSpot/"
         language: swift
         types: [swift]
         always_run: true
