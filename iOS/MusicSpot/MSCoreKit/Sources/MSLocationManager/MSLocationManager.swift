@@ -17,6 +17,16 @@ import MSLogger
 @Observable
 public final class MSLocationManager: NSObject {
 
+    // MARK: Properties
+
+    // MARK: Public
+
+    public var position: MapCameraPosition = .userLocation(fallback: .automatic)
+
+    // MARK: Private
+
+    private let locationManager = CLLocationManager()
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -27,17 +37,7 @@ public final class MSLocationManager: NSObject {
         setUp()
     }
 
-    // MARK: Public
-
-    public var position: MapCameraPosition = .userLocation(fallback: .automatic)
-
-    // MARK: Private
-
-    // MARK: - Properties
-
-    private let locationManager = CLLocationManager()
-
-    // MARK: - Functions
+    // MARK: Functions
 
     private func setUp() {
         switch locationManager.authorizationStatus {

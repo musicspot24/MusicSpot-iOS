@@ -10,6 +10,25 @@ import Foundation
 @propertyWrapper
 public struct UserDefaultsWrapped<T: Codable> {
 
+    // MARK: Properties
+
+    // MARK: Private
+
+    private let key: String
+    private var defaultValue: T
+    private let userDefaults: UserDefaults
+    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder()
+
+    // MARK: Computed Properties
+
+    // MARK: Public
+
+    public var wrappedValue: T {
+        get { load(forKey: key) ?? defaultValue }
+        set { save(newValue) }
+    }
+
     // MARK: Lifecycle
 
     public init(
@@ -22,20 +41,7 @@ public struct UserDefaultsWrapped<T: Codable> {
         self.userDefaults = userDefaults
     }
 
-    // MARK: Public
-
-    public var wrappedValue: T {
-        get { load(forKey: key) ?? defaultValue }
-        set { save(newValue) }
-    }
-
-    // MARK: Private
-
-    private let key: String
-    private var defaultValue: T
-    private let userDefaults: UserDefaults
-    private let decoder = JSONDecoder()
-    private let encoder = JSONEncoder()
+    // MARK: Functions
 
     private func save(_ newValue: T) {
         if let encoded = try? encoder.encode(newValue) {

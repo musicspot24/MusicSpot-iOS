@@ -8,17 +8,14 @@
 import Foundation
 
 final class MockURLProtocol: URLProtocol {
+
+    // MARK: Static Properties
+
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
     static var delaySimulation: TimeInterval = 0
     static var requestObserver: ((URLRequest) -> Void)?
 
-    static func simulateDelay(_ delay: TimeInterval) {
-        delaySimulation = delay
-    }
-
-    static func observeRequests(_ observer: @escaping (URLRequest) -> Void) {
-        requestObserver = observer
-    }
+    // MARK: Overridden Functions
 
     override class func canInit(with request: URLRequest) -> Bool {
         MockURLProtocol.requestObserver?(request)
@@ -48,5 +45,15 @@ final class MockURLProtocol: URLProtocol {
     }
 
     override func stopLoading() { }
+
+    // MARK: Static Functions
+
+    static func simulateDelay(_ delay: TimeInterval) {
+        delaySimulation = delay
+    }
+
+    static func observeRequests(_ observer: @escaping (URLRequest) -> Void) {
+        requestObserver = observer
+    }
 
 }

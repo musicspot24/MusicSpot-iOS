@@ -11,27 +11,7 @@ import UIKit
 
 final class MusicInfoView: UIView {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureLayout()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Internal
-
-    // MARK: - Functions
-
-    func update(artist: String?, title: String?) {
-        artistLabel.text = artist
-        titleLabel.text = title
-    }
+    // MARK: Nested Types
 
     // MARK: Private
 
@@ -41,6 +21,8 @@ final class MusicInfoView: UIView {
         static let spacing: CGFloat = 8.0
         static let iconSize: CGFloat = 24.0
     }
+
+    // MARK: Properties
 
     // MARK: - UI Components
 
@@ -87,6 +69,28 @@ final class MusicInfoView: UIView {
         label.text = "Artist"
         return label
     }()
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureLayout()
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: Internal
+
+    // MARK: Functions
+
+    func update(artist: String?, title: String?) {
+        artistLabel.text = artist
+        titleLabel.text = title
+    }
 
 }
 

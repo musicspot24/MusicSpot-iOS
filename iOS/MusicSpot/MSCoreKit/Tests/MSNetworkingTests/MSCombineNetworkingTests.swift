@@ -12,6 +12,14 @@ import XCTest
 
 final class MSCombineNetworkingTests: XCTestCase {
 
+    // MARK: Properties
+
+    private var networking: MSNetworking!
+
+    private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: Overridden Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -23,6 +31,8 @@ final class MSCombineNetworkingTests: XCTestCase {
         let session = URLSession(configuration: configuration)
         networking = MSNetworking(session: session)
     }
+
+    // MARK: Functions
 
     // MARK: - Tests
 
@@ -96,11 +106,5 @@ final class MSCombineNetworkingTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private var networking: MSNetworking!
-
-    private var cancellables: Set<AnyCancellable> = []
 
 }

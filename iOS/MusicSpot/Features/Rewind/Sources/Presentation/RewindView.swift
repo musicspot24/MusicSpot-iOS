@@ -14,6 +14,26 @@ import RewindService
 @MainActor
 extension RewindView: View {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static let carouselSpacing: CGFloat = 4.0
+        static let carouselHeight: CGFloat = 60.0
+        static let carouselItemWidth: CGFloat = 40.0
+        static let carouselItemMinScaleFactor: CGFloat = 1.0
+        static let carouselItemMaxScaleFactor: CGFloat = 2.0
+        static let carouselItemCornerRadius: CGFloat = 8.0
+
+        /// 사진 하나의 출력 시간(s)
+        static let progressDuration: CGFloat = 5.0
+    }
+
+    // MARK: Content
+
     // MARK: Public
 
     public var body: some View {
@@ -49,22 +69,6 @@ extension RewindView: View {
                 // TODO: 모든 미디어 출력 후 행동 구현
             }
         }
-    }
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static let carouselSpacing: CGFloat = 4.0
-        static let carouselHeight: CGFloat = 60.0
-        static let carouselItemWidth: CGFloat = 40.0
-        static let carouselItemMinScaleFactor: CGFloat = 1.0
-        static let carouselItemMaxScaleFactor: CGFloat = 2.0
-        static let carouselItemCornerRadius: CGFloat = 8.0
-
-        /// 사진 하나의 출력 시간(s)
-        static let progressDuration: CGFloat = 5.0
     }
 
     // MARK: - View

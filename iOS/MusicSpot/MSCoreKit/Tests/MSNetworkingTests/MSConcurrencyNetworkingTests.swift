@@ -10,6 +10,12 @@ import XCTest
 
 final class MSConcurrencyNetworkingTests: XCTestCase {
 
+    // MARK: Properties
+
+    private var networking: MSNetworking!
+
+    // MARK: Overridden Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -21,6 +27,8 @@ final class MSConcurrencyNetworkingTests: XCTestCase {
         let session = URLSession(configuration: configuration)
         networking = MSNetworking(session: session)
     }
+
+    // MARK: Functions
 
     // MARK: - Tests
 
@@ -85,9 +93,5 @@ final class MSConcurrencyNetworkingTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private var networking: MSNetworking!
 
 }

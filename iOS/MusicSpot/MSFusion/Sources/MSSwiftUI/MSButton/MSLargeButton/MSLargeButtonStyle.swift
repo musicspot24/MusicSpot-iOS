@@ -9,6 +9,23 @@ import SwiftUI
 
 public struct MSLargeButtonStyle: ButtonStyle {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    // MARK: - Constants
+
+    public enum Metric {
+        public static let height: CGFloat = 60.0
+        fileprivate static let horizontalEdgeInsets: CGFloat = 58.0
+        fileprivate static let scaleRatio: CGFloat = 0.94
+    }
+
+    // MARK: Properties
+
+    private let cornerStyle: CornerStyle
+    private let colorStyle: ColorSet
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -21,15 +38,7 @@ public struct MSLargeButtonStyle: ButtonStyle {
         self.colorStyle = colorStyle
     }
 
-    // MARK: Public
-
-    // MARK: - Constants
-
-    public enum Metric {
-        public static let height: CGFloat = 60.0
-        fileprivate static let horizontalEdgeInsets: CGFloat = 58.0
-        fileprivate static let scaleRatio: CGFloat = 0.94
-    }
+    // MARK: Content
 
     // MARK: - Body
 
@@ -50,10 +59,5 @@ public struct MSLargeButtonStyle: ButtonStyle {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let cornerStyle: CornerStyle
-    private let colorStyle: ColorSet
 
 }

@@ -11,19 +11,7 @@ import Foundation
 extension MSBottomSheetViewController {
     public struct Configuration {
 
-        // MARK: Lifecycle
-
-        // MARK: - Initializer
-
-        public init(
-            fullDimension: Dimension,
-            detentDimension: Dimension,
-            minimizedDimension: Dimension)
-        {
-            self.fullDimension = fullDimension
-            self.detentDimension = detentDimension
-            self.minimizedDimension = minimizedDimension
-        }
+        // MARK: Nested Types
 
         // MARK: Public
 
@@ -34,13 +22,15 @@ extension MSBottomSheetViewController {
 
         // MARK: Internal
 
-        // MARK: - Properties
+        // MARK: Properties
 
         var standardMetric: CGFloat?
 
         let fullDimension: Dimension
         let detentDimension: Dimension
         let minimizedDimension: Dimension
+
+        // MARK: Computed Properties
 
         var fullHeight: CGFloat {
             calculateHeight(for: fullDimension)
@@ -61,6 +51,22 @@ extension MSBottomSheetViewController {
         var detentMinimizedDiff: CGFloat {
             detentHeight - minimizedHeight
         }
+
+        // MARK: Lifecycle
+
+        // MARK: - Initializer
+
+        public init(
+            fullDimension: Dimension,
+            detentDimension: Dimension,
+            minimizedDimension: Dimension)
+        {
+            self.fullDimension = fullDimension
+            self.detentDimension = detentDimension
+            self.minimizedDimension = minimizedDimension
+        }
+
+        // MARK: Functions
 
         // MARK: Private
 

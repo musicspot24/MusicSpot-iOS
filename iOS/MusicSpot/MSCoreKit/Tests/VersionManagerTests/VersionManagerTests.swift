@@ -12,6 +12,12 @@ import XCTest
 
 final class VersionManagerTests: XCTestCase {
 
+    // MARK: Properties
+
+    private var versionManager = VersionManager()
+
+    // MARK: Functions
+
     // MARK: Internal
 
     // MARK: - Tests
@@ -27,9 +33,5 @@ final class VersionManagerTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private var versionManager = VersionManager()
 
 }

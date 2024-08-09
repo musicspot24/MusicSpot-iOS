@@ -11,6 +11,8 @@ public enum MSRectButtonScale {
     case small
     case large
 
+    // MARK: Computed Properties
+
     // MARK: Internal
 
     var imageSize: CGSize {

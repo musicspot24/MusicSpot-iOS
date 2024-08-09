@@ -17,6 +17,11 @@ import SSOT
 
 public final class AppJourneyUseCase: JourneyUseCase {
 
+    // MARK: Properties
+
+    private let appState = StateContainer.default.appState
+    private let journeyRepository: JourneyRepository
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -27,7 +32,7 @@ public final class AppJourneyUseCase: JourneyUseCase {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func fetchJourneys(in region: Region) async throws(JourneyError) -> [Journey] { // swiftlint:disable:this all
         do {
@@ -125,10 +130,6 @@ public final class AppJourneyUseCase: JourneyUseCase {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let appState = StateContainer.default.appState
-    private let journeyRepository: JourneyRepository
 }
 
 // MARK: - Privates

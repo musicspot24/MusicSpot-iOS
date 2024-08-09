@@ -16,6 +16,54 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
     : UIViewController, UIGestureRecognizerDelegate
 {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    // MARK: - State
+
+    public enum State: String {
+        case full
+        case detented
+        case minimized
+    }
+
+    // MARK: Properties
+
+    // MARK: - UI Components
+
+    public let contentViewController: Content
+    public let bottomSheetViewController: BottomSheet
+
+    public var configuration: MSBottomSheetViewController.Configuration?
+
+    // MARK: Private
+
+    private let resizeIndicator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .darkGray.withAlphaComponent(0.5)
+        view.layer.cornerRadius = 2.5
+        view.clipsToBounds = true
+        return view
+    }()
+
+    private var topConstraints: NSLayoutConstraint?
+
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let panGesture = UIPanGestureRecognizer()
+        panGesture.delegate = self
+        panGesture.addTarget(self, action: #selector(self.handlePanGesture(_:)))
+        return panGesture
+    }()
+
+    private let gestureVelocity: CGFloat = 750.0
+
+    // MARK: Computed Properties
+
+    public var state: State = .minimized {
+        willSet { stateDidChanged(newValue) }
+    }
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -33,6 +81,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
         fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
 
+    // MARK: Overridden Functions
+
     // MARK: Open
 
     open override func viewDidLoad() {
@@ -42,7 +92,7 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
         configureGesture()
     }
 
-    // MARK: - Functions
+    // MARK: Functions
 
     open func stateDidChanged(_ state: State) {
         MSLogger.make(category: .uiKit).log("Bottom Sheet 상태가 \(state.rawValue)로 업데이트 되었습니다.")
@@ -50,29 +100,6 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
         if case .full = state {
             resizeIndicator.isHidden = true
         }
-    }
-
-    // MARK: Public
-
-    // MARK: - State
-
-    public enum State: String {
-        case full
-        case detented
-        case minimized
-    }
-
-    // MARK: - UI Components
-
-    public let contentViewController: Content
-    public let bottomSheetViewController: BottomSheet
-
-    // MARK: - Properties
-
-    public var configuration: MSBottomSheetViewController.Configuration?
-
-    public var state: State = .minimized {
-        willSet { stateDidChanged(newValue) }
     }
 
     public func hideBottomSheet(animated: Bool = true) {
@@ -113,27 +140,6 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
             state = .minimized
         }
     }
-
-    // MARK: Private
-
-    private let resizeIndicator: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGray.withAlphaComponent(0.5)
-        view.layer.cornerRadius = 2.5
-        view.clipsToBounds = true
-        return view
-    }()
-
-    private var topConstraints: NSLayoutConstraint?
-
-    private lazy var panGesture: UIPanGestureRecognizer = {
-        let panGesture = UIPanGestureRecognizer()
-        panGesture.delegate = self
-        panGesture.addTarget(self, action: #selector(self.handlePanGesture(_:)))
-        return panGesture
-    }()
-
-    private let gestureVelocity: CGFloat = 750.0
 
     private func presentFullBottomSheet(animated: Bool = true) {
         guard let configuration else { return }

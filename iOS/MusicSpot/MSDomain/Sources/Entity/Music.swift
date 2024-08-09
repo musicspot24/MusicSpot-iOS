@@ -11,6 +11,13 @@ import Foundation
 
 public struct Music: Identifiable {
 
+    // MARK: Properties
+
+    public let id: String
+    public let title: String
+    public let artist: String?
+    public let albumCover: AlbumCover?
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -28,13 +35,6 @@ public struct Music: Identifiable {
     }
 
     // MARK: Public
-
-    // MARK: - Properties
-
-    public let id: String
-    public let title: String
-    public let artist: String?
-    public let albumCover: AlbumCover?
 
 }
 

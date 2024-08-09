@@ -15,6 +15,56 @@ import MSUIKit
 
 public final class JourneyListViewController: BaseViewController {
 
+    // MARK: Nested Types
+
+    // MARK: Internal
+
+    typealias JourneyListDataSource = UICollectionViewDiffableDataSource<Int, Journey>
+    typealias JourneyListHeaderRegistration = UICollectionView.SupplementaryRegistration<JourneyListHeaderView>
+    typealias JourneyCellRegistration = UICollectionView.CellRegistration<JourneyCell, Journey>
+    typealias JourneySnapshot = NSDiffableDataSourceSnapshot<Int, Journey>
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Typo {
+        static func subtitle(numberOfJourneys: Int) -> String {
+            "현재 위치에 \(numberOfJourneys)개의 여정이 있습니다."
+        }
+    }
+
+    private enum Metric {
+        static let collectionViewHorizontalInset: CGFloat = 10.0
+        static let collectionViewVerticalInset: CGFloat = 24.0
+        static let interGroupSpacing: CGFloat = 12.0
+    }
+
+    // MARK: Properties
+
+    private(set) var viewModel: JourneyListViewModel
+
+    private var dataSource: JourneyListDataSource?
+
+    private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: - UI Components
+
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(
+            frame: .zero,
+            collectionViewLayout: UICollectionViewLayout())
+        collectionView.backgroundColor = .clear
+        collectionView.delegate = self
+        return collectionView
+    }()
+
+    // MARK: Computed Properties
+
+    private var currentSnapshot: JourneySnapshot? {
+        dataSource?.snapshot()
+    }
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -31,6 +81,8 @@ public final class JourneyListViewController: BaseViewController {
     required init?(coder _: NSCoder) {
         fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
+
+    // MARK: Overridden Functions
 
     // MARK: Public
 
@@ -66,51 +118,7 @@ public final class JourneyListViewController: BaseViewController {
         ])
     }
 
-    // MARK: Internal
-
-    typealias JourneyListDataSource = UICollectionViewDiffableDataSource<Int, Journey>
-    typealias JourneyListHeaderRegistration = UICollectionView.SupplementaryRegistration<JourneyListHeaderView>
-    typealias JourneyCellRegistration = UICollectionView.CellRegistration<JourneyCell, Journey>
-    typealias JourneySnapshot = NSDiffableDataSourceSnapshot<Int, Journey>
-
-    // MARK: - Properties
-
-    private(set) var viewModel: JourneyListViewModel
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Typo {
-        static func subtitle(numberOfJourneys: Int) -> String {
-            "현재 위치에 \(numberOfJourneys)개의 여정이 있습니다."
-        }
-    }
-
-    private enum Metric {
-        static let collectionViewHorizontalInset: CGFloat = 10.0
-        static let collectionViewVerticalInset: CGFloat = 24.0
-        static let interGroupSpacing: CGFloat = 12.0
-    }
-
-    private var dataSource: JourneyListDataSource?
-
-    private var cancellables: Set<AnyCancellable> = []
-
-    // MARK: - UI Components
-
-    private lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(
-            frame: .zero,
-            collectionViewLayout: UICollectionViewLayout())
-        collectionView.backgroundColor = .clear
-        collectionView.delegate = self
-        return collectionView
-    }()
-
-    private var currentSnapshot: JourneySnapshot? {
-        dataSource?.snapshot()
-    }
+    // MARK: Functions
 
     // MARK: - Combine Binding
 

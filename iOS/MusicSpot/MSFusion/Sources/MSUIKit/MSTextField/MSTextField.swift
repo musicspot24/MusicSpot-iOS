@@ -13,19 +13,7 @@ import MSDesignSystem
 
 public class MSTextField: UITextField {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    private override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureStyles()
-        configureLayout()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
+    // MARK: Nested Types
 
     // MARK: Public
 
@@ -35,6 +23,8 @@ public class MSTextField: UITextField {
         case pin
         case calender
         case lock
+
+        // MARK: Computed Properties
 
         // MARK: Internal
 
@@ -63,21 +53,6 @@ public class MSTextField: UITextField {
         }
     }
 
-    public var imageStyle: ImageStyle = .none {
-        didSet {
-            configureImageStyle()
-            configureLayout()
-        }
-    }
-
-    public override var text: String? {
-        didSet { convertMode() }
-    }
-
-    public override var placeholder: String? {
-        didSet { configurePlaceholder() }
-    }
-
     // MARK: Private
 
     // MARK: - Constants
@@ -98,10 +73,45 @@ public class MSTextField: UITextField {
         static let close = UIImage(systemName: "multiply.circle.fill")
     }
 
-    // MARK: - Properties
+    // MARK: Overridden Properties
+
+    public override var text: String? {
+        didSet { convertMode() }
+    }
+
+    public override var placeholder: String? {
+        didSet { configurePlaceholder() }
+    }
+
+    // MARK: Properties
 
     private var leftImage = UIImageView()
     private var rightImage = UIImageView()
+
+    // MARK: Computed Properties
+
+    public var imageStyle: ImageStyle = .none {
+        didSet {
+            configureImageStyle()
+            configureLayout()
+        }
+    }
+
+    // MARK: Lifecycle
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: - Initializer
+
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureStyles()
+        configureLayout()
+    }
+
+    // MARK: Functions
 
     // MARK: - UI Configuration
 

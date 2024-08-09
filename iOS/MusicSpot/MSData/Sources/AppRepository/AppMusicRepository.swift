@@ -14,6 +14,16 @@ import Repository
 
 public final class AppMusicRepository: MusicRepository {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    private enum Metric {
+        static let imageSize = 120
+    }
+
+    // MARK: Functions
+
     // MARK: Public
 
     public func searchMusic(term: String) async throws -> MusicItemCollection<Song> {
@@ -49,12 +59,6 @@ public final class AppMusicRepository: MusicRepository {
             throw ImageFetchError.imageFetchFailed
         }
         return imageData
-    }
-
-    // MARK: Private
-
-    private enum Metric {
-        static let imageSize = 120
     }
 
 }

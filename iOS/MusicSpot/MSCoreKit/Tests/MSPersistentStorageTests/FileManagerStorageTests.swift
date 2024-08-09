@@ -11,6 +11,12 @@ import XCTest
 
 final class MSPersistentStorageTests: XCTestCase {
 
+    // MARK: Properties
+
+    private let fileStorage = FileManagerStorage()
+
+    // MARK: Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -155,9 +161,5 @@ final class MSPersistentStorageTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let fileStorage = FileManagerStorage()
 
 }

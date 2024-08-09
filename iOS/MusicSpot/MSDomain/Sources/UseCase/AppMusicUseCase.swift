@@ -13,6 +13,10 @@ import Repository
 
 public final class AppMusicUseCase: MusicUseCase {
 
+    // MARK: Properties
+
+    private let musicRepository: MusicRepository
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -23,7 +27,7 @@ public final class AppMusicUseCase: MusicUseCase {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func searchMusics(by method: MusicFetchMethod) async throws(MusicError)
         -> MusicItemCollection<Song>
@@ -70,7 +74,4 @@ public final class AppMusicUseCase: MusicUseCase {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let musicRepository: MusicRepository
 }

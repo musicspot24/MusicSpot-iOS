@@ -13,6 +13,30 @@ import MSDesignSystem
 
 final class SpotPhotoImageView: UIView {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static let width: CGFloat = 120.0
+        static let height: CGFloat = 150.0
+        static let cornerRadius: CGFloat = 5.0
+    }
+
+    // MARK: Properties
+
+    // MARK: Internal
+
+    // MARK: - UI Components
+
+    private(set) var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -27,30 +51,10 @@ final class SpotPhotoImageView: UIView {
         fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
 
-    // MARK: Internal
-
-    // MARK: - UI Components
-
-    private(set) var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
-
-    // MARK: - Functions
+    // MARK: Functions
 
     func update(with imageData: Data) {
         imageView.image = UIImage(data: imageData)
-    }
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static let width: CGFloat = 120.0
-        static let height: CGFloat = 150.0
-        static let cornerRadius: CGFloat = 5.0
     }
 
 }

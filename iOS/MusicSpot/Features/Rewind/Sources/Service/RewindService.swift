@@ -13,13 +13,7 @@ import Observation
 @Observable
 public final class RewindService {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(journey: Journey) {
-        selectedJourney = journey
-    }
+    // MARK: Properties
 
     // MARK: Public
 
@@ -31,5 +25,13 @@ public final class RewindService {
     /// [https://github.com/swiftlang/swift/issues/71060](https://github.com/swiftlang/swift/issues/71060)
     public var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     public var timerProgress: CGFloat = .zero
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init(journey: Journey) {
+        selectedJourney = journey
+    }
 
 }

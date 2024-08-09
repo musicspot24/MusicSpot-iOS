@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     fileprivate static let package = "MSCoreKit"
+
+    // MARK: Computed Properties
 
     fileprivate var testTarget: String {
         self + "Tests"

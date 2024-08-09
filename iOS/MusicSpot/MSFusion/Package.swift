@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     static let package = "MSFusion"
+
+    // MARK: Computed Properties
 
     var fromRootPath: String {
         "../" + self

@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     static let package = "Home"
+
+    // MARK: Computed Properties
 
     var fromRootPath: String {
         "../" + self

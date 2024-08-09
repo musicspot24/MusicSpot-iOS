@@ -15,6 +15,10 @@ import Repository
 
 public final class AppJourneyRepository: JourneyRepository {
 
+    // MARK: Properties
+
+    private let context: ModelContext
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -25,7 +29,7 @@ public final class AppJourneyRepository: JourneyRepository {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func fetchJourneys(in region: Region) async throws -> [Journey] {
         let (rectMinX, rectMaxX) = (region.origin.x, region.origin.x + region.width)
@@ -115,9 +119,5 @@ public final class AppJourneyRepository: JourneyRepository {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let context: ModelContext
 
 }
