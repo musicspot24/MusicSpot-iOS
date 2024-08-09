@@ -9,20 +9,22 @@ import UIKit
 
 public class MSGradientLayer: CAGradientLayer {
 
-    // MARK: Public
+    // MARK: Computed Properties
 
-    // MARK: - Properties
+    // MARK: Public
 
     public var gradientColors: [UIColor] = [] {
         didSet { updateColors() }
     }
 
-    // MARK: - Functions
+    // MARK: Overridden Functions
 
     // swiftlint:disable identifier_name
     public override func hitTest(_: CGPoint) -> CALayer? {
         nil
     }
+
+    // MARK: Functions
 
     // MARK: Private
 

@@ -9,6 +9,22 @@ import SwiftUI
 
 struct MSRectButtonModifier: ViewModifier {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static let scaleRatio: CGFloat = 0.94
+    }
+
+    // MARK: Properties
+
+    private let isPressed: Bool
+    private let scale: MSRectButtonScale
+    private let colorStyle: SecondaryColors
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -18,6 +34,8 @@ struct MSRectButtonModifier: ViewModifier {
         self.scale = scale
         self.colorStyle = colorStyle
     }
+
+    // MARK: Content
 
     // MARK: Internal
 
@@ -40,19 +58,5 @@ struct MSRectButtonModifier: ViewModifier {
                 oldValue == false
             }
     }
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static let scaleRatio: CGFloat = 0.94
-    }
-
-    // MARK: - Properties
-
-    private let isPressed: Bool
-    private let scale: MSRectButtonScale
-    private let colorStyle: SecondaryColors
 
 }

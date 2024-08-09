@@ -9,6 +9,11 @@ import Foundation
 
 public struct MSKeychainStorage {
 
+    // MARK: Properties
+
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -17,7 +22,7 @@ public struct MSKeychainStorage {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     /// Keychain에 데이터를 추가합니다.
     ///
@@ -73,10 +78,5 @@ public struct MSKeychainStorage {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
 
 }

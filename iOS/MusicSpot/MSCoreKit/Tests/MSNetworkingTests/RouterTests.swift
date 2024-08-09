@@ -10,6 +10,12 @@ import XCTest
 
 final class RouterTests: XCTestCase {
 
+    // MARK: Properties
+
+    private let encoder = JSONEncoder()
+
+    // MARK: Functions
+
     // MARK: Internal
 
     // MARK: - Tests
@@ -154,9 +160,5 @@ final class RouterTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let encoder = JSONEncoder()
 
 }

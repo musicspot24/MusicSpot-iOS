@@ -15,32 +15,13 @@ import Entity
 @Model
 public final class JourneyLocalDataSource: EntityConvertible {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    init(journeyID: String, title: String, startDate: Date = .now, isTraveling: Bool = true) {
-        self.journeyID = journeyID
-        self.title = title
-        self.startDate = startDate
-        self.isTraveling = isTraveling
-    }
-
-    // MARK: - Entity Convertible
-
-    public init(from entity: Journey) {
-        journeyID = entity.id
-        title = entity.title ?? ""
-        startDate = entity.date.start
-        endDate = entity.date.end
-        isTraveling = entity.isTraveling
-    }
+    // MARK: Nested Types
 
     // MARK: Public
 
     public typealias Entity = Journey
 
-    // MARK: - Properties
+    // MARK: Properties
 
     public let journeyID: String
     public var title: String
@@ -53,6 +34,29 @@ public final class JourneyLocalDataSource: EntityConvertible {
     public var spots: [SpotLocalDataSource] = []
     @Relationship(deleteRule: .cascade, inverse: \MusicLocalDataSource.journey)
     public var playlist: [MusicLocalDataSource] = []
+
+    // MARK: Lifecycle
+
+    // MARK: - Entity Convertible
+
+    public init(from entity: Journey) {
+        journeyID = entity.id
+        title = entity.title ?? ""
+        startDate = entity.date.start
+        endDate = entity.date.end
+        isTraveling = entity.isTraveling
+    }
+
+    // MARK: - Initializer
+
+    init(journeyID: String, title: String, startDate: Date = .now, isTraveling: Bool = true) {
+        self.journeyID = journeyID
+        self.title = title
+        self.startDate = startDate
+        self.isTraveling = isTraveling
+    }
+
+    // MARK: Functions
 
     public func toEntity() -> Journey {
         Journey(

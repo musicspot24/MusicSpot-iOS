@@ -11,10 +11,15 @@ import Entity
 import Repository
 
 public final class RemoteUserRepository: UserRepository {
+
+    // MARK: Nested Types
+
     public enum ActivationMethod {
         case signUp
         case login
     }
+
+    // MARK: Functions
 
     @discardableResult
     public func activate(newUserID: String) throws -> User {

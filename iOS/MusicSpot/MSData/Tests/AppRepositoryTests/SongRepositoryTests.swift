@@ -9,8 +9,6 @@ import XCTest
 @testable import MSData
 
 final class SongRepositoryTests: XCTestCase {
-    // MARK: - Properties
-
     private let songRepository = SongRepositoryImplementation()
 
     // MARK: - Tests

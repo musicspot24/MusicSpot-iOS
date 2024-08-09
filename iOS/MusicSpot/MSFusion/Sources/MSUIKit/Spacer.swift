@@ -8,10 +8,6 @@
 import UIKit
 
 public final class Spacer: UIView {
-    private override init(frame: CGRect = .zero) {
-        super.init(frame: frame)
-    }
-
     public convenience init(_ axis: NSLayoutConstraint.Axis) {
         self.init()
         setContentHuggingPriority(.defaultLow, for: axis)
@@ -21,4 +17,9 @@ public final class Spacer: UIView {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    private override init(frame: CGRect = .zero) {
+        super.init(frame: frame)
+    }
+
 }

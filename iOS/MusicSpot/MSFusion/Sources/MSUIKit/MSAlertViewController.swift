@@ -11,85 +11,7 @@ import MSDesignSystem
 
 open class MSAlertViewController: UIViewController {
 
-    // MARK: Open
-
-    // MARK: - Properties
-
-    open var cancelButtonAction: UIAction? {
-        didSet {
-            guard let action = cancelButtonAction else { return }
-            cancelButton.addAction(action, for: .touchUpInside)
-        }
-    }
-
-    open var doneButtonAction: UIAction? {
-        didSet {
-            guard let action = doneButtonAction else { return }
-            doneButton.addAction(action, for: .touchUpInside)
-        }
-    }
-
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        configureStyles()
-        configureLayout()
-    }
-
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        animatePresentView()
-    }
-
-    // MARK: - Helpers
-
-    @objc
-    open func dismissBottomSheet() {
-        animateDismissView()
-    }
-
-    // MARK: - UI Configuration
-
-    open func configureStyles() {
-        view.backgroundColor = .clear
-        dimmedView.addGestureRecognizer(tapGesture)
-        containerView.addGestureRecognizer(panGesture)
-    }
-
-    open func configureLayout() {
-        configureSubviews()
-        configureConstraints()
-    }
-
-    // MARK: Public
-
-    // MARK: - UI Components
-
-    /// Base
-    public let containerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .msColor(.modalBackground)
-        view.layer.cornerRadius = Metric.containerViewCornerRadius
-        view.clipsToBounds = true
-        return view
-    }()
-
-    // MARK: - Functions
-
-    public func updateTitle(_ title: String) {
-        titleLabel.text = title
-    }
-
-    public func updateSubtitle(_ subtitle: String) {
-        subtitleLabel.text = subtitle
-    }
-
-    public func updateDoneButton(isEnabled: Bool) {
-        doneButton.isEnabled = isEnabled
-    }
-
-    public func updateDoneButtonLoadingState(to isLoading: Bool) {
-        doneButton.configuration?.showsActivityIndicator = isLoading
-    }
+    // MARK: Nested Types
 
     // MARK: Private
 
@@ -121,6 +43,21 @@ open class MSAlertViewController: UIViewController {
 
         static let gestureVelocity: CGFloat = 750.0
     }
+
+    // MARK: Properties
+
+    // MARK: Public
+
+    // MARK: - UI Components
+
+    /// Base
+    public let containerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .msColor(.modalBackground)
+        view.layer.cornerRadius = Metric.containerViewCornerRadius
+        view.clipsToBounds = true
+        return view
+    }()
 
     private let dimmedView: UIView = {
         let view = UIView()
@@ -205,8 +142,77 @@ open class MSAlertViewController: UIViewController {
     private var containerViewHeight: NSLayoutConstraint?
     private var containerViewBottomInset: NSLayoutConstraint?
 
+    // MARK: Computed Properties
+
+    // MARK: Open
+
+    open var cancelButtonAction: UIAction? {
+        didSet {
+            guard let action = cancelButtonAction else { return }
+            cancelButton.addAction(action, for: .touchUpInside)
+        }
+    }
+
+    open var doneButtonAction: UIAction? {
+        didSet {
+            guard let action = doneButtonAction else { return }
+            doneButton.addAction(action, for: .touchUpInside)
+        }
+    }
+
     private var keyboardLayoutHeight: CGFloat {
         view.keyboardLayoutGuide.layoutFrame.height
+    }
+
+    // MARK: Overridden Functions
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        configureStyles()
+        configureLayout()
+    }
+
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        animatePresentView()
+    }
+
+    // MARK: Functions
+
+    // MARK: - Helpers
+
+    @objc
+    open func dismissBottomSheet() {
+        animateDismissView()
+    }
+
+    // MARK: - UI Configuration
+
+    open func configureStyles() {
+        view.backgroundColor = .clear
+        dimmedView.addGestureRecognizer(tapGesture)
+        containerView.addGestureRecognizer(panGesture)
+    }
+
+    open func configureLayout() {
+        configureSubviews()
+        configureConstraints()
+    }
+
+    public func updateTitle(_ title: String) {
+        titleLabel.text = title
+    }
+
+    public func updateSubtitle(_ subtitle: String) {
+        subtitleLabel.text = subtitle
+    }
+
+    public func updateDoneButton(isEnabled: Bool) {
+        doneButton.isEnabled = isEnabled
+    }
+
+    public func updateDoneButtonLoadingState(to isLoading: Bool) {
+        doneButton.configuration?.showsActivityIndicator = isLoading
     }
 
     @objc

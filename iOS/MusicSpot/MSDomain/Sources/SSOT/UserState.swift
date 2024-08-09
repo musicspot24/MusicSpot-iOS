@@ -12,6 +12,8 @@ import MSUserDefaults
 
 public struct UserState {
 
+    // MARK: Nested Types
+
     // MARK: Public
 
     public enum AuthState: Equatable, Codable {
@@ -27,9 +29,23 @@ public struct UserState {
         }
     }
 
+    // MARK: Static Properties
+
     // MARK: - Shared
 
     public static let shared = UserState()
+
+    // MARK: Properties
+
+    // MARK: Package
+
+    /// 등록되어 사용 중인 `User`의 상태
+    package var authState: AuthState = .disabled
+
+    /// 등록되어 사용 중인 `User`의 ID
+    package var userID = ""
+
+    // MARK: Computed Properties
 
     // MARK: - Interface
 
@@ -49,14 +65,6 @@ public struct UserState {
     public var currentUserID: String {
         userID
     }
-
-    // MARK: Package
-
-    /// 등록되어 사용 중인 `User`의 상태
-    package var authState: AuthState = .disabled
-
-    /// 등록되어 사용 중인 `User`의 ID
-    package var userID = ""
 
 }
 

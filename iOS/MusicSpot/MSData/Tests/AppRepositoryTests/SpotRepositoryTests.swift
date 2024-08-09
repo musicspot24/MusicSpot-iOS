@@ -14,6 +14,16 @@ import XCTest
 
 final class SpotRepositoryTests: XCTestCase {
 
+    // MARK: Properties
+
+    private let sut = AppSpotRepository()
+
+    // MARK: - Tests
+
+    private var sut: AppSpotRepository!
+
+    // MARK: Overridden Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -25,6 +35,8 @@ final class SpotRepositoryTests: XCTestCase {
 
         sut = AppSpotRepository(context: context)
     }
+
+    // MARK: Functions
 
     // MARK: - Tests
 
@@ -49,13 +61,5 @@ final class SpotRepositoryTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let sut = AppSpotRepository()
-
-    // MARK: - Tests
-
-    private var sut: AppSpotRepository!
 
 }

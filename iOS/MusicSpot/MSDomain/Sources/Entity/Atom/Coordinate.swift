@@ -31,6 +31,15 @@ extension Coordinate: @retroactive Equatable {
 
 extension Coordinate: Codable {
 
+    // MARK: Nested Types
+
+    // MARK: Internal
+
+    enum CodingKeys: String, CodingKey {
+        case x
+        case y
+    }
+
     // MARK: Lifecycle
 
     public init(from decoder: any Decoder) throws {
@@ -40,19 +49,14 @@ extension Coordinate: Codable {
         y = try container.decode(Double.self, forKey: .y)
     }
 
+    // MARK: Functions
+
     // MARK: Public
 
     public func encode(to encoder: any Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(x, forKey: .x)
         try container.encode(y, forKey: .y)
-    }
-
-    // MARK: Internal
-
-    enum CodingKeys: String, CodingKey {
-        case x
-        case y
     }
 
 }

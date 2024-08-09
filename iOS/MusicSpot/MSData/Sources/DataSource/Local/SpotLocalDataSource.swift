@@ -13,6 +13,24 @@ import Entity
 @Model
 public final class SpotLocalDataSource: EntityConvertible {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public typealias Entity = Spot
+
+    // MARK: Properties
+
+    // MARK: - Relationships
+
+    public var journey: JourneyLocalDataSource?
+
+    public let spotID: String
+    public var coordinate: Coordinate
+    public var timestamp: Date
+    @Relationship(deleteRule: .cascade, inverse: \PhotoLocalDataSource.spot)
+    public var photos: [PhotoLocalDataSource] = []
+
     // MARK: Lifecycle
 
     // MARK: - Entity Convertible
@@ -24,21 +42,7 @@ public final class SpotLocalDataSource: EntityConvertible {
         photos = entity.photoURLs.map { PhotoLocalDataSource(from: $0) }
     }
 
-    // MARK: Public
-
-    public typealias Entity = Spot
-
-    // MARK: - Relationships
-
-    public var journey: JourneyLocalDataSource?
-
-    // MARK: - Properties
-
-    public let spotID: String
-    public var coordinate: Coordinate
-    public var timestamp: Date
-    @Relationship(deleteRule: .cascade, inverse: \PhotoLocalDataSource.spot)
-    public var photos: [PhotoLocalDataSource] = []
+    // MARK: Functions
 
     public func toEntity() -> Spot {
         Spot(

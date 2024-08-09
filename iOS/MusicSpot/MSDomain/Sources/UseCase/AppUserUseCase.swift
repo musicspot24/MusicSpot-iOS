@@ -17,6 +17,17 @@ import SSOT
 
 public final class AppUserUseCase: UserUseCase {
 
+    // MARK: Properties
+
+    private var userState: UserState = StateContainer.default.userState
+    private let userRepository: UserRepository
+
+    // MARK: Computed Properties
+
+    public var currentUserID: String {
+        userState.currentUserID
+    }
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -27,11 +38,7 @@ public final class AppUserUseCase: UserUseCase {
 
     // MARK: Public
 
-    // MARK: - Functions
-
-    public var currentUserID: String {
-        userState.currentUserID
-    }
+    // MARK: Functions
 
     @discardableResult
     public func registerNewUser() async throws(UserError) -> String { // swiftlint:disable:this all
@@ -71,10 +78,6 @@ public final class AppUserUseCase: UserUseCase {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private var userState: UserState = StateContainer.default.userState
-    private let userRepository: UserRepository
 }
 
 // MARK: - Privates

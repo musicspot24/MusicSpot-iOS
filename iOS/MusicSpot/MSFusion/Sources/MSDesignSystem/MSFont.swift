@@ -19,21 +19,7 @@ public enum MSFont {
     case boldCaption
     case caption
 
-    // MARK: Public
-
-    public static func registerFonts() {
-        [
-            "Pretendard-Regular",
-            "Pretendard-SemiBold",
-            "Pretendard-Bold",
-        ].forEach {
-            registerFont(bundle: .msDesignSystem, fontName: $0, fontExtension: "otf")
-        }
-    }
-
-    // MARK: Package
-
-    // MARK: - Functions
+    // MARK: Properties
 
     package var fontDetails: (fontName: String, size: CGFloat) {
         switch self {
@@ -47,6 +33,22 @@ public enum MSFont {
         case .caption: ("Pretendard-Regular", 13.0)
         }
     }
+
+    // MARK: Static Functions
+
+    // MARK: Public
+
+    public static func registerFonts() {
+        [
+            "Pretendard-Regular",
+            "Pretendard-SemiBold",
+            "Pretendard-Bold",
+        ].forEach {
+            registerFont(bundle: .msDesignSystem, fontName: $0, fontExtension: "otf")
+        }
+    }
+
+    // MARK: Package
 
     // MARK: Fileprivate
 

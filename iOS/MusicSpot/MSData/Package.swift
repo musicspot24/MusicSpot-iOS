@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     static let package = "MSData"
+
+    // MARK: Computed Properties
 
     var testTarget: String {
         self + "Tests"

@@ -15,6 +15,11 @@ import Repository
 
 public final class AppUserRepository: UserRepository {
 
+    // MARK: Properties
+
+    @UserDefaultsWrapped("activeUser", defaultValue: nil)
+    private var activeUser: UserLocalDataSource?
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -23,7 +28,7 @@ public final class AppUserRepository: UserRepository {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     /// 로컬 유저를 생성합니다.
     /// - Returns: 생성된 `User` 정보를 담고 있는 인스턴스
@@ -49,10 +54,5 @@ public final class AppUserRepository: UserRepository {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    @UserDefaultsWrapped("activeUser", defaultValue: nil)
-    private var activeUser: UserLocalDataSource?
 
 }

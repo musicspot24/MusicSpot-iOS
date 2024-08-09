@@ -11,6 +11,14 @@ import XCTest
 
 final class MSCacheStorageTests: XCTestCase {
 
+    // MARK: Properties
+
+    private var cacheStorage: MSCacheStorage!
+    private var mockData = "TESTVALUE"
+    private let key = "cacheKey"
+
+    // MARK: Overridden Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -25,6 +33,8 @@ final class MSCacheStorageTests: XCTestCase {
         try cacheStorage.clean(.all)
         cacheStorage = nil
     }
+
+    // MARK: Functions
 
     // MARK: - Tests
 
@@ -76,11 +86,5 @@ final class MSCacheStorageTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private var cacheStorage: MSCacheStorage!
-    private var mockData = "TESTVALUE"
-    private let key = "cacheKey"
 
 }

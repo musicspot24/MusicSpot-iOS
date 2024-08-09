@@ -32,9 +32,14 @@ public struct JourneyCellModel: Hashable {
 // MARK: - Hashable
 
 extension JourneyCellModel {
+
+    // MARK: Static Functions
+
     public static func == (lhs: JourneyCellModel, rhs: JourneyCellModel) -> Bool {
         lhs.id == rhs.id
     }
+
+    // MARK: Functions
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)

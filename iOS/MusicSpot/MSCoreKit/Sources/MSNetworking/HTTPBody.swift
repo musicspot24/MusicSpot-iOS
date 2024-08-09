@@ -12,6 +12,30 @@ import UIKit
 
 public struct HTTPBody {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    // MARK: - Status
+
+    public enum BodyType {
+        case normal
+        case multipart
+    }
+
+    // MARK: Properties
+
+    public let type: BodyType
+
+    // MARK: Internal
+
+    var content: Encodable?
+
+    // MARK: Private
+
+    private let boundary: String?
+    private var allOfMultipartData: [MultipartData]?
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -28,24 +52,7 @@ public struct HTTPBody {
         allOfMultipartData = multipartData
     }
 
-    // MARK: Public
-
-    // MARK: - Status
-
-    public enum BodyType {
-        case normal
-        case multipart
-    }
-
-    // MARK: - Properties
-
-    public let type: BodyType
-
-    // MARK: Internal
-
-    var content: Encodable?
-
-    // MARK: - Functions
+    // MARK: Functions
 
     func data(encoder: JSONEncoder) -> Data? {
         switch type {
@@ -79,10 +86,5 @@ public struct HTTPBody {
             return data
         }
     }
-
-    // MARK: Private
-
-    private let boundary: String?
-    private var allOfMultipartData: [MultipartData]?
 
 }

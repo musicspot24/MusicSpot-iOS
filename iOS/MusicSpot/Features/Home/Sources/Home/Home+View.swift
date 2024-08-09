@@ -16,6 +16,22 @@ import MSSwiftUI
 @MainActor
 extension Home: View {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Typo {
+        static let startButtonTitle = "시작하기"
+    }
+
+    private enum Metric {
+        static let startButtonBottomPadding: CGFloat = 15.0
+    }
+
+    // MARK: Content
+
     // MARK: Public
 
     // MARK: - Body
@@ -76,18 +92,6 @@ extension Home: View {
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }
-    }
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Typo {
-        static let startButtonTitle = "시작하기"
-    }
-
-    private enum Metric {
-        static let startButtonBottomPadding: CGFloat = 15.0
     }
 
 }

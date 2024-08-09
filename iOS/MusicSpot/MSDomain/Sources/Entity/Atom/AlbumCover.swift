@@ -11,6 +11,13 @@ import Foundation
 
 public struct AlbumCover {
 
+    // MARK: Properties
+
+    public let width: UInt32
+    public let height: UInt32
+    public let url: URL?
+    public let backgroundColor: String?
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -28,13 +35,6 @@ public struct AlbumCover {
     }
 
     // MARK: Public
-
-    // MARK: - Properties
-
-    public let width: UInt32
-    public let height: UInt32
-    public let url: URL?
-    public let backgroundColor: String?
 
 }
 

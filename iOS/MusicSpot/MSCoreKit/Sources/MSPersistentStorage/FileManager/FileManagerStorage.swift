@@ -14,6 +14,41 @@ import MSLogger
 
 public final class FileManagerStorage: NSObject, MSPersistentStorage {
 
+    // MARK: Properties
+
+    private let fileManager: FileManager
+
+    private let encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions = [.withFractionalSeconds, .withTimeZone, .withInternetDateTime]
+        encoder.dateEncodingStrategy = .custom { date, encoder in
+            var container = encoder.singleValueContainer()
+            let dateString = dateFormatter.string(from: date)
+            try container.encode(dateString)
+        }
+        return encoder
+    }()
+
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions.insert(.withFractionalSeconds)
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+            if let date = dateFormatter.date(from: dateString) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Date 디코딩 실패: \(dateString)")
+        }
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -24,7 +59,7 @@ public final class FileManagerStorage: NSObject, MSPersistentStorage {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     /// `FileManager`를 사용한 PersistentStorage에서 Key 값에 해당되는 값을 불러옵니다.
     /// - Parameters:
@@ -129,41 +164,6 @@ public final class FileManagerStorage: NSObject, MSPersistentStorage {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let fileManager: FileManager
-
-    private let encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFractionalSeconds, .withTimeZone, .withInternetDateTime]
-        encoder.dateEncodingStrategy = .custom { date, encoder in
-            var container = encoder.singleValueContainer()
-            let dateString = dateFormatter.string(from: date)
-            try container.encode(dateString)
-        }
-        return encoder
-    }()
-
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions.insert(.withFractionalSeconds)
-        decoder.dateDecodingStrategy = .custom { decoder in
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
-            if let date = dateFormatter.date(from: dateString) {
-                return date
-            }
-            throw DecodingError.dataCorruptedError(
-                in: container,
-                debugDescription: "Date 디코딩 실패: \(dateString)")
-        }
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder
-    }()
 
 }
 

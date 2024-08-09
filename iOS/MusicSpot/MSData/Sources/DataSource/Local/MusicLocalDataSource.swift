@@ -12,14 +12,24 @@ import Entity
 @Model
 public final class MusicLocalDataSource: EntityConvertible {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public typealias Entity = Music
+
+    // MARK: Properties
+
+    // MARK: - Relationships
+
+    public var journey: JourneyLocalDataSource?
+
+    public let musicID: String
+    public var title: String
+    public var artist: String?
+    public var albumCover: AlbumCover?
+
     // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    init(musicID: String, title: String) {
-        self.musicID = musicID
-        self.title = title
-    }
 
     // MARK: - Entity Convertible
 
@@ -30,20 +40,14 @@ public final class MusicLocalDataSource: EntityConvertible {
         albumCover = entity.albumCover
     }
 
-    // MARK: Public
+    // MARK: - Initializer
 
-    public typealias Entity = Music
+    init(musicID: String, title: String) {
+        self.musicID = musicID
+        self.title = title
+    }
 
-    // MARK: - Relationships
-
-    public var journey: JourneyLocalDataSource?
-
-    // MARK: - Properties
-
-    public let musicID: String
-    public var title: String
-    public var artist: String?
-    public var albumCover: AlbumCover?
+    // MARK: Functions
 
     public func toEntity() -> Music {
         Music(

@@ -13,32 +13,7 @@ import MSDesignSystem
 
 public final class MSRectButton: UIButton {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    private override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureStyles()
-        configureLayout()
-        haptic.prepare()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Public
-
-    // MARK: - Properties
-
-    public var title: String? {
-        didSet { configureTitle(title) }
-    }
-
-    public var image: UIImage? {
-        didSet { configureIcon(image) }
-    }
+    // MARK: Nested Types
 
     // MARK: Internal
 
@@ -61,13 +36,6 @@ public final class MSRectButton: UIButton {
         }
     }
 
-    var style: Style = .small {
-        didSet {
-            configureSize(by: style)
-            configureCornerStyle(by: style)
-        }
-    }
-
     // MARK: Private
 
     // MARK: - Constants
@@ -76,7 +44,45 @@ public final class MSRectButton: UIButton {
         static let edgeInsets: CGFloat = 10.0
     }
 
+    // MARK: Properties
+
     private let haptic = UIImpactFeedbackGenerator(style: .medium)
+
+    // MARK: Computed Properties
+
+    public var title: String? {
+        didSet { configureTitle(title) }
+    }
+
+    public var image: UIImage? {
+        didSet { configureIcon(image) }
+    }
+
+    var style: Style = .small {
+        didSet {
+            configureSize(by: style)
+            configureCornerStyle(by: style)
+        }
+    }
+
+    // MARK: Lifecycle
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: Public
+
+    // MARK: - Initializer
+
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureStyles()
+        configureLayout()
+        haptic.prepare()
+    }
+
+    // MARK: Functions
 
     // MARK: - UI Configuration
 

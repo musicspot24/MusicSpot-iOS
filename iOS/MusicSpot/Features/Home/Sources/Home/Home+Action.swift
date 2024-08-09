@@ -9,12 +9,16 @@ import Foundation
 
 extension Home {
 
+    // MARK: Nested Types
+
     // MARK: Internal
 
     enum Action {
         case startButtonDidTap
         case mapButtonDidTap
     }
+
+    // MARK: Functions
 
     func perform(_ action: Action) {
         switch action {

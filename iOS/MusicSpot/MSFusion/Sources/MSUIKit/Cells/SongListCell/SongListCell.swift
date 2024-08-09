@@ -15,39 +15,7 @@ import MSImageFetcher
 
 public final class SongListCell: UICollectionViewCell {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureStyles()
-        configureLayout()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Public
-
-    // MARK: - Constants
-
-    public static let estimatedHeight: CGFloat = 68.0
-
-    public override func prepareForReuse() {
-        albumArtImageView.image = nil
-    }
-
-    // MARK: - Functions
-
-    public func update(with cellModel: SongListCellModel) {
-        songTitleLabel.text = cellModel.title
-        artistLabel.text = cellModel.artist
-
-        guard let albumArtURL = cellModel.albumArtURL else { return }
-        albumArtImageView.ms.setImage(with: albumArtURL, forKey: albumArtURL.paath())
-    }
+    // MARK: Nested Types
 
     // MARK: Private
 
@@ -59,6 +27,16 @@ public final class SongListCell: UICollectionViewCell {
         static let songInfoStackSpacing: CGFloat = 4.0
         static let rightIconImageViewSize: CGFloat = 24.0
     }
+
+    // MARK: Static Properties
+
+    // MARK: Public
+
+    // MARK: - Constants
+
+    public static let estimatedHeight: CGFloat = 68.0
+
+    // MARK: Properties
 
     // MARK: - UI Components
 
@@ -99,6 +77,36 @@ public final class SongListCell: UICollectionViewCell {
         imageView.tintColor = .msColor(.primaryTypo)
         return imageView
     }()
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureStyles()
+        configureLayout()
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: Overridden Functions
+
+    public override func prepareForReuse() {
+        albumArtImageView.image = nil
+    }
+
+    // MARK: Functions
+
+    public func update(with cellModel: SongListCellModel) {
+        songTitleLabel.text = cellModel.title
+        artistLabel.text = cellModel.artist
+
+        guard let albumArtURL = cellModel.albumArtURL else { return }
+        albumArtImageView.ms.setImage(with: albumArtURL, forKey: albumArtURL.paath())
+    }
 
 }
 
