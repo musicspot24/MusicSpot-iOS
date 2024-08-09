@@ -61,7 +61,7 @@ let package = Package(
             path: Dependency.MSFusion.package.fromRootPath),
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"),
+            from: "0.56.1"),
     ],
     targets: [
         .target(

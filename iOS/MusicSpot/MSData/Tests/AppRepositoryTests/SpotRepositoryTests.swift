@@ -43,8 +43,8 @@ final class SpotRepositoryTests: XCTestCase {
         let stream = sut.fetchPhotos(of: spot)
 
         for try await (spot, photoData) in stream {
-            print(spot)
-            print("Size: \(photoData.count)")
+//            print(spot)
+//            print("Size: \(photoData.count)")
         }
     }
 
