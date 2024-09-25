@@ -13,22 +13,31 @@ import MSConstant
 
 public final class MSCacheStorage: CacheStorage {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public typealias Key = String
+    public typealias Value = Data
+
+    // MARK: Properties
+
+    private let memory: Cache
+    private let disk: FileManager
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
 
     public init(
         cache: Cache = Cache(),
-        fileManager: FileManager = .default)
-    {
+        fileManager: FileManager = .default
+    ) {
         memory = cache
         disk = fileManager
     }
 
-    // MARK: Public
-
-    public typealias Key = String
-    public typealias Value = Data
+    // MARK: Functions
 
     // MARK: - Read
 
@@ -72,7 +81,8 @@ public final class MSCacheStorage: CacheStorage {
         memory.setObject(
             value as NSData,
             forKey: key as NSString,
-            cost: value.count)
+            cost: value.count
+        )
         if memory.object(forKey: key as NSString) == nil {
             return .failure(.memoryFail)
         }
@@ -141,11 +151,6 @@ public final class MSCacheStorage: CacheStorage {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let memory: Cache
-    private let disk: FileManager
-
     private func cleanAll() throws {
         cleanMemory()
         try cleanDisk()
@@ -165,6 +170,9 @@ public final class MSCacheStorage: CacheStorage {
 // MARK: - URLs
 
 extension MSCacheStorage {
+
+    // MARK: Computed Properties
+
     private var cacheDirectoryURL: URL? {
         let directoryURL: URL?
 
@@ -173,7 +181,8 @@ extension MSCacheStorage {
                 for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: .cachesDirectory,
-                create: false)
+                create: false
+            )
             directoryURL = cacheDirectoryURL?
                 .appending(path: Constants.appBundleIdentifier, directoryHint: .isDirectory)
         } else {
@@ -193,6 +202,8 @@ extension MSCacheStorage {
 
         return directoryURL
     }
+
+    // MARK: Functions
 
     private func cacheURL(forCache cache: String, fileExtension: String = "cache") -> URL? {
         if #available(iOS 16.0, *) {

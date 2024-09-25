@@ -14,13 +14,7 @@ import Repository
 
 public final class JourneyListViewModel {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(repository: JourneyRepository) {
-        self.repository = repository
-    }
+    // MARK: Nested Types
 
     // MARK: Public
 
@@ -34,11 +28,23 @@ public final class JourneyListViewModel {
         public var journeys = CurrentValueSubject<[Journey], Never>([])
     }
 
-    // MARK: - Properties
+    // MARK: Properties
 
     public var state = State()
 
-    // MARK: - Functions
+    // MARK: Private
+
+    private let repository: JourneyRepository
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init(repository: JourneyRepository) {
+        self.repository = repository
+    }
+
+    // MARK: Functions
 
     public func trigger(_ action: Action) {
         switch action {
@@ -51,9 +57,5 @@ public final class JourneyListViewModel {
             state.journeys.send(visibleJourneys)
         }
     }
-
-    // MARK: Private
-
-    private let repository: JourneyRepository
 
 }

@@ -14,15 +14,7 @@ import SSOT
 
 public struct Home {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init() { }
-
-    // MARK: Internal
-
-    // MARK: - Properties
+    // MARK: Properties
 
     @State var locationManager = MSLocationManager()
     @State var isUsingStandardMap = true
@@ -34,10 +26,20 @@ public struct Home {
 
     @Environment(\.states) var states: StateContainer
 
+    // MARK: Computed Properties
+
     var selectedMapStyle: MapStyle {
         isUsingStandardMap
             ? .standard(elevation: .realistic)
             : .hybrid(elevation: .realistic)
     }
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init() { }
+
+    // MARK: Internal
 
 }

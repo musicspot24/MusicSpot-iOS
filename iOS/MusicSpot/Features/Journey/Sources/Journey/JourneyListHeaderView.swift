@@ -14,33 +14,7 @@ import MSUIKit
 
 public final class JourneyListHeaderView: UICollectionReusableView {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureStyles()
-        configureLayout()
-    }
-
-    public required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Internal
-
-    // MARK: - Constants
-
-    static let elementKind = "JourneyListHeaderView"
-    static let estimatedHight: CGFloat = 46.0 + Metric.verticalInset
-
-    // MARK: - Functions
-
-    @MainActor
-    func update(numberOfJourneys: Int) {
-        subtitleLabel.text = Typo.subtitle(numberOfJourneys: numberOfJourneys)
-    }
+    // MARK: Nested Types
 
     // MARK: Private
 
@@ -56,6 +30,17 @@ public final class JourneyListHeaderView: UICollectionReusableView {
         static let horizontalInset: CGFloat = 16.0
         static let verticalInset: CGFloat = 24.0
     }
+
+    // MARK: Static Properties
+
+    // MARK: Internal
+
+    // MARK: - Constants
+
+    static let elementKind = "JourneyListHeaderView"
+    static let estimatedHight: CGFloat = 46.0 + Metric.verticalInset
+
+    // MARK: Properties
 
     // MARK: - UI Components
 
@@ -83,6 +68,27 @@ public final class JourneyListHeaderView: UICollectionReusableView {
         return label
     }()
 
+    // MARK: Lifecycle
+
+    public required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: - Initializer
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureStyles()
+        configureLayout()
+    }
+
+    // MARK: Functions
+
+    @MainActor
+    func update(numberOfJourneys: Int) {
+        subtitleLabel.text = Typo.subtitle(numberOfJourneys: numberOfJourneys)
+    }
+
 }
 
 // MARK: - UI Configuration
@@ -109,13 +115,16 @@ extension JourneyListHeaderView {
             titleStack.topAnchor.constraint(equalTo: topAnchor),
             titleStack.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             titleStack.bottomAnchor.constraint(
                 lessThanOrEqualTo: bottomAnchor,
-                constant: -Metric.verticalInset),
+                constant: -Metric.verticalInset
+            ),
             titleStack.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
         ])
     }
 }

@@ -22,6 +22,8 @@ public final class EmptyCell: UICollectionViewCell {
         fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
 
+    // MARK: Functions
+
     // MARK: Private
 
     // MARK: - UI Configuration

@@ -16,41 +16,7 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
     : UIViewController, UIGestureRecognizerDelegate
 {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(
-        contentViewController: Content,
-        bottomSheetViewController: BottomSheet)
-    {
-        self.contentViewController = contentViewController
-        self.bottomSheetViewController = bottomSheetViewController
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    public required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Open
-
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        configureStyle()
-        configureLayout()
-        configureGesture()
-    }
-
-    // MARK: - Functions
-
-    open func stateDidChanged(_ state: State) {
-        MSLogger.make(category: .uiKit).log("Bottom Sheet 상태가 \(state.rawValue)로 업데이트 되었습니다.")
-
-        if case .full = state {
-            resizeIndicator.isHidden = true
-        }
-    }
+    // MARK: Nested Types
 
     // MARK: Public
 
@@ -62,57 +28,14 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
         case minimized
     }
 
+    // MARK: Properties
+
     // MARK: - UI Components
 
     public let contentViewController: Content
     public let bottomSheetViewController: BottomSheet
 
-    // MARK: - Properties
-
     public var configuration: MSBottomSheetViewController.Configuration?
-
-    public var state: State = .minimized {
-        willSet { stateDidChanged(newValue) }
-    }
-
-    public func hideBottomSheet(animated: Bool = true) {
-        topConstraints?.constant = .zero
-
-        if animated {
-            UIView.animate(
-                withDuration: 0.5,
-                delay: .zero,
-                usingSpringWithDamping: 0.8,
-                initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
-                self.view.layoutIfNeeded()
-            }
-        } else {
-            view.layoutIfNeeded()
-        }
-    }
-
-    public func showBottomSheet(animated: Bool = true) {
-        guard let configuration else { return }
-        topConstraints?.constant = -configuration.minimizedHeight
-
-        if animated {
-            UIView.animate(
-                withDuration: 0.5,
-                delay: .zero,
-                usingSpringWithDamping: 0.8,
-                initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
-                self.view.layoutIfNeeded()
-                self.state = .minimized
-            }
-        } else {
-            view.layoutIfNeeded()
-            state = .minimized
-        }
-    }
 
     // MARK: Private
 
@@ -134,6 +57,89 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
     }()
 
     private let gestureVelocity: CGFloat = 750.0
+
+    // MARK: Computed Properties
+
+    public var state: State = .minimized {
+        willSet { stateDidChanged(newValue) }
+    }
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init(
+        contentViewController: Content,
+        bottomSheetViewController: BottomSheet
+    ) {
+        self.contentViewController = contentViewController
+        self.bottomSheetViewController = bottomSheetViewController
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    public required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: Overridden Functions
+
+    // MARK: Open
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        configureStyle()
+        configureLayout()
+        configureGesture()
+    }
+
+    // MARK: Functions
+
+    open func stateDidChanged(_ state: State) {
+        MSLogger.make(category: .uiKit).log("Bottom Sheet 상태가 \(state.rawValue)로 업데이트 되었습니다.")
+
+        if case .full = state {
+            resizeIndicator.isHidden = true
+        }
+    }
+
+    public func hideBottomSheet(animated: Bool = true) {
+        topConstraints?.constant = .zero
+
+        if animated {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: .zero,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0.5,
+                options: [.curveEaseInOut]
+            ) {
+                self.view.layoutIfNeeded()
+            }
+        } else {
+            view.layoutIfNeeded()
+        }
+    }
+
+    public func showBottomSheet(animated: Bool = true) {
+        guard let configuration else { return }
+        topConstraints?.constant = -configuration.minimizedHeight
+
+        if animated {
+            UIView.animate(
+                withDuration: 0.5,
+                delay: .zero,
+                usingSpringWithDamping: 0.8,
+                initialSpringVelocity: 0.5,
+                options: [.curveEaseInOut]
+            ) {
+                self.view.layoutIfNeeded()
+                self.state = .minimized
+            }
+        } else {
+            view.layoutIfNeeded()
+            state = .minimized
+        }
+    }
 
     private func presentFullBottomSheet(animated: Bool = true) {
         guard let configuration else { return }
@@ -161,8 +167,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.state = .detented
@@ -183,8 +189,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.state = .minimized
@@ -323,7 +329,8 @@ extension MSBottomSheetViewController {
         topConstraints = bottomSheetViewController.view.topAnchor
             .constraint(
                 equalTo: view.bottomAnchor,
-                constant: -configuration.minimizedHeight)
+                constant: -configuration.minimizedHeight
+            )
         topConstraints?.isActive = true
         bottomSheetViewController.didMove(toParent: self)
 
@@ -335,7 +342,8 @@ extension MSBottomSheetViewController {
             resizeIndicator.centerXAnchor.constraint(equalTo: bottomSheetViewController.view.centerXAnchor),
             resizeIndicator.topAnchor.constraint(
                 equalTo: bottomSheetViewController.view.topAnchor,
-                constant: 6.0),
+                constant: 6.0
+            ),
         ])
     }
 

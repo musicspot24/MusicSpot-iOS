@@ -12,6 +12,56 @@ import MSLogger
 
 public struct MSNetworking {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public typealias TimeoutInterval = DispatchQueue.SchedulerTimeType.Stride
+
+    // MARK: Static Properties
+
+    // MARK: - Constants
+
+    public static let dispatchQueueLabel = "com.MSNetworking.MSCoreKit.MusicSpot"
+
+    // MARK: Properties
+
+    public let queue: DispatchQueue
+
+    private let encoder: JSONEncoder = {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions.insert(.withFractionalSeconds)
+        encoder.dateEncodingStrategy = .custom { date, encoder in
+            var container = encoder.singleValueContainer()
+            let dateString = dateFormatter.string(from: date)
+            try container.encode(dateString)
+        }
+        return encoder
+    }()
+
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        let dateFormatter = ISO8601DateFormatter()
+        dateFormatter.formatOptions.insert(.withFractionalSeconds)
+        decoder.dateDecodingStrategy = .custom { decoder in
+            let container = try decoder.singleValueContainer()
+            let dateString = try container.decode(String.self)
+            if let date = dateFormatter.date(from: dateString) {
+                return date
+            }
+            throw DecodingError.dataCorruptedError(
+                in: container,
+                debugDescription: "Date 디코딩 실패: \(dateString)"
+            )
+        }
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+
+    private let session: Session
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -21,17 +71,7 @@ public struct MSNetworking {
         queue = DispatchQueue(label: MSNetworking.dispatchQueueLabel, qos: .background)
     }
 
-    // MARK: Public
-
-    public typealias TimeoutInterval = DispatchQueue.SchedulerTimeType.Stride
-
-    // MARK: - Constants
-
-    public static let dispatchQueueLabel = "com.MSNetworking.MSCoreKit.MusicSpot"
-
-    public let queue: DispatchQueue
-
-    // MARK: - Functions
+    // MARK: Functions
 
     /// ``Router``를 사용해 HTTP 네트워킹을 수행합니다. Combine을 사용합니다.
     /// - Parameters:
@@ -42,7 +82,8 @@ public struct MSNetworking {
     public func request<T: Decodable>(
         _ type: T.Type,
         router: Router,
-        timeoutInterval: TimeoutInterval = .seconds(3))
+        timeoutInterval: TimeoutInterval = .seconds(3)
+    )
         -> AnyPublisher<T, Error>
     {
         guard let request = router.makeRequest(encoder: encoder) else {
@@ -59,7 +100,8 @@ public struct MSNetworking {
                 guard 200..<300 ~= response.statusCode else {
                     throw MSNetworkError.invalidStatusCode(
                         statusCode: response.statusCode,
-                        description: response.description)
+                        description: response.description
+                    )
                 }
                 return data
             }
@@ -76,7 +118,8 @@ public struct MSNetworking {
     public func request<T: Decodable>(
         _: T.Type,
         router: Router,
-        timeoutInterval: TimeoutInterval = .seconds(3))
+        timeoutInterval: TimeoutInterval = .seconds(3)
+    )
         async -> Result<T, Error>
     {
         guard let request = router.makeRequest(encoder: encoder) else {
@@ -99,7 +142,8 @@ public struct MSNetworking {
                         let errorResponse = try decoder.decode(ErrorResponseDTO.self, from: data)
                         throw MSNetworkError.invalidStatusCode(
                             statusCode: errorResponse.statusCode,
-                            description: errorResponse.message)
+                            description: errorResponse.message
+                        )
                     }
 
                     do {
@@ -131,38 +175,4 @@ public struct MSNetworking {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let encoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions.insert(.withFractionalSeconds)
-        encoder.dateEncodingStrategy = .custom { date, encoder in
-            var container = encoder.singleValueContainer()
-            let dateString = dateFormatter.string(from: date)
-            try container.encode(dateString)
-        }
-        return encoder
-    }()
-
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions.insert(.withFractionalSeconds)
-        decoder.dateDecodingStrategy = .custom { decoder in
-            let container = try decoder.singleValueContainer()
-            let dateString = try container.decode(String.self)
-            if let date = dateFormatter.date(from: dateString) {
-                return date
-            }
-            throw DecodingError.dataCorruptedError(
-                in: container,
-                debugDescription: "Date 디코딩 실패: \(dateString)")
-        }
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        return decoder
-    }()
-
-    private let session: Session
 }

@@ -13,6 +13,10 @@ import Repository
 
 public final class AppSpotUseCase: SpotUseCase {
 
+    // MARK: Properties
+
+    private let spotRepository: SpotRepository
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -23,7 +27,7 @@ public final class AppSpotUseCase: SpotUseCase {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func fetchPhotos(of spot: Spot) throws -> AsyncThrowingStream<(spot: Spot, photoData: Data), Error> {
         spotRepository.fetchPhotos(of: spot)
@@ -41,7 +45,4 @@ public final class AppSpotUseCase: SpotUseCase {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let spotRepository: SpotRepository
 }

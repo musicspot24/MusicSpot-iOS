@@ -12,7 +12,8 @@ extension UITextField {
     public var textPublisher: AnyPublisher<String, Never> {
         let publisher = NotificationCenter.default.publisher(
             for: UITextField.textDidChangeNotification,
-            object: self)
+            object: self
+        )
 
         return publisher
             .compactMap { $0.object as? UITextField }

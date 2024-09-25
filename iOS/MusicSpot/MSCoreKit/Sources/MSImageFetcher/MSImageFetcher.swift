@@ -12,15 +12,15 @@ import MSLogger
 
 public final class MSImageFetcher {
 
-    // MARK: Lifecycle
+    // MARK: Nested Types
 
-    private init(
-        cache: MSCacheStorage = MSCacheStorage(),
-        session: URLSession = URLSession(configuration: .default))
-    {
-        self.cache = cache
-        self.session = session
-    }
+    // MARK: Internal
+
+    typealias CacheTask = Task<Data?, Error>
+
+    // MARK: Private
+
+    // MARK: Static Properties
 
     // MARK: Public
 
@@ -28,7 +28,24 @@ public final class MSImageFetcher {
 
     public static let shared = MSImageFetcher()
 
-    // MARK: - Functions
+    // MARK: Properties
+
+    private let cache: MSCacheStorage
+    private let session: URLSession
+
+    private var cacheStorage: Set<UUID> = []
+
+    // MARK: Lifecycle
+
+    private init(
+        cache: MSCacheStorage = MSCacheStorage(),
+        session: URLSession = URLSession(configuration: .default)
+    ) {
+        self.cache = cache
+        self.session = session
+    }
+
+    // MARK: Functions
 
     /// - Parameters:
     ///   - photoURL: 가져올 사진의 URL
@@ -36,7 +53,8 @@ public final class MSImageFetcher {
     @discardableResult
     public func fetchImage(
         from photoURL: URL,
-        forKey key: String)
+        forKey key: String
+    )
         async -> Data?
     {
         // 1. 캐싱된 값이 있는 지 확인합니다.
@@ -66,18 +84,5 @@ public final class MSImageFetcher {
 
         return nil
     }
-
-    // MARK: Internal
-
-    typealias CacheTask = Task<Data?, Error>
-
-    // MARK: Private
-
-    // MARK: - Properties
-
-    private let cache: MSCacheStorage
-    private let session: URLSession
-
-    private var cacheStorage: Set<UUID> = []
 
 }

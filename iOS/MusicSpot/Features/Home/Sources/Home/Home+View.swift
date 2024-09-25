@@ -16,6 +16,22 @@ import MSSwiftUI
 @MainActor
 extension Home: View {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Typo {
+        static let startButtonTitle = "시작하기"
+    }
+
+    private enum Metric {
+        static let startButtonBottomPadding: CGFloat = 15.0
+    }
+
+    // MARK: Content
+
     // MARK: Public
 
     // MARK: - Body
@@ -41,7 +57,8 @@ extension Home: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8.0))
                         .shadow(
                             color: .msColor(.secondaryButtonTypo).opacity(0.3),
-                            radius: 2.5, x: .zero, y: 2.0)
+                            radius: 2.5, x: .zero, y: 2.0
+                        )
                 }
                 .padding()
 
@@ -51,12 +68,15 @@ extension Home: View {
                         self.perform(.startButtonDidTap)
                     }
                     .opacity(
-                        self.sheetHeight >= (proxy.size.height / 2) ? .zero : 1.0)
+                        self.sheetHeight >= (proxy.size.height / 2) ? .zero : 1.0
+                    )
                     .offset(
                         // Button center - Button height / 2 - Padding
                         y: -(
                             min(self.sheetHeight, proxy.size.height / 2) +
-                                MSLargeButtonStyle.Metric.height / 2 + Metric.startButtonBottomPadding))
+                                MSLargeButtonStyle.Metric.height / 2 + Metric.startButtonBottomPadding
+                        )
+                    )
                     .animation(.snappy(duration: 0.3), value: self.sheetHeight)
                 }
                 .frame(maxWidth: .infinity)
@@ -76,18 +96,6 @@ extension Home: View {
             }
             .ignoresSafeArea(.all, edges: .bottom)
         }
-    }
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Typo {
-        static let startButtonTitle = "시작하기"
-    }
-
-    private enum Metric {
-        static let startButtonBottomPadding: CGFloat = 15.0
     }
 
 }

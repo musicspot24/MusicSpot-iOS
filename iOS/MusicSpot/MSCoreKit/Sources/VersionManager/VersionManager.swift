@@ -11,22 +11,42 @@ import MSLogger
 
 public struct VersionManager {
 
-    // MARK: Lifecycle
+    // MARK: Nested Types
 
-    // MARK: - Initializer
+    // MARK: Internal
 
-    public init() { }
+    typealias JSON = [String: Any]
+
+    // MARK: Private
+
+    // MARK: Properties
 
     // MARK: Public
 
     public let appVersion: String? = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
+
+    private let appleID = "6474530486"
+
+    // MARK: Computed Properties
 
     public var appStoreURL: URL? {
         let urlString = "itms-apps://itunes.apple.com/app/apple-store/\(appleID)"
         return URL(string: urlString)
     }
 
-    // MARK: - Functions
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init() { }
+
+    // MARK: Functions
 
     /// 앱스토어에서 새로운 버전으로 업데이트할 수 있는 지 확인합니다.
     /// - Returns: **[Tuple]** (`isUpdateNeeded`: Bool, `releaseNote`: String?) \
@@ -51,22 +71,6 @@ public struct VersionManager {
             throw error
         }
     }
-
-    // MARK: Internal
-
-    typealias JSON = [String: Any]
-
-    // MARK: Private
-
-    // MARK: - Properties
-
-    private let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        return decoder
-    }()
-
-    private let appleID = "6474530486"
 
     private func fetchAppStoreLookUp() async -> Result<AppStoreLookUp, Error> {
         let urlString = "http://itunes.apple.com/lookup?id=\(appleID)&country=kr"

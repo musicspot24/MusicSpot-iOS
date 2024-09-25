@@ -7,16 +7,16 @@
 --importgrouping testable-bottom # sortedImports
 --commas always # trailingCommas
 --trimwhitespace always # trailingSpace
---indent 4 #indent
---ifdef no-indent #indent
---indentstrings true #indent
+--indent 4 # indent
+--ifdef no-indent # indent
+--indentstrings true # indent
+--allman false # braces
 --wraparguments before-first # wrapArguments
 --wrapparameters before-first # wrapArguments
 --wrapcollections before-first # wrapArguments
+--wrapreturntype preserve # wrapArguments
 --wrapconditions before-first # wrapArguments
---wrapreturntype if-multiline #wrapArguments
---wrapeffects if-multiline #wrapArguments
---closingparen same-line # wrapArguments
+--wrapeffects preserve # wrapArguments
 --wraptypealiases before-first # wrapArguments
 --funcattributes prev-line # wrapAttributes
 --computedvarattrs prev-line # wrapAttributes
@@ -27,6 +27,7 @@
 --structthreshold 20 # organizeDeclarations
 --enumthreshold 20 # organizeDeclarations
 --organizetypes class,struct,enum,extension,actor # organizeDeclarations
+--organizationmode type # organizeDeclarations
 --extensionacl on-declarations # extensionAccessControl
 --patternlet inline # hoistPatternLet
 --redundanttype inferred # redundantType

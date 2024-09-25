@@ -12,6 +12,26 @@ import MSExtension
 @MainActor
 public struct MSLargeButton<ColorStyle: ColorSet>: View {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static var imagePadding: CGFloat { 8.0 }
+    }
+
+    // MARK: Properties
+
+    let title: String
+    let image: Image?
+    let cornerStyle: MSLargeButtonStyle.CornerStyle
+    let colorStyle: ColorStyle
+    let action: () -> Void
+
+    // MARK: Content
+
     // MARK: Public
 
     // MARK: - Body
@@ -33,25 +53,11 @@ public struct MSLargeButton<ColorStyle: ColorSet>: View {
         .buttonStyle(
             MSLargeButtonStyle(
                 cornerStyle: cornerStyle,
-                colorStyle: colorStyle))
+                colorStyle: colorStyle
+            )
+        )
     }
 
     // MARK: Internal
-
-    // MARK: - Properties
-
-    let title: String
-    let image: Image?
-    let cornerStyle: MSLargeButtonStyle.CornerStyle
-    let colorStyle: ColorStyle
-    let action: () -> Void
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static var imagePadding: CGFloat { 8.0 }
-    }
 
 }

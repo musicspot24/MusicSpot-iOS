@@ -21,6 +21,18 @@ public struct ErrorResponseDTO {
 
 extension ErrorResponseDTO: Decodable {
 
+    // MARK: Nested Types
+
+    // MARK: Internal
+
+    enum CodingKeys: String, CodingKey {
+        case method
+        case path
+        case timestamp
+        case message
+        case statusCode
+    }
+
     // MARK: Lifecycle
 
     public init(from decoder: Decoder) throws {
@@ -39,16 +51,6 @@ extension ErrorResponseDTO: Decodable {
             message = ""
         }
         statusCode = try container.decode(Int.self, forKey: .statusCode)
-    }
-
-    // MARK: Internal
-
-    enum CodingKeys: String, CodingKey {
-        case method
-        case path
-        case timestamp
-        case message
-        case statusCode
     }
 
 }

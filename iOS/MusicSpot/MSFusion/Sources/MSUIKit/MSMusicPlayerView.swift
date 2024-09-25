@@ -17,30 +17,15 @@ import MSLogger
 public protocol MSMusicPlayerViewDelegate: AnyObject {
     func musicPlayerView(
         _ musicPlayerView: MSMusicPlayerView,
-        didChangeStatus playbackStatus: MSMusicPlayerView.PlaybackStatus)
+        didChangeStatus playbackStatus: MSMusicPlayerView.PlaybackStatus
+    )
 }
 
 // MARK: - MSMusicPlayerView
 
 public final class MSMusicPlayerView: UIView {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        configureStyles()
-        configureLayout()
-        configureAction()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based 로 개발되었습니다.")
-    }
-
-    deinit { self.timer?.cancel() }
+    // MARK: Nested Types
 
     // MARK: Public
 
@@ -50,58 +35,6 @@ public final class MSMusicPlayerView: UIView {
         case playing
         case paused
         case stopped
-    }
-
-    // MARK: - Properties
-
-    public weak var delegate: MSMusicPlayerViewDelegate?
-
-    public var duration: TimeInterval?
-
-    public var title = "알 수 없는 음악" {
-        willSet { updateTitle(newValue) }
-    }
-
-    public var artist = "" {
-        willSet { updateArtist(newValue) }
-    }
-
-    public var albumArt: Data? {
-        willSet { updateAlbumArt(newValue) }
-    }
-
-    public func play(playbackTime: TimeInterval? = nil) {
-        if let playbackTime {
-            self.playbackTime = playbackTime
-        }
-
-        playbackStatus = .playing
-        timer = Timer.publish(every: Metric.progressingTimeInterval, on: .current, in: .common)
-            .autoconnect()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.playbackTime += Metric.progressingTimeInterval
-
-                if
-                    let playbackTime = self?.playbackTime,
-                    let duration = self?.duration,
-                    playbackTime >= duration,
-                    let self
-                {
-                    stop()
-                    delegate?.musicPlayerView(self, didChangeStatus: .stopped)
-                }
-            }
-    }
-
-    public func pause() {
-        playbackStatus = .paused
-        timer?.cancel()
-    }
-
-    public func stop() {
-        playbackStatus = .stopped
-        timer?.cancel()
     }
 
     // MARK: Private
@@ -124,6 +57,12 @@ public final class MSMusicPlayerView: UIView {
             static let iconSize: CGFloat = 24.0
         }
     }
+
+    // MARK: Properties
+
+    public weak var delegate: MSMusicPlayerViewDelegate?
+
+    public var duration: TimeInterval?
 
     private var timer: AnyCancellable?
 
@@ -197,6 +136,20 @@ public final class MSMusicPlayerView: UIView {
         return UIButton(configuration: configuration)
     }()
 
+    // MARK: Computed Properties
+
+    public var title = "알 수 없는 음악" {
+        willSet { updateTitle(newValue) }
+    }
+
+    public var artist = "" {
+        willSet { updateArtist(newValue) }
+    }
+
+    public var albumArt: Data? {
+        willSet { updateAlbumArt(newValue) }
+    }
+
     private var playbackStatus: PlaybackStatus = .stopped {
         willSet { updatePlayingStatus(to: newValue) }
     }
@@ -205,7 +158,59 @@ public final class MSMusicPlayerView: UIView {
         willSet { updatePlaybackTime(to: newValue) }
     }
 
-    // MARK: - Functions
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        configureStyles()
+        configureLayout()
+        configureAction()
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based 로 개발되었습니다.")
+    }
+
+    deinit { self.timer?.cancel() }
+
+    // MARK: Functions
+
+    public func play(playbackTime: TimeInterval? = nil) {
+        if let playbackTime {
+            self.playbackTime = playbackTime
+        }
+
+        playbackStatus = .playing
+        timer = Timer.publish(every: Metric.progressingTimeInterval, on: .current, in: .common)
+            .autoconnect()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.playbackTime += Metric.progressingTimeInterval
+
+                if
+                    let playbackTime = self?.playbackTime,
+                    let duration = self?.duration,
+                    playbackTime >= duration,
+                    let self
+                {
+                    stop()
+                    delegate?.musicPlayerView(self, didChangeStatus: .stopped)
+                }
+            }
+    }
+
+    public func pause() {
+        playbackStatus = .paused
+        timer?.cancel()
+    }
+
+    public func stop() {
+        playbackStatus = .stopped
+        timer?.cancel()
+    }
 
     private func updateTitle(_ title: String) {
         titleLabel.text = title
@@ -258,8 +263,8 @@ public final class MSMusicPlayerView: UIView {
                 delay: .zero,
                 usingSpringWithDamping: 0.5,
                 initialSpringVelocity: 0.2,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.progressViewWidthConstraint?.constant = desiredWidth
                 self.layoutIfNeeded()
             }
@@ -304,7 +309,8 @@ extension MSMusicPlayerView {
             albumCoverView.centerYAnchor.constraint(equalTo: centerYAnchor),
             albumCoverView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizonalInset),
+                constant: Metric.horizonalInset
+            ),
             albumCoverView.widthAnchor.constraint(equalToConstant: Metric.AlbumArtView.size),
             albumCoverView.heightAnchor.constraint(equalToConstant: Metric.AlbumArtView.size),
         ])
@@ -317,10 +323,12 @@ extension MSMusicPlayerView {
             titleStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleStackView.leadingAnchor.constraint(
                 equalTo: albumCoverView.trailingAnchor,
-                constant: Metric.horizonalInset),
+                constant: Metric.horizonalInset
+            ),
             titleStackView.trailingAnchor.constraint(
                 equalTo: playTimeStackView.leadingAnchor,
-                constant: -Metric.horizonalInset),
+                constant: -Metric.horizonalInset
+            ),
         ])
 
         [
@@ -339,7 +347,8 @@ extension MSMusicPlayerView {
             playTimeStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             playTimeStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizonalInset),
+                constant: -Metric.horizonalInset
+            ),
         ])
 
         [

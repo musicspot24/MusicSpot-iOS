@@ -14,27 +14,6 @@ import Observation
 @Observable
 public final class RewindService {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(
-        journey: Journey,
-        timerInterval: CGFloat = 0.1,
-        duration: CGFloat = 5.0)
-    {
-        selectedJourney = journey
-        self.timerInterval = timerInterval
-        progressDuration = duration
-        timer = Timer
-            .TimerPublisher(interval: timerInterval, runLoop: .main, mode: .common)
-            .autoconnect()
-    }
-
-    // MARK: Functions
-
-    // MARK: Public
-
     // MARK: Properties
 
     public var selectedJourney: Journey
@@ -49,6 +28,31 @@ public final class RewindService {
     /// 🔗 [`@Observable` + `package`  버그](https://github.com/swiftlang/swift/issues/71060)
     public var timer: Publishers.Autoconnect<Timer.TimerPublisher>
     public var timerProgress: CGFloat = .zero
+
+    // MARK: Private
+
+    private var cancellables: Set<AnyCancellable> = []
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init(
+        journey: Journey,
+        timerInterval: CGFloat = 0.1,
+        duration: CGFloat = 5.0
+    ) {
+        selectedJourney = journey
+        self.timerInterval = timerInterval
+        progressDuration = duration
+        timer = Timer
+            .TimerPublisher(interval: timerInterval, runLoop: .main, mode: .common)
+            .autoconnect()
+    }
+
+    // MARK: Public
+
+    // MARK: Functions
 
     // MARK: Package
 
@@ -65,9 +69,5 @@ public final class RewindService {
             timerProgress += (timerInterval / progressDuration)
         }
     }
-
-    // MARK: Private
-
-    private var cancellables: Set<AnyCancellable> = []
 
 }

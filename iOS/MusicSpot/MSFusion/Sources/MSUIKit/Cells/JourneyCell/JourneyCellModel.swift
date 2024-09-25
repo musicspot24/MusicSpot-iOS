@@ -21,8 +21,8 @@ public struct JourneyCellModel: Hashable {
     public init(
         id: UUID = UUID(),
         location: String,
-        date: Date)
-    {
+        date: Date
+    ) {
         self.id = id
         self.location = location
         self.date = date
@@ -32,9 +32,14 @@ public struct JourneyCellModel: Hashable {
 // MARK: - Hashable
 
 extension JourneyCellModel {
+
+    // MARK: Static Functions
+
     public static func == (lhs: JourneyCellModel, rhs: JourneyCellModel) -> Bool {
         lhs.id == rhs.id
     }
+
+    // MARK: Functions
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)

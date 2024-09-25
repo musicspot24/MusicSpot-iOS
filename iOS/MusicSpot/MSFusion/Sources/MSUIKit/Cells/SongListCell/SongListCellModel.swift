@@ -17,8 +17,8 @@ public struct SongListCellModel: Identifiable {
         id: String,
         title: String,
         artist: String,
-        albumArtURL: URL?)
-    {
+        albumArtURL: URL?
+    ) {
         self.id = id
         self.title = title
         self.artist = artist

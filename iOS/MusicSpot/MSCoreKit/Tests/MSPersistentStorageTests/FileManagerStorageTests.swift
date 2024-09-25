@@ -11,6 +11,12 @@ import XCTest
 
 final class MSPersistentStorageTests: XCTestCase {
 
+    // MARK: Properties
+
+    private let fileStorage = FileManagerStorage()
+
+    // MARK: Functions
+
     // MARK: Internal
 
     // MARK: - Setup
@@ -98,7 +104,8 @@ final class MSPersistentStorageTests: XCTestCase {
         XCTAssertEqual(
             sut,
             storedData,
-            "목표 데이터와 불러온 값이 다릅니다.")
+            "목표 데이터와 불러온 값이 다릅니다."
+        )
     }
 
     func test_FileManagerStorage에서_모든데이터저장불러오기_성공() {
@@ -151,13 +158,10 @@ final class MSPersistentStorageTests: XCTestCase {
         XCTAssertEqual(
             sut.description,
             storedData.description,
-            "목표 데이터와 불러온 값이 다릅니다.")
+            "목표 데이터와 불러온 값이 다릅니다."
+        )
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let fileStorage = FileManagerStorage()
 
 }

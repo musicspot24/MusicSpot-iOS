@@ -11,15 +11,28 @@ import RewindService
 
 struct CarouselView: View {
 
+    // MARK: Nested Types
+
+    private enum Metric {
+        static let carouselItemWidth: CGFloat = 40.0
+        static let carouselItemHeight: CGFloat = 60.0
+        static let carouselSpacing: CGFloat = 4.0
+    }
+
+    // MARK: Properties
+
+    // MARK: Internal
+
+    @Environment(RewindService.self) var service
+
+    @Binding private var selectedIndex: Int
+    @State private var contentOffsetX: CGFloat?
+
     // MARK: Lifecycle
 
     init(selectedIndex: Binding<Int>) {
         _selectedIndex = selectedIndex
     }
-
-    // MARK: Internal
-
-    @Environment(RewindService.self) var service
 
     // MARK: Content
 
@@ -38,7 +51,8 @@ struct CarouselView: View {
                             .itemFrame(
                                 width: Metric.carouselItemWidth,
                                 height: Metric.carouselItemHeight,
-                                spacing: Metric.carouselSpacing)
+                                spacing: Metric.carouselSpacing
+                            )
                     }
                 }
                 .scrollTargetLayout()
@@ -56,7 +70,8 @@ struct CarouselView: View {
                     }
                     .onEnded { _ in
                         updateTimer(numberOfPhotoURLs: photoURLs.count)
-                    })
+                    }
+            )
             .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($selectedIndex))
@@ -75,19 +90,6 @@ struct CarouselView: View {
     }
 
     // MARK: Private
-
-    // MARK: Nested Types
-
-    private enum Metric {
-        static let carouselItemWidth: CGFloat = 40.0
-        static let carouselItemHeight: CGFloat = 60.0
-        static let carouselSpacing: CGFloat = 4.0
-    }
-
-    // MARK: Properties
-
-    @Binding private var selectedIndex: Int
-    @State private var contentOffsetX: CGFloat?
 
     // MARK: Functions
 

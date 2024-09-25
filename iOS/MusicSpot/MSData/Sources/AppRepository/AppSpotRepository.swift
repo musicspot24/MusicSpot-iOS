@@ -16,6 +16,10 @@ import Repository
 
 public final class AppSpotRepository: SpotRepository {
 
+    // MARK: Properties
+
+    private let context: ModelContext
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -26,7 +30,7 @@ public final class AppSpotRepository: SpotRepository {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func addSpot(_ spot: Spot, to journey: Journey) throws {
         let id = journey.id
@@ -72,9 +76,5 @@ public final class AppSpotRepository: SpotRepository {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let context: ModelContext
 
 }

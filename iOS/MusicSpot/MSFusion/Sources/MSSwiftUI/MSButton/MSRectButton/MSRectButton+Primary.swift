@@ -16,13 +16,14 @@ extension MSRectPrimaryButton {
         title: String = "",
         image: Image? = nil,
         colorStyle: SecondaryColors,
-        action: @escaping () -> Void)
-    {
+        action: @escaping () -> Void
+    ) {
         self.init(
             title: title,
             image: image,
             style: MSRectPrimaryButtonStyle(colorStyle: colorStyle, scale: .large),
-            action: action)
+            action: action
+        )
     }
 }
 
@@ -42,7 +43,9 @@ public struct MSRectPrimaryButtonStyle: MSRectButtonStyle {
                 MSRectButtonModifier(
                     isPressed: configuration.isPressed,
                     scale: scale,
-                    colorStyle: colorStyle))
+                    colorStyle: colorStyle
+                )
+            )
             .font(.msFont(.buttonTitle))
     }
 }

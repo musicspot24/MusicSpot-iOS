@@ -10,6 +10,12 @@ import XCTest
 
 final class RouterTests: XCTestCase {
 
+    // MARK: Properties
+
+    private let encoder = JSONEncoder()
+
+    // MARK: Functions
+
     // MARK: Internal
 
     // MARK: - Tests
@@ -37,7 +43,8 @@ final class RouterTests: XCTestCase {
         XCTAssertEqual(
             request,
             URLRequest(url: url),
-            "BaseURL만 포함된 Router로 잘못된 URLRequest가 생성되었습니다.")
+            "BaseURL만 포함된 Router로 잘못된 URLRequest가 생성되었습니다."
+        )
     }
 
     func test_PathURL을포함하는_Router_생성_성공() {
@@ -154,9 +161,5 @@ final class RouterTests: XCTestCase {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let encoder = JSONEncoder()
 
 }

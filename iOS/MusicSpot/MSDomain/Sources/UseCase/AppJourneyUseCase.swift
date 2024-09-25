@@ -17,6 +17,11 @@ import SSOT
 
 public final class AppJourneyUseCase: JourneyUseCase {
 
+    // MARK: Properties
+
+    private let appState = StateContainer.default.appState
+    private let journeyRepository: JourneyRepository
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -27,7 +32,7 @@ public final class AppJourneyUseCase: JourneyUseCase {
 
     // MARK: Public
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func fetchJourneys(in region: Region) async throws(JourneyError) -> [Journey] { // swiftlint:disable:this all
         do {
@@ -52,7 +57,7 @@ public final class AppJourneyUseCase: JourneyUseCase {
     @discardableResult
     public func beginJourney(startAt coordinate: Coordinate) async throws -> Journey {
         // 새로운 여정 생성
-        let journey = createNewJourney(startingAt: consume coordinate)
+        let journey = createNewJourney(startingAt: coordinate)
 
         // 생성된 여정 로컬에 저장
         return try await journeyRepository.updateJourney(consume journey)
@@ -125,10 +130,6 @@ public final class AppJourneyUseCase: JourneyUseCase {
 
     // MARK: Private
 
-    // MARK: - Properties
-
-    private let appState = StateContainer.default.appState
-    private let journeyRepository: JourneyRepository
 }
 
 // MARK: - Privates
@@ -142,6 +143,7 @@ extension AppJourneyUseCase {
             coordinates: [coordinate],
             spots: [],
             playlist: [],
-            isTraveling: true)
+            isTraveling: true
+        )
     }
 }

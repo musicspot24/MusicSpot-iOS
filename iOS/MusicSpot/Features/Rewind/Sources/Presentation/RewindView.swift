@@ -13,6 +13,12 @@ import RewindService
 
 public struct RewindView: View {
 
+    // MARK: Properties
+
+    @Environment(RewindService.self) var service
+
+    @State var selectedIndex: Int = .zero
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -52,11 +58,5 @@ public struct RewindView: View {
     }
 
     // MARK: Internal
-
-    // MARK: Properties
-
-    @Environment(RewindService.self) var service
-
-    @State var selectedIndex: Int = .zero
 
 }

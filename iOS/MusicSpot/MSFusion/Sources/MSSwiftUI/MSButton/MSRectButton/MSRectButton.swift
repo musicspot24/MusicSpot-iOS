@@ -11,6 +11,13 @@ import SwiftUI
 
 public struct MSRectButton<Style: MSRectButtonStyle>: View {
 
+    // MARK: Properties
+
+    let title: String
+    let image: Image?
+    let action: () -> Void
+    let style: Style
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -19,13 +26,15 @@ public struct MSRectButton<Style: MSRectButtonStyle>: View {
         title: String = "",
         image: Image? = nil,
         style: Style,
-        action: @escaping () -> Void)
-    {
+        action: @escaping () -> Void
+    ) {
         self.title = title
         self.image = image
         self.style = style
         self.action = action
     }
+
+    // MARK: Content
 
     // MARK: Public
 
@@ -49,13 +58,6 @@ public struct MSRectButton<Style: MSRectButtonStyle>: View {
     }
 
     // MARK: Internal
-
-    // MARK: - Properties
-
-    let title: String
-    let image: Image?
-    let action: () -> Void
-    let style: Style
 
 }
 

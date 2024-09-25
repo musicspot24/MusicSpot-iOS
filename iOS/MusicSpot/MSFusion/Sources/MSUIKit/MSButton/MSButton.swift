@@ -13,19 +13,7 @@ import MSDesignSystem
 
 public class MSButton: UIButton {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    private override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureStyles()
-        configureLayout()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
+    // MARK: Nested Types
 
     // MARK: Public
 
@@ -43,7 +31,24 @@ public class MSButton: UIButton {
         }
     }
 
-    // MARK: - Properties
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static let height: CGFloat = 60.0
+        static let horizontalEdgeInsets: CGFloat = 58.0
+        static let verticalEdgeInsets: CGFloat = 10.0
+        static let imagePadding: CGFloat = 8.0
+    }
+
+    // MARK: Properties
+
+    // MARK: Internal
+
+    var haptic: UIFeedbackGenerator?
+
+    // MARK: Computed Properties
 
     public var title: String? {
         didSet { configureTitle(title) }
@@ -57,20 +62,21 @@ public class MSButton: UIButton {
         didSet { configureCornerStyle(cornerStyle) }
     }
 
-    // MARK: Internal
+    // MARK: Lifecycle
 
-    var haptic: UIFeedbackGenerator?
-
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static let height: CGFloat = 60.0
-        static let horizontalEdgeInsets: CGFloat = 58.0
-        static let verticalEdgeInsets: CGFloat = 10.0
-        static let imagePadding: CGFloat = 8.0
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
+
+    // MARK: - Initializer
+
+    private override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureStyles()
+        configureLayout()
+    }
+
+    // MARK: Functions
 
     // MARK: - UI Configuration
 
@@ -80,7 +86,8 @@ public class MSButton: UIButton {
             top: Metric.verticalEdgeInsets,
             leading: Metric.horizontalEdgeInsets,
             bottom: Metric.verticalEdgeInsets,
-            trailing: Metric.horizontalEdgeInsets)
+            trailing: Metric.horizontalEdgeInsets
+        )
         configuration.imagePlacement = .leading
         configuration.imagePadding = Metric.imagePadding
         configuration.titleAlignment = .center

@@ -11,6 +11,13 @@ import Foundation
 
 public struct Spot: Identifiable {
 
+    // MARK: Properties
+
+    public let id: String
+    public let coordinate: Coordinate
+    public let timestamp: Date
+    public let photoURLs: [URL]
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -19,8 +26,8 @@ public struct Spot: Identifiable {
         id: String,
         coordinate: Coordinate,
         timestamp: Date,
-        photoURLs: [URL])
-    {
+        photoURLs: [URL]
+    ) {
         self.id = id
         self.coordinate = coordinate
         self.timestamp = timestamp
@@ -28,13 +35,6 @@ public struct Spot: Identifiable {
     }
 
     // MARK: Public
-
-    // MARK: - Properties
-
-    public let id: String
-    public let coordinate: Coordinate
-    public let timestamp: Date
-    public let photoURLs: [URL]
 
 }
 

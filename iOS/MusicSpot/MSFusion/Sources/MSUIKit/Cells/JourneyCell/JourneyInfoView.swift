@@ -13,40 +13,7 @@ import MSDesignSystem
 
 final class JourneyInfoView: UIView {
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configureLayout()
-    }
-
-    required init?(coder _: NSCoder) {
-        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
-    }
-
-    // MARK: Internal
-
-    // MARK: - Functions
-
-    func update(
-        location: String,
-        date: Date,
-        w3w: String = "",
-        title: String?,
-        artist: String?)
-    {
-        titleLabel.text = location
-        dateLabel.text = date.formatted(date: .abbreviated, time: .omitted)
-        w3wLabel.text = w3w
-        if let title, let artist {
-            musicInfoView.update(artist: artist, title: title)
-            musicInfoView.isHidden = false
-        } else {
-            musicInfoView.isHidden = true
-        }
-    }
+    // MARK: Nested Types
 
     // MARK: Private
 
@@ -57,6 +24,8 @@ final class JourneyInfoView: UIView {
         static let labelStackSpacing: CGFloat = 4.0
         static let subLabelStackSpacing: CGFloat = 8.0
     }
+
+    // MARK: Properties
 
     // MARK: - UI Components
 
@@ -109,6 +78,41 @@ final class JourneyInfoView: UIView {
     }()
 
     private let musicInfoView = MusicInfoView()
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureLayout()
+    }
+
+    required init?(coder _: NSCoder) {
+        fatalError("MusicSpot은 code-based로만 작업 중입니다.")
+    }
+
+    // MARK: Internal
+
+    // MARK: Functions
+
+    func update(
+        location: String,
+        date: Date,
+        w3w: String = "",
+        title: String?,
+        artist: String?
+    ) {
+        titleLabel.text = location
+        dateLabel.text = date.formatted(date: .abbreviated, time: .omitted)
+        w3wLabel.text = w3w
+        if let title, let artist {
+            musicInfoView.update(artist: artist, title: title)
+            musicInfoView.isHidden = false
+        } else {
+            musicInfoView.isHidden = true
+        }
+    }
 
 }
 

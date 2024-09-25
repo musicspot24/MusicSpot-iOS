@@ -11,6 +11,24 @@ import Foundation
 
 public struct Journey: Identifiable {
 
+    // MARK: Properties
+
+    public let id: String
+    public private(set) var title: String?
+    public private(set) var date: Timestamp
+    public private(set) var spots: [Spot]
+    public private(set) var coordinates: [Coordinate]
+    public private(set) var playlist: [Music]
+    public private(set) var isTraveling: Bool
+
+    // MARK: Computed Properties
+
+    /// 여정에 저장된 모든 사진/영상의 URL
+    // TODO: 영상 추가 후 네이밍 변경
+    public var photoURLs: [URL] {
+        spots.flatMap(\.photoURLs)
+    }
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -22,8 +40,8 @@ public struct Journey: Identifiable {
         coordinates: [Coordinate],
         spots: [Spot],
         playlist: [Music],
-        isTraveling: Bool)
-    {
+        isTraveling: Bool
+    ) {
         self.id = id
         self.title = title
         self.date = date
@@ -34,22 +52,6 @@ public struct Journey: Identifiable {
     }
 
     // MARK: Public
-
-    // MARK: - Properties
-
-    public let id: String
-    public private(set) var title: String?
-    public private(set) var date: Timestamp
-    public private(set) var spots: [Spot]
-    public private(set) var coordinates: [Coordinate]
-    public private(set) var playlist: [Music]
-    public private(set) var isTraveling: Bool
-
-    /// 여정에 저장된 모든 사진/영상의 URL
-    // TODO: 영상 추가 후 네이밍 변경
-    public var photoURLs: [URL] {
-        spots.flatMap(\.photoURLs)
-    }
 
 }
 
@@ -69,9 +71,14 @@ extension Journey {
 // MARK: Hashable
 
 extension Journey: Hashable {
+
+    // MARK: Static Functions
+
     public static func == (lhs: Journey, rhs: Journey) -> Bool {
         lhs.id == rhs.id
     }
+
+    // MARK: Functions
 
     public func hash(into hasher: inout Hasher) {
         hasher.combine(id)
@@ -110,7 +117,8 @@ extension Journey {
             ]),
         ],
         playlist: [],
-        isTraveling: true)
+        isTraveling: true
+    )
 }
 
 // MARK: CustomStringConvertible

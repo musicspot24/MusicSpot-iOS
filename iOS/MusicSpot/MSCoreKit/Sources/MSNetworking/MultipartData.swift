@@ -11,6 +11,23 @@ import MSLogger
 
 public struct MultipartData {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public enum ContentType {
+        case string
+        case image
+    }
+
+    // MARK: Properties
+
+    public let name: String
+    public let content: Encodable
+
+    private let type: ContentType
+    private let imageType = "jpeg"
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -21,17 +38,7 @@ public struct MultipartData {
         self.content = content
     }
 
-    // MARK: Public
-
-    public enum ContentType {
-        case string
-        case image
-    }
-
-    public let name: String
-    public let content: Encodable
-
-    // MARK: - Functions
+    // MARK: Functions
 
     public func contentInformation(using _: JSONEncoder) -> [Data] {
         var dataStorage: [Data] = []
@@ -70,11 +77,6 @@ public struct MultipartData {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let type: ContentType
-    private let imageType = "jpeg"
 
     // MARK: - Data Convert
 

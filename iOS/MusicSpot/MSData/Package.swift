@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     static let package = "MSData"
+
+    // MARK: Computed Properties
 
     var testTarget: String {
         self + "Tests"
@@ -56,27 +61,33 @@ let package = Package(
     products: [
         .library(
             name: Target.dataSource,
-            targets: [Target.dataSource]),
+            targets: [Target.dataSource]
+        ),
         .library(
             name: Target.repository,
             targets: [
                 Target.appRepository,
                 Target.remoteRepository,
-            ]),
+            ]
+        ),
     ],
     dependencies: [
         .package(
             name: Dependency.msDomain,
-            path: Dependency.msDomain.fromRootPath),
+            path: Dependency.msDomain.fromRootPath
+        ),
         .package(
             name: Dependency.msCoreKit,
-            path: Dependency.msCoreKit.fromRootPath),
+            path: Dependency.msCoreKit.fromRootPath
+        ),
         .package(
             name: Dependency.msFoundation,
-            path: Dependency.msFoundation.fromRootPath),
+            path: Dependency.msFoundation.fromRootPath
+        ),
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"),
+            from: "0.55.1"
+        ),
     ],
     targets: [
         .target(
@@ -85,49 +96,63 @@ let package = Package(
                 .target(name: Target.dataSource),
                 .product(
                     name: Dependency.msDomain,
-                    package: Dependency.msDomain),
+                    package: Dependency.msDomain
+                ),
                 .product(
                     name: Dependency.msImageFetcher,
-                    package: Dependency.msCoreKit),
+                    package: Dependency.msCoreKit
+                ),
                 .product(
                     name: Dependency.msUserDefaults,
-                    package: Dependency.msFoundation),
+                    package: Dependency.msFoundation
+                ),
                 .product(
                     name: Dependency.msFoundation,
-                    package: Dependency.msFoundation),
+                    package: Dependency.msFoundation
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.remoteRepository,
             dependencies: [
                 .product(
                     name: Dependency.msDomain,
-                    package: Dependency.msDomain),
+                    package: Dependency.msDomain
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.dataSource,
             dependencies: [
                 .product(
                     name: Dependency.entity,
-                    package: Dependency.msDomain),
+                    package: Dependency.msDomain
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .testTarget(
             name: Target.appRepository.testTarget,
             dependencies: [
                 .target(name: Target.appRepository),
-            ]),
-    ])
+            ]
+        ),
+    ]
+)

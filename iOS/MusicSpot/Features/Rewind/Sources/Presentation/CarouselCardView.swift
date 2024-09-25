@@ -11,6 +11,22 @@ import SwiftUI
 
 struct CarouselCardView: View {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    // MARK: - Constants
+
+    private enum Metric {
+        static let carouselItemMinScaleFactor: CGFloat = 1.0
+        static let carouselItemMaxScaleFactor: CGFloat = 2.0
+        static let carouselItemCornerRadius: CGFloat = 8.0
+    }
+
+    // MARK: Properties
+
+    private let photoURL: URL
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -18,6 +34,8 @@ struct CarouselCardView: View {
     init(photoURL: URL) {
         self.photoURL = photoURL
     }
+
+    // MARK: Content
 
     // MARK: Internal
 
@@ -40,20 +58,6 @@ struct CarouselCardView: View {
         }
     }
 
-    // MARK: Private
-
-    // MARK: - Constants
-
-    private enum Metric {
-        static let carouselItemMinScaleFactor: CGFloat = 1.0
-        static let carouselItemMaxScaleFactor: CGFloat = 2.0
-        static let carouselItemCornerRadius: CGFloat = 8.0
-    }
-
-    // MARK: - Properties
-
-    private let photoURL: URL
-
 }
 
 // MARK: - Extension
@@ -64,22 +68,31 @@ extension CarouselCardView {
         height: CGFloat? = nil,
         spacing: CGFloat? = nil,
         minScale: CGFloat = Metric.carouselItemMinScaleFactor,
-        maxScale: CGFloat = Metric.carouselItemMaxScaleFactor)
-        -> some View
-    {
+        maxScale: CGFloat = Metric.carouselItemMaxScaleFactor
+    ) -> some View {
         modifier(
             CarouselItemFrameModifier(
                 width: width ?? .zero,
                 height: height ?? .zero,
                 spacing: spacing ?? .zero,
                 minScale: minScale,
-                maxScale: maxScale))
+                maxScale: maxScale
+            )
+        )
     }
 }
 
 // MARK: - CarouselItemFrameModifier
 
 private struct CarouselItemFrameModifier: ViewModifier {
+
+    // MARK: Properties
+
+    private let width: CGFloat
+    private let height: CGFloat
+    private let spacing: CGFloat
+    private let minScale: CGFloat
+    private let maxScale: CGFloat
 
     // MARK: Lifecycle
 
@@ -90,14 +103,16 @@ private struct CarouselItemFrameModifier: ViewModifier {
         height: CGFloat,
         spacing: CGFloat,
         minScale: CGFloat,
-        maxScale: CGFloat)
-    {
+        maxScale: CGFloat
+    ) {
         self.width = width
         self.height = height
         self.spacing = spacing
         self.minScale = minScale
         self.maxScale = maxScale
     }
+
+    // MARK: Content
 
     // MARK: Internal
 
@@ -126,13 +141,5 @@ private struct CarouselItemFrameModifier: ViewModifier {
     }
 
     // MARK: Private
-
-    // MARK: - Properties
-
-    private let width: CGFloat
-    private let height: CGFloat
-    private let spacing: CGFloat
-    private let minScale: CGFloat
-    private let maxScale: CGFloat
 
 }

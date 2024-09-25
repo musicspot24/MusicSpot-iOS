@@ -11,6 +11,8 @@ import MSDesignSystem
 
 open class BaseViewController: UIViewController {
 
+    // MARK: Overridden Functions
+
     // MARK: Open
 
     open override func viewDidLoad() {
@@ -19,6 +21,8 @@ open class BaseViewController: UIViewController {
         configureStyle()
         configureLayout()
     }
+
+    // MARK: Functions
 
     /// CornerRadius, 색상 등의 변경을 포함합니다.
     open func configureStyle() {
@@ -35,7 +39,8 @@ open class BaseViewController: UIViewController {
             top: 24.0,
             left: 16.0,
             bottom: 24.0,
-            right: 16.0)
+            right: 16.0
+        )
         additionalSafeAreaInsets = safeAreaInsets
     }
 }

@@ -27,8 +27,13 @@ import SwiftUI
 @MainActor
 @Observable
 public final class Router {
+
+    // MARK: Properties
+
     /// 목적지 목록을 보관하는 `NavigationPath`
     public var navigationPath = NavigationPath()
+
+    // MARK: Functions
 
     /// 목적 View로 이동합니다. `Destination` enum 타입에 목적지를 추가한 뒤 사용할 수 있습니다.
     public func navigate(to destination: Destination) {

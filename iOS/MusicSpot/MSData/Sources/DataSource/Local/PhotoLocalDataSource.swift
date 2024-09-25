@@ -13,13 +13,21 @@ import Entity
 @Model
 public final class PhotoLocalDataSource: EntityConvertible {
 
+    // MARK: Nested Types
+
+    // MARK: Public
+
+    public typealias Entity = URL
+
+    // MARK: Properties
+
+    // MARK: - Relationships
+
+    public var spot: SpotLocalDataSource?
+
+    public var url: URL
+
     // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    init(url: URL) {
-        self.url = url
-    }
 
     // MARK: - Entity Convertible
 
@@ -27,17 +35,13 @@ public final class PhotoLocalDataSource: EntityConvertible {
         url = entity
     }
 
-    // MARK: Public
+    // MARK: - Initializer
 
-    public typealias Entity = URL
+    init(url: URL) {
+        self.url = url
+    }
 
-    // MARK: - Relationships
-
-    public var spot: SpotLocalDataSource?
-
-    // MARK: - Properties
-
-    public var url: URL
+    // MARK: Functions
 
     public func toEntity() -> URL {
         url

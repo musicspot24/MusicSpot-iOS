@@ -15,8 +15,8 @@ struct MockCodableData: Codable, Equatable {
     init(
         id: UUID = UUID(),
         title: String,
-        content: String)
-    {
+        content: String
+    ) {
         self.id = id
         self.title = title
         self.content = content

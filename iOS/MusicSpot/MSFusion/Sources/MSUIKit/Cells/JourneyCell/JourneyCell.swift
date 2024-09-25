@@ -15,6 +15,48 @@ import MSImageFetcher
 
 public final class JourneyCell: UICollectionViewCell {
 
+    // MARK: Nested Types
+
+    // MARK: Private
+
+    private enum Metric {
+        static let cornerRadius: CGFloat = 12.0
+        static let spacing: CGFloat = 5.0
+        static let verticalInset: CGFloat = 20.0
+        static let horizontalInset: CGFloat = 16.0
+    }
+
+    // MARK: Static Properties
+
+    // MARK: Public
+
+    // MARK: - Constants
+
+    public static let estimatedHeight: CGFloat = 268.0
+
+    // MARK: Properties
+
+    // MARK: Internal
+
+    let spotImageStack: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = Metric.spacing
+        return stackView
+    }()
+
+    // MARK: - UI Components
+
+    private let infoView = JourneyInfoView()
+
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.alwaysBounceHorizontal = true
+        return scrollView
+    }()
+
     // MARK: Lifecycle
 
     // MARK: - Initializer
@@ -29,11 +71,7 @@ public final class JourneyCell: UICollectionViewCell {
         fatalError("MusicSpot은 code-based로만 작업 중입니다.")
     }
 
-    // MARK: Public
-
-    // MARK: - Constants
-
-    public static let estimatedHeight: CGFloat = 268.0
+    // MARK: Overridden Functions
 
     public override func prepareForReuse() {
         for arrangedSubview in spotImageStack.arrangedSubviews {
@@ -41,7 +79,7 @@ public final class JourneyCell: UICollectionViewCell {
         }
     }
 
-    // MARK: - Functions
+    // MARK: Functions
 
     public func update(with model: JourneyCellModel) {
         // TODO: 바뀐 Journey 적용
@@ -49,7 +87,8 @@ public final class JourneyCell: UICollectionViewCell {
             location: model.location,
             date: model.date,
             title: nil,
-            artist: nil)
+            artist: nil
+        )
     }
 
     public func updateImages(with photoURLs: [URL], for indexPath: IndexPath) {
@@ -82,36 +121,6 @@ public final class JourneyCell: UICollectionViewCell {
         photoView.imageView.ms.setImage(with: imageURL, forKey: imageURL.paath())
     }
 
-    // MARK: Internal
-
-    let spotImageStack: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = Metric.spacing
-        return stackView
-    }()
-
-    // MARK: Private
-
-    private enum Metric {
-        static let cornerRadius: CGFloat = 12.0
-        static let spacing: CGFloat = 5.0
-        static let verticalInset: CGFloat = 20.0
-        static let horizontalInset: CGFloat = 16.0
-    }
-
-    // MARK: - UI Components
-
-    private let infoView = JourneyInfoView()
-
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.alwaysBounceHorizontal = true
-        return scrollView
-    }()
-
 }
 
 // MARK: - UI Configuration
@@ -129,13 +138,16 @@ extension JourneyCell {
         NSLayoutConstraint.activate([
             infoView.topAnchor.constraint(
                 equalTo: topAnchor,
-                constant: Metric.verticalInset),
+                constant: Metric.verticalInset
+            ),
             infoView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             infoView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
         ])
 
         addSubview(scrollView)
@@ -143,16 +155,20 @@ extension JourneyCell {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(
                 equalTo: infoView.bottomAnchor,
-                constant: Metric.spacing),
+                constant: Metric.spacing
+            ),
             scrollView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             scrollView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
             scrollView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
-                constant: -Metric.verticalInset),
+                constant: -Metric.verticalInset
+            ),
         ])
 
         scrollView.addSubview(spotImageStack)

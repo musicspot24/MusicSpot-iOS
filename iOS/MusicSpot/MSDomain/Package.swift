@@ -6,7 +6,12 @@ import PackageDescription
 // MARK: - Constants
 
 extension String {
+
+    // MARK: Static Properties
+
     static let package = "MSDomain"
+
+    // MARK: Computed Properties
 
     var fromRootPath: String {
         "../" + self
@@ -41,22 +46,26 @@ let package = Package(
     products: [
         .library(
             name: Target.entity,
-            targets: [Target.entity]),
+            targets: [Target.entity]
+        ),
         .library(
             name: Target.msDomain,
             targets: [
                 Target.repository,
                 Target.singleSource,
                 Target.usecase,
-            ]),
+            ]
+        ),
     ],
     dependencies: [
         .package(
             name: Dependency.msFoundation,
-            path: Dependency.msFoundation.fromRootPath),
+            path: Dependency.msFoundation.fromRootPath
+        ),
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"),
+            from: "0.55.1"
+        ),
     ],
     targets: [
         .target(name: Target.entity),
@@ -68,24 +77,30 @@ let package = Package(
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.singleSource,
             dependencies: [
                 .target(name: Target.entity),
                 .product(
                     name: Dependency.msUserDefaults,
-                    package: Dependency.msFoundation),
+                    package: Dependency.msFoundation
+                ),
                 .product(
                     name: Dependency.msFoundation,
-                    package: Dependency.msFoundation),
+                    package: Dependency.msFoundation
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.usecase,
             dependencies: [
@@ -94,11 +109,15 @@ let package = Package(
                 .target(name: Target.singleSource),
                 .product(
                     name: Dependency.msFoundation,
-                    package: Dependency.msFoundation),
+                    package: Dependency.msFoundation
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
-    ])
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
+    ]
+)
