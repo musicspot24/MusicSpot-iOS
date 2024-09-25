@@ -38,7 +38,7 @@ private struct ScrollOffsetTracker: ViewModifier {
 // MARK: - ScrollOffsetPreferenceKey
 
 private struct ScrollOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGPoint? = nil
+    static var defaultValue: CGPoint?
     static func reduce(value: inout CGPoint?, nextValue: () -> CGPoint?) {
         // nextValue는 여러 곳의 변화들이 들어오면 그 값들을 모아서 하나에 적용하기 위한 값
         // 변화하는 View가 1개라면 defaultValue만 들어온다.

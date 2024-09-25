@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var service: RewindService
 
     init(selectedJourney: Journey) {
-        self.service = RewindService(journey: selectedJourney)
+        service = RewindService(journey: selectedJourney)
     }
 
     var body: some View {
