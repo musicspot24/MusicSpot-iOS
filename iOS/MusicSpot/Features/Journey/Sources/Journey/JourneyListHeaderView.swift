@@ -115,13 +115,16 @@ extension JourneyListHeaderView {
             titleStack.topAnchor.constraint(equalTo: topAnchor),
             titleStack.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             titleStack.bottomAnchor.constraint(
                 lessThanOrEqualTo: bottomAnchor,
-                constant: -Metric.verticalInset),
+                constant: -Metric.verticalInset
+            ),
             titleStack.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
         ])
     }
 }

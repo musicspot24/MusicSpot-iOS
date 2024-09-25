@@ -13,13 +13,14 @@ extension MSRectSecondaryButton {
     public init(
         image: Image?,
         colorStyle: SecondaryColors = .default,
-        action: @escaping () -> Void)
-    {
+        action: @escaping () -> Void
+    ) {
         self.init(
             title: "",
             image: image,
             style: MSRectSecondaryButtonStyle(colorStyle: colorStyle, scale: .small),
-            action: action)
+            action: action
+        )
     }
 }
 
@@ -39,6 +40,8 @@ public struct MSRectSecondaryButtonStyle: MSRectButtonStyle {
                 MSRectButtonModifier(
                     isPressed: configuration.isPressed,
                     scale: scale,
-                    colorStyle: colorStyle))
+                    colorStyle: colorStyle
+                )
+            )
     }
 }

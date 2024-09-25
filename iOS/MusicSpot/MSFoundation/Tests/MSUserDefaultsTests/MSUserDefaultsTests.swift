@@ -33,7 +33,8 @@ final class MSUserDefaultsTests: XCTestCase {
 
         XCTAssertTrue(
             sut.isEqual(to: fake),
-            "UserDefaults로 저장한 값과 로드한 값이 일치하지 않습니다.")
+            "UserDefaults로 저장한 값과 로드한 값이 일치하지 않습니다."
+        )
     }
 
 }

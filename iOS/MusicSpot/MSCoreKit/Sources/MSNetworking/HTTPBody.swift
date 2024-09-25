@@ -44,8 +44,8 @@ public struct HTTPBody {
         type: BodyType = .normal,
         boundary: String? = nil,
         content: Encodable? = nil,
-        multipartData: [MultipartData]? = nil)
-    {
+        multipartData: [MultipartData]? = nil
+    ) {
         self.type = type
         self.boundary = boundary
         self.content = content

@@ -57,7 +57,8 @@ extension Home: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8.0))
                         .shadow(
                             color: .msColor(.secondaryButtonTypo).opacity(0.3),
-                            radius: 2.5, x: .zero, y: 2.0)
+                            radius: 2.5, x: .zero, y: 2.0
+                        )
                 }
                 .padding()
 
@@ -67,12 +68,15 @@ extension Home: View {
                         self.perform(.startButtonDidTap)
                     }
                     .opacity(
-                        self.sheetHeight >= (proxy.size.height / 2) ? .zero : 1.0)
+                        self.sheetHeight >= (proxy.size.height / 2) ? .zero : 1.0
+                    )
                     .offset(
                         // Button center - Button height / 2 - Padding
                         y: -(
                             min(self.sheetHeight, proxy.size.height / 2) +
-                                MSLargeButtonStyle.Metric.height / 2 + Metric.startButtonBottomPadding))
+                                MSLargeButtonStyle.Metric.height / 2 + Metric.startButtonBottomPadding
+                        )
+                    )
                     .animation(.snappy(duration: 0.3), value: self.sheetHeight)
                 }
                 .frame(maxWidth: .infinity)

@@ -11,8 +11,21 @@ import MSExtension
 import MSSwiftUI
 import RewindService
 
-@MainActor
-extension RewindView: View {
+public struct RewindView: View {
+
+    // MARK: Properties
+
+    @Environment(RewindService.self) var service
+
+    @State var selectedIndex: Int = .zero
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init() { }
+
+    // MARK: Content
 
     // MARK: Nested Types
 
@@ -36,11 +49,13 @@ extension RewindView: View {
 
     // MARK: Public
 
+    // MARK: - Body
+
     public var body: some View {
         let photoURLs = service.selectedJourney.spots.flatMap(\.photoURLs)
 
         // TODO: Cache 가능한 형태로 변경
-        AsyncImage(url: photoURLs[safe: currentIndex]) { phase in
+        AsyncImage(url: photoURLs[safe: selectedIndex]) { phase in
             switch phase {
             case .empty:
                 ProgressView()
@@ -57,19 +72,12 @@ extension RewindView: View {
         .ignoresSafeArea()
         .background(.black)
         .overlay(alignment: .bottom) {
-            imageCarouselView()
-        }
-        .onReceive(service.timer) { _ in
-            if service.timerProgress < CGFloat(photoURLs.count) {
-                // timer duration 0.1
-                service.timerProgress += (0.1 / Metric.progressDuration)
-                let index = min(Int(service.timerProgress), photoURLs.count - 1)
-                currentIndex = consume index
-            } else { // 종료
-                // TODO: 모든 미디어 출력 후 행동 구현
-            }
+            CarouselView(selectedIndex: $selectedIndex)
+                .environment(service)
         }
     }
+
+    // MARK: Internal
 
     // MARK: - View
 

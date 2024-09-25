@@ -113,7 +113,8 @@ open class MSAlertViewController: UIViewController {
             top: Metric.cancelButtonVerticalInset,
             leading: Metric.cancelButtonHorizontalInset,
             bottom: Metric.cancelButtonVerticalInset,
-            trailing: Metric.cancelButtonHorizontalInset)
+            trailing: Metric.cancelButtonHorizontalInset
+        )
         return button
     }()
 
@@ -128,12 +129,14 @@ open class MSAlertViewController: UIViewController {
     /// Gesture
     private lazy var tapGesture = UITapGestureRecognizer(
         target: self,
-        action: #selector(self.dismissBottomSheet))
+        action: #selector(self.dismissBottomSheet)
+    )
 
     private lazy var panGesture: UIPanGestureRecognizer = {
         let panGesture = UIPanGestureRecognizer(
             target: self,
-            action: #selector(self.handlePanGesture(_:)))
+            action: #selector(self.handlePanGesture(_:))
+        )
         panGesture.delaysTouchesBegan = false
         panGesture.delaysTouchesEnded = false
         return panGesture
@@ -293,7 +296,8 @@ open class MSAlertViewController: UIViewController {
     private func configureConstraints() {
         let bottomInset = containerView.bottomAnchor.constraint(
             equalTo: view.keyboardLayoutGuide.topAnchor,
-            constant: Metric.bottomSheetHeight)
+            constant: Metric.bottomSheetHeight
+        )
         let heightConstraint = containerView.heightAnchor.constraint(equalToConstant: Metric.bottomSheetHeight)
         NSLayoutConstraint.activate([
             dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -303,11 +307,13 @@ open class MSAlertViewController: UIViewController {
 
             containerView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             bottomInset,
             containerView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
             heightConstraint,
         ])
         containerViewBottomInset = bottomInset
@@ -319,27 +325,34 @@ open class MSAlertViewController: UIViewController {
             resizeIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             resizeIndicator.topAnchor.constraint(
                 equalTo: containerView.topAnchor,
-                constant: Metric.ResizeIndicator.topSpacing),
+                constant: Metric.ResizeIndicator.topSpacing
+            ),
 
             titleStack.topAnchor.constraint(
                 equalTo: containerView.topAnchor,
-                constant: Metric.verticalInset),
+                constant: Metric.verticalInset
+            ),
             titleStack.leadingAnchor.constraint(
                 equalTo: containerView.leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             titleStack.trailingAnchor.constraint(
                 equalTo: containerView.trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
 
             buttonStack.leadingAnchor.constraint(
                 equalTo: containerView.leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             buttonStack.bottomAnchor.constraint(
                 equalTo: containerView.bottomAnchor,
-                constant: -Metric.verticalInset / 2),
+                constant: -Metric.verticalInset / 2
+            ),
             buttonStack.trailingAnchor.constraint(
                 equalTo: containerView.trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
         ])
     }
 

@@ -42,7 +42,8 @@ final class MSConcurrencyNetworkingTests: XCTestCase {
                 url: URL(string: "https://api.codesquad.kr")!,
                 statusCode: 200,
                 httpVersion: nil,
-                headerFields: ["Content-Type": "application/json"])!
+                headerFields: ["Content-Type": "application/json"]
+            )!
             return (response, data)
         }
 
@@ -72,7 +73,8 @@ final class MSConcurrencyNetworkingTests: XCTestCase {
                 url: URL(string: "https://api.codesquad.kr")!,
                 statusCode: 404,
                 httpVersion: nil,
-                headerFields: ["Content-Type": "application/json"])!
+                headerFields: ["Content-Type": "application/json"]
+            )!
             return (response, Data())
         }
 

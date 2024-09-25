@@ -133,14 +133,16 @@ extension SongListCell {
             albumArtImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             albumArtImageView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
         ])
 
         songInfoStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             songInfoStack.leadingAnchor.constraint(
                 equalTo: albumArtImageView.trailingAnchor,
-                constant: Metric.horizontalSpacing),
+                constant: Metric.horizontalSpacing
+            ),
             songInfoStack.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
 
@@ -150,10 +152,12 @@ extension SongListCell {
             rightIconImageView.heightAnchor.constraint(equalToConstant: Metric.rightIconImageViewSize),
             rightIconImageView.leadingAnchor.constraint(
                 equalTo: songInfoStack.trailingAnchor,
-                constant: Metric.horizontalSpacing),
+                constant: Metric.horizontalSpacing
+            ),
             rightIconImageView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             rightIconImageView.centerYAnchor.constraint(equalTo: centerYAnchor),
         ])
 

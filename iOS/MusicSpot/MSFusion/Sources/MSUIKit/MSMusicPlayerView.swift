@@ -17,7 +17,8 @@ import MSLogger
 public protocol MSMusicPlayerViewDelegate: AnyObject {
     func musicPlayerView(
         _ musicPlayerView: MSMusicPlayerView,
-        didChangeStatus playbackStatus: MSMusicPlayerView.PlaybackStatus)
+        didChangeStatus playbackStatus: MSMusicPlayerView.PlaybackStatus
+    )
 }
 
 // MARK: - MSMusicPlayerView
@@ -262,8 +263,8 @@ public final class MSMusicPlayerView: UIView {
                 delay: .zero,
                 usingSpringWithDamping: 0.5,
                 initialSpringVelocity: 0.2,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.progressViewWidthConstraint?.constant = desiredWidth
                 self.layoutIfNeeded()
             }
@@ -308,7 +309,8 @@ extension MSMusicPlayerView {
             albumCoverView.centerYAnchor.constraint(equalTo: centerYAnchor),
             albumCoverView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizonalInset),
+                constant: Metric.horizonalInset
+            ),
             albumCoverView.widthAnchor.constraint(equalToConstant: Metric.AlbumArtView.size),
             albumCoverView.heightAnchor.constraint(equalToConstant: Metric.AlbumArtView.size),
         ])
@@ -321,10 +323,12 @@ extension MSMusicPlayerView {
             titleStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleStackView.leadingAnchor.constraint(
                 equalTo: albumCoverView.trailingAnchor,
-                constant: Metric.horizonalInset),
+                constant: Metric.horizonalInset
+            ),
             titleStackView.trailingAnchor.constraint(
                 equalTo: playTimeStackView.leadingAnchor,
-                constant: -Metric.horizonalInset),
+                constant: -Metric.horizonalInset
+            ),
         ])
 
         [
@@ -343,7 +347,8 @@ extension MSMusicPlayerView {
             playTimeStackView.centerYAnchor.constraint(equalTo: centerYAnchor),
             playTimeStackView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizonalInset),
+                constant: -Metric.horizonalInset
+            ),
         ])
 
         [

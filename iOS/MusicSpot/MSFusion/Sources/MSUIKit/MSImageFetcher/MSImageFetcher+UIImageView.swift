@@ -38,7 +38,8 @@ extension MSImageFetcherWrapper where Base: UIImageView {
 
     private func fetchImage(
         with imageURL: URL,
-        forKey key: String)
+        forKey key: String
+    )
         async -> Data?
     {
         await MSImageFetcher.shared.fetchImage(from: imageURL, forKey: key)

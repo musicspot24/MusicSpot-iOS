@@ -93,7 +93,8 @@ public final class MSRectButton: UIButton {
             top: Metric.edgeInsets,
             leading: Metric.edgeInsets,
             bottom: Metric.edgeInsets,
-            trailing: Metric.edgeInsets)
+            trailing: Metric.edgeInsets
+        )
         configuration.imagePlacement = .leading
         configuration.titleAlignment = .center
         self.configuration = configuration

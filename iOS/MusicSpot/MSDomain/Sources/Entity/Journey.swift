@@ -40,8 +40,8 @@ public struct Journey: Identifiable {
         coordinates: [Coordinate],
         spots: [Spot],
         playlist: [Music],
-        isTraveling: Bool)
-    {
+        isTraveling: Bool
+    ) {
         self.id = id
         self.title = title
         self.date = date
@@ -117,7 +117,8 @@ extension Journey {
             ]),
         ],
         playlist: [],
-        isTraveling: true)
+        isTraveling: true
+    )
 }
 
 // MARK: CustomStringConvertible

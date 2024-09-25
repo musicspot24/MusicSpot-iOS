@@ -26,8 +26,8 @@ public struct Music: Identifiable {
         id: String,
         title: String,
         artist: String?,
-        albumCover: AlbumCover?)
-    {
+        albumCover: AlbumCover?
+    ) {
         self.id = id
         self.title = title
         self.artist = artist

@@ -40,6 +40,25 @@ public struct MSLargeButtonStyle: ButtonStyle {
 
     // MARK: Content
 
+    // MARK: Properties
+
+    private let cornerStyle: CornerStyle
+    private let colorStyle: ColorSet
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    package init(
+        cornerStyle: CornerStyle,
+        colorStyle: ColorSet
+    ) {
+        self.cornerStyle = cornerStyle
+        self.colorStyle = colorStyle
+    }
+
+    // MARK: Content
+
     // MARK: - Body
 
     public func makeBody(configuration: Configuration) -> some View {
@@ -49,7 +68,9 @@ public struct MSLargeButtonStyle: ButtonStyle {
             .padding(.horizontal, Metric.horizontalEdgeInsets)
             .background(
                 colorStyle.backgroundColor.opacity(
-                    configuration.isPressed ? 0.5 : 1.0))
+                    configuration.isPressed ? 0.5 : 1.0
+                )
+            )
             .clipShape(RoundedRectangle(cornerRadius: cornerStyle.cornerRadius))
             .foregroundStyle(colorStyle.foregroundColor)
             .scaleEffect(configuration.isPressed ? Metric.scaleRatio : 1.0)

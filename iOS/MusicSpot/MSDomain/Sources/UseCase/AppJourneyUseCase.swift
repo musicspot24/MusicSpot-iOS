@@ -57,7 +57,7 @@ public final class AppJourneyUseCase: JourneyUseCase {
     @discardableResult
     public func beginJourney(startAt coordinate: Coordinate) async throws -> Journey {
         // 새로운 여정 생성
-        let journey = createNewJourney(startingAt: consume coordinate)
+        let journey = createNewJourney(startingAt: coordinate)
 
         // 생성된 여정 로컬에 저장
         return try await journeyRepository.updateJourney(consume journey)
@@ -143,6 +143,7 @@ extension AppJourneyUseCase {
             coordinates: [coordinate],
             spots: [],
             playlist: [],
-            isTraveling: true)
+            isTraveling: true
+        )
     }
 }

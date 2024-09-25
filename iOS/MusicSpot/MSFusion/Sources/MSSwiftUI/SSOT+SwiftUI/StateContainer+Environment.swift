@@ -29,7 +29,8 @@ extension View {
 
     public func inject(
         appState: AppState = .shared,
-        userState: UserState = .shared)
+        userState: UserState = .shared
+    )
         -> some View
     {
         let container = StateContainer(appState: appState, userState: userState)

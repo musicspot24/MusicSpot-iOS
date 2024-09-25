@@ -101,8 +101,8 @@ final class JourneyInfoView: UIView {
         date: Date,
         w3w: String = "",
         title: String?,
-        artist: String?)
-    {
+        artist: String?
+    ) {
         titleLabel.text = location
         dateLabel.text = date.formatted(date: .abbreviated, time: .omitted)
         w3wLabel.text = w3w

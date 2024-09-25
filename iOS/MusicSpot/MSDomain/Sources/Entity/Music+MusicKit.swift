@@ -14,7 +14,8 @@ extension Music {
             id: song.id.rawValue,
             title: song.title,
             artist: song.artistName,
-            albumCover: AlbumCover(song.artwork))
+            albumCover: AlbumCover(song.artwork)
+        )
     }
 }
 
@@ -22,14 +23,15 @@ extension AlbumCover {
     public init?(
         _ artwork: Artwork?,
         width: UInt32 = 500,
-        height: UInt32 = 500)
-    {
+        height: UInt32 = 500
+    ) {
         guard let artwork else { return nil }
         self.init(
             width: width,
             height: height,
             url: artwork.url(width: Int(width), height: Int(height)),
-            backgroundColor: artwork.backgroundColor?.hexValue)
+            backgroundColor: artwork.backgroundColor?.hexValue
+        )
     }
 }
 

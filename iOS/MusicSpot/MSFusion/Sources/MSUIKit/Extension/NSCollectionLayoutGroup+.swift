@@ -11,19 +11,22 @@ extension NSCollectionLayoutGroup {
     public static func horizontal(
         layoutSize: NSCollectionLayoutSize,
         item: NSCollectionLayoutItem,
-        count: Int)
+        count: Int
+    )
         -> NSCollectionLayoutGroup
     {
         if #available(iOS 16.0, *) {
             NSCollectionLayoutGroup.horizontal(
                 layoutSize: layoutSize,
                 repeatingSubitem: item,
-                count: count)
+                count: count
+            )
         } else {
             NSCollectionLayoutGroup.horizontal(
                 layoutSize: layoutSize,
                 subitem: item,
-                count: count)
+                count: count
+            )
         }
     }
 }

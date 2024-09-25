@@ -86,7 +86,8 @@ public class MSButton: UIButton {
             top: Metric.verticalEdgeInsets,
             leading: Metric.horizontalEdgeInsets,
             bottom: Metric.verticalEdgeInsets,
-            trailing: Metric.horizontalEdgeInsets)
+            trailing: Metric.horizontalEdgeInsets
+        )
         configuration.imagePlacement = .leading
         configuration.imagePadding = Metric.imagePadding
         configuration.titleAlignment = .center

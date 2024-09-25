@@ -53,7 +53,8 @@ public final class JourneyListViewController: BaseViewController {
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .zero,
-            collectionViewLayout: UICollectionViewLayout())
+            collectionViewLayout: UICollectionViewLayout()
+        )
         collectionView.backgroundColor = .clear
         collectionView.delegate = self
         return collectionView
@@ -72,8 +73,8 @@ public final class JourneyListViewController: BaseViewController {
     public init(
         viewModel: JourneyListViewModel,
         nibName nibNameOrNil: String? = nil,
-        bundle nibBundleOrNil: Bundle? = nil)
-    {
+        bundle nibBundleOrNil: Bundle? = nil
+    ) {
         self.viewModel = viewModel
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -110,11 +111,13 @@ public final class JourneyListViewController: BaseViewController {
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Metric.collectionViewHorizontalInset),
+                constant: Metric.collectionViewHorizontalInset
+            ),
             bottomAnchor,
             collectionView.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Metric.collectionViewHorizontalInset),
+                constant: -Metric.collectionViewHorizontalInset
+            ),
         ])
     }
 
@@ -148,8 +151,8 @@ extension JourneyListViewController: UICollectionViewDelegate {
 
     public func collectionView(
         _: UICollectionView,
-        didSelectItemAt indexPath: IndexPath)
-    {
+        didSelectItemAt indexPath: IndexPath
+    ) {
         guard let journey = dataSource?.itemIdentifier(for: indexPath) else { return }
 
         let spotPhotoURLs = journey.spots.flatMap { $0.photoURLs }
@@ -170,26 +173,31 @@ extension JourneyListViewController: UICollectionViewDelegate {
     private func configureSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0))
+            heightDimension: .fractionalHeight(1.0)
+        )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(JourneyCell.estimatedHeight))
+            heightDimension: .estimated(JourneyCell.estimatedHeight)
+        )
         let group = NSCollectionLayoutGroup.horizontal(
             layoutSize: groupSize,
-            subitems: [item])
+            subitems: [item]
+        )
 
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = Metric.interGroupSpacing
 
         let headerSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .estimated(JourneyListHeaderView.estimatedHight))
+            heightDimension: .estimated(JourneyListHeaderView.estimatedHight)
+        )
         let header = NSCollectionLayoutBoundarySupplementaryItem(
             layoutSize: headerSize,
             elementKind: UICollectionView.elementKindSectionHeader,
-            alignment: .top)
+            alignment: .top
+        )
         header.pinToVisibleBounds = true
 
         section.boundarySupplementaryItems = [header]
@@ -201,7 +209,8 @@ extension JourneyListViewController: UICollectionViewDelegate {
         let cellRegistration = JourneyCellRegistration { cell, indexPath, itemIdentifier in
             let cellModel = JourneyCellModel(
                 location: itemIdentifier.title ?? "",
-                date: itemIdentifier.date.start)
+                date: itemIdentifier.date.start
+            )
             cell.update(with: cellModel)
             let photoURLs = itemIdentifier.spots
                 .flatMap { $0.photoURLs }
@@ -210,8 +219,8 @@ extension JourneyListViewController: UICollectionViewDelegate {
         }
 
         let headerRegistration = JourneyListHeaderRegistration(
-            elementKind: UICollectionView.elementKindSectionHeader)
-        { header, _, _ in
+            elementKind: UICollectionView.elementKindSectionHeader
+        ) { header, _, _ in
             guard let numberOfItems = self.currentSnapshot?.numberOfItems else { return }
             header.update(numberOfJourneys: numberOfItems)
         }
@@ -220,13 +229,15 @@ extension JourneyListViewController: UICollectionViewDelegate {
             collectionView.dequeueConfiguredReusableCell(
                 using: cellRegistration,
                 for: indexPath,
-                item: item)
+                item: item
+            )
         }
 
         dataSource.supplementaryViewProvider = { collectionView, _, indexPath in
             collectionView.dequeueConfiguredReusableSupplementary(
                 using: headerRegistration,
-                for: indexPath)
+                for: indexPath
+            )
         }
 
         return dataSource

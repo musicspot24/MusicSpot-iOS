@@ -59,8 +59,8 @@ extension MSBottomSheetViewController {
         public init(
             fullDimension: Dimension,
             detentDimension: Dimension,
-            minimizedDimension: Dimension)
-        {
+            minimizedDimension: Dimension
+        ) {
             self.fullDimension = fullDimension
             self.detentDimension = detentDimension
             self.minimizedDimension = minimizedDimension

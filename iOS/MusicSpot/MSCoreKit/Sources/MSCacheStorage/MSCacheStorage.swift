@@ -31,8 +31,8 @@ public final class MSCacheStorage: CacheStorage {
 
     public init(
         cache: Cache = Cache(),
-        fileManager: FileManager = .default)
-    {
+        fileManager: FileManager = .default
+    ) {
         memory = cache
         disk = fileManager
     }
@@ -81,7 +81,8 @@ public final class MSCacheStorage: CacheStorage {
         memory.setObject(
             value as NSData,
             forKey: key as NSString,
-            cost: value.count)
+            cost: value.count
+        )
         if memory.object(forKey: key as NSString) == nil {
             return .failure(.memoryFail)
         }
@@ -180,7 +181,8 @@ extension MSCacheStorage {
                 for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: .cachesDirectory,
-                create: false)
+                create: false
+            )
             directoryURL = cacheDirectoryURL?
                 .appending(path: Constants.appBundleIdentifier, directoryHint: .isDirectory)
         } else {

@@ -53,7 +53,8 @@ public struct MSNetworking {
             }
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Date 디코딩 실패: \(dateString)")
+                debugDescription: "Date 디코딩 실패: \(dateString)"
+            )
         }
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
@@ -81,7 +82,8 @@ public struct MSNetworking {
     public func request<T: Decodable>(
         _ type: T.Type,
         router: Router,
-        timeoutInterval: TimeoutInterval = .seconds(3))
+        timeoutInterval: TimeoutInterval = .seconds(3)
+    )
         -> AnyPublisher<T, Error>
     {
         guard let request = router.makeRequest(encoder: encoder) else {
@@ -98,7 +100,8 @@ public struct MSNetworking {
                 guard 200..<300 ~= response.statusCode else {
                     throw MSNetworkError.invalidStatusCode(
                         statusCode: response.statusCode,
-                        description: response.description)
+                        description: response.description
+                    )
                 }
                 return data
             }
@@ -115,7 +118,8 @@ public struct MSNetworking {
     public func request<T: Decodable>(
         _: T.Type,
         router: Router,
-        timeoutInterval: TimeoutInterval = .seconds(3))
+        timeoutInterval: TimeoutInterval = .seconds(3)
+    )
         async -> Result<T, Error>
     {
         guard let request = router.makeRequest(encoder: encoder) else {
@@ -138,7 +142,8 @@ public struct MSNetworking {
                         let errorResponse = try decoder.decode(ErrorResponseDTO.self, from: data)
                         throw MSNetworkError.invalidStatusCode(
                             statusCode: errorResponse.statusCode,
-                            description: errorResponse.message)
+                            description: errorResponse.message
+                        )
                     }
 
                     do {

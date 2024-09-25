@@ -39,8 +39,8 @@ public final class MSImageFetcher {
 
     private init(
         cache: MSCacheStorage = MSCacheStorage(),
-        session: URLSession = URLSession(configuration: .default))
-    {
+        session: URLSession = URLSession(configuration: .default)
+    ) {
         self.cache = cache
         self.session = session
     }
@@ -53,7 +53,8 @@ public final class MSImageFetcher {
     @discardableResult
     public func fetchImage(
         from photoURL: URL,
-        forKey key: String)
+        forKey key: String
+    )
         async -> Data?
     {
         // 1. 캐싱된 값이 있는 지 확인합니다.

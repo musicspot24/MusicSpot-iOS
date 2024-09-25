@@ -39,7 +39,8 @@ open class BaseViewController: UIViewController {
             top: 24.0,
             left: 16.0,
             bottom: 24.0,
-            right: 16.0)
+            right: 16.0
+        )
         additionalSafeAreaInsets = safeAreaInsets
     }
 }

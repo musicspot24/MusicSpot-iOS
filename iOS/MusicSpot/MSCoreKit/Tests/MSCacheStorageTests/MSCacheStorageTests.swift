@@ -45,7 +45,8 @@ final class MSCacheStorageTests: XCTestCase {
         XCTAssertEqual(
             result,
             .success(sut),
-            "새로운 Key 값으로 저장한 값은 .success 결과를 반환해야 합니다.")
+            "새로운 Key 값으로 저장한 값은 .success 결과를 반환해야 합니다."
+        )
     }
 
     func test_중복된Key값으로_캐싱_성공() {
@@ -57,7 +58,8 @@ final class MSCacheStorageTests: XCTestCase {
         XCTAssertEqual(
             result,
             .success(sut2),
-            "중복된 Key 값으로 저장할 경우, 이전 캐싱된 값을 대체하며 성공해야 합니다.")
+            "중복된 Key 값으로 저장할 경우, 이전 캐싱된 값을 대체하며 성공해야 합니다."
+        )
     }
 
     func test_존재하는Key값으로_캐시데이터조회_데이터반환_성공() throws {
@@ -73,7 +75,8 @@ final class MSCacheStorageTests: XCTestCase {
         XCTAssertEqual(
             decodedData,
             mockData,
-            "캐싱한 값과 불러온 값이 일치하지 않습니다.")
+            "캐싱한 값과 불러온 값이 일치하지 않습니다."
+        )
     }
 
     func test_존재하지않는Key값으로_캐시데이터조회_nil반환_성공() {

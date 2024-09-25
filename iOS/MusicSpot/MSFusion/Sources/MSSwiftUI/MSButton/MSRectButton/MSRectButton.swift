@@ -26,8 +26,8 @@ public struct MSRectButton<Style: MSRectButtonStyle>: View {
         title: String = "",
         image: Image? = nil,
         style: Style,
-        action: @escaping () -> Void)
-    {
+        action: @escaping () -> Void
+    ) {
         self.title = title
         self.image = image
         self.style = style

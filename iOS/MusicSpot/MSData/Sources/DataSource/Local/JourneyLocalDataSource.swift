@@ -66,7 +66,8 @@ public final class JourneyLocalDataSource: EntityConvertible {
             coordinates: coordinates,
             spots: spots.map { $0.toEntity() },
             playlist: playlist.map { $0.toEntity() },
-            isTraveling: isTraveling)
+            isTraveling: isTraveling
+        )
     }
 
     public func isEqual(to entity: Journey) -> Bool {

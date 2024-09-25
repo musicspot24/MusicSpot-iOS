@@ -34,8 +34,8 @@ public struct UserDefaultsWrapped<T: Codable> {
     public init(
         _ key: String,
         defaultValue: T,
-        userDefaults: UserDefaults = .standard)
-    {
+        userDefaults: UserDefaults = .standard
+    ) {
         self.key = key
         self.defaultValue = defaultValue
         self.userDefaults = userDefaults

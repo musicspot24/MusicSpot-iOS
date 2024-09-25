@@ -46,7 +46,8 @@ final class MSCombineNetworkingTests: XCTestCase {
                 url: URL(string: "https://api.codesquad.kr/api")!,
                 statusCode: 200,
                 httpVersion: nil,
-                headerFields: ["Content-Type": "application/json"])!
+                headerFields: ["Content-Type": "application/json"]
+            )!
             return (response, data)
         }
 
@@ -77,7 +78,8 @@ final class MSCombineNetworkingTests: XCTestCase {
                 url: URL(string: "https://api.codesquad.kr/api")!,
                 statusCode: 404,
                 httpVersion: nil,
-                headerFields: ["Content-Type": "application/json"])!
+                headerFields: ["Content-Type": "application/json"]
+            )!
             return (response, Data())
         }
 
@@ -92,7 +94,8 @@ final class MSCombineNetworkingTests: XCTestCase {
                     XCTAssertEqual(
                         error as! MSNetworkError,
                         MSNetworkError.invalidStatusCode(statusCode: 404, description: ""),
-                        "404 status code 응답은 invalidStatusCode 에러를 발생시켜야 합니다.")
+                        "404 status code 응답은 invalidStatusCode 에러를 발생시켜야 합니다."
+                    )
                     // swiftlint: enable force_cast
                     expectation.fulfill()
                 }

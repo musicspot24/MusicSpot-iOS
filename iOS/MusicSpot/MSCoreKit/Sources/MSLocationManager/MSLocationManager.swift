@@ -63,12 +63,13 @@ public final class MSLocationManager: NSObject {
 extension MSLocationManager: CLLocationManagerDelegate {
     public func locationManager(
         _: CLLocationManager,
-        didFailWithError error: any Error)
-    {
+        didFailWithError error: any Error
+    ) {
         MSLogger.make(category: .locationManager).error("\(error.localizedDescription)")
     }
 
     public func locationManager(
         _: CLLocationManager,
-        didUpdateLocations _: [CLLocation]) { }
+        didUpdateLocations _: [CLLocation]
+    ) { }
 }

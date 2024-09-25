@@ -21,8 +21,8 @@ public struct JourneyCellModel: Hashable {
     public init(
         id: UUID = UUID(),
         location: String,
-        date: Date)
-    {
+        date: Date
+    ) {
         self.id = id
         self.location = location
         self.date = date

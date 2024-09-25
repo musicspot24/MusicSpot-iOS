@@ -55,18 +55,22 @@ let package = Package(
             targets: [
                 Target.presentation,
                 Target.service,
-            ].map { Target.rewind + $0 }),
+            ].map { Target.rewind + $0 }
+        ),
     ],
     dependencies: [
         .package(
             name: Dependency.MSDomain.package,
-            path: Dependency.MSDomain.package.fromRootPath),
+            path: Dependency.MSDomain.package.fromRootPath
+        ),
         .package(
             name: Dependency.MSFusion.package,
-            path: Dependency.MSFusion.package.fromRootPath),
+            path: Dependency.MSFusion.package.fromRootPath
+        ),
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.56.1"),
+            from: "0.55.1"
+        ),
     ],
     targets: [
         .target(
@@ -75,29 +79,37 @@ let package = Package(
                 .target(name: Target.rewind + Target.service),
                 .product(
                     name: Dependency.MSDomain.entity,
-                    package: Dependency.MSDomain.package),
+                    package: Dependency.MSDomain.package
+                ),
                 .product(
                     name: Dependency.MSFusion.msSwiftUI,
-                    package: Dependency.MSFusion.package),
+                    package: Dependency.MSFusion.package
+                ),
             ],
             path: Target.presentation.fromSourcePath,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.rewind + Target.service,
             dependencies: [
                 .product(
                     name: Dependency.MSDomain.entity,
-                    package: Dependency.MSDomain.package),
+                    package: Dependency.MSDomain.package
+                ),
             ],
             path: Target.service.fromSourcePath,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
     ],
-    swiftLanguageVersions: [.v6])
+    swiftLanguageVersions: [.v6]
+)

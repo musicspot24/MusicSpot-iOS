@@ -43,7 +43,8 @@ public final class FileManagerStorage: NSObject, MSPersistentStorage {
             }
             throw DecodingError.dataCorruptedError(
                 in: container,
-                debugDescription: "Date 디코딩 실패: \(dateString)")
+                debugDescription: "Date 디코딩 실패: \(dateString)"
+            )
         }
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
@@ -69,7 +70,8 @@ public final class FileManagerStorage: NSObject, MSPersistentStorage {
     public func get<T: Codable>(
         _: T.Type,
         forKey key: String,
-        subpath: String? = nil)
+        subpath: String? = nil
+    )
         -> T?
     {
         guard
@@ -126,7 +128,8 @@ public final class FileManagerStorage: NSObject, MSPersistentStorage {
     public func set<T: Codable>(
         value: T,
         forKey key: String,
-        subpath: String? = nil)
+        subpath: String? = nil
+    )
         -> T?
     {
         guard let fileURL = fileURL(forKey: key, subpath: subpath) else {
@@ -193,7 +196,8 @@ extension FileManagerStorage {
                 for: .cachesDirectory,
                 in: .userDomainMask,
                 appropriateFor: .cachesDirectory,
-                create: false)
+                create: false
+            )
             directoryURL = storageDirectoryURL?
                 .appending(path: Constants.appBundleIdentifier, directoryHint: .isDirectory)
             if let subpath {

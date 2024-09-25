@@ -26,8 +26,8 @@ public struct Spot: Identifiable {
         id: String,
         coordinate: Coordinate,
         timestamp: Date,
-        photoURLs: [URL])
-    {
+        photoURLs: [URL]
+    ) {
         self.id = id
         self.coordinate = coordinate
         self.timestamp = timestamp

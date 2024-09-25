@@ -70,8 +70,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
 
     public init(
         contentViewController: Content,
-        bottomSheetViewController: BottomSheet)
-    {
+        bottomSheetViewController: BottomSheet
+    ) {
         self.contentViewController = contentViewController
         self.bottomSheetViewController = bottomSheetViewController
         super.init(nibName: nil, bundle: nil)
@@ -111,8 +111,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
             }
         } else {
@@ -130,8 +130,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
                 self.state = .minimized
             }
@@ -167,8 +167,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.state = .detented
@@ -189,8 +189,8 @@ open class MSBottomSheetViewController<Content: UIViewController, BottomSheet: U
                 delay: .zero,
                 usingSpringWithDamping: 0.8,
                 initialSpringVelocity: 0.5,
-                options: [.curveEaseInOut])
-            {
+                options: [.curveEaseInOut]
+            ) {
                 self.view.layoutIfNeeded()
             } completion: { _ in
                 self.state = .minimized
@@ -329,7 +329,8 @@ extension MSBottomSheetViewController {
         topConstraints = bottomSheetViewController.view.topAnchor
             .constraint(
                 equalTo: view.bottomAnchor,
-                constant: -configuration.minimizedHeight)
+                constant: -configuration.minimizedHeight
+            )
         topConstraints?.isActive = true
         bottomSheetViewController.didMove(toParent: self)
 
@@ -341,7 +342,8 @@ extension MSBottomSheetViewController {
             resizeIndicator.centerXAnchor.constraint(equalTo: bottomSheetViewController.view.centerXAnchor),
             resizeIndicator.topAnchor.constraint(
                 equalTo: bottomSheetViewController.view.topAnchor,
-                constant: 6.0),
+                constant: 6.0
+            ),
         ])
     }
 

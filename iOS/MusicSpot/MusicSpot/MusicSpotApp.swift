@@ -31,7 +31,8 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
         _: UIApplication,
         configurationForConnecting connectingSceneSession: UISceneSession,
-        options _: UIScene.ConnectionOptions)
+        options _: UIScene.ConnectionOptions
+    )
         -> UISceneConfiguration
     {
         let configuration = UISceneConfiguration(name: nil, sessionRole: connectingSceneSession.role)
@@ -49,8 +50,8 @@ final class SceneDelegate: NSObject, UIWindowSceneDelegate {
     func scene(
         _: UIScene,
         willConnectTo _: UISceneSession,
-        options _: UIScene.ConnectionOptions)
-    {
+        options _: UIScene.ConnectionOptions
+    ) {
         MSFont.registerFonts()
     }
 }

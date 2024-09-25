@@ -43,18 +43,22 @@ let package = Package(
                 Target.msConstant,
                 Target.msError,
                 Target.msExtension,
-            ]),
+            ]
+        ),
         .library(
             name: Target.msLogger,
-            targets: [Target.msLogger]),
+            targets: [Target.msLogger]
+        ),
         .library(
             name: Target.msUserDefaults,
-            targets: [Target.msUserDefaults]),
+            targets: [Target.msUserDefaults]
+        ),
     ],
     dependencies: [
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.56.1"),
+            from: "0.55.1"
+        ),
     ],
     targets: [
         // Codes
@@ -63,46 +67,59 @@ let package = Package(
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.msError,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.msExtension,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.msLogger,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
         .target(
             name: Target.msUserDefaults,
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
 
         // Tests
         .testTarget(
             name: Target.msLogger.testTarget,
             dependencies: [
                 .target(name: Target.msLogger),
-            ]),
+            ]
+        ),
         .testTarget(
             name: Target.msUserDefaults.testTarget,
             dependencies: [
                 .target(name: Target.msUserDefaults),
-            ]),
-    ])
+            ]
+        ),
+    ]
+)

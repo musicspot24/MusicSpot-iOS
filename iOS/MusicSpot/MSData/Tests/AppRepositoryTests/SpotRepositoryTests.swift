@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import OSLog
 import SwiftData
 import XCTest
 @testable import AppRepository
@@ -51,12 +52,13 @@ final class SpotRepositoryTests: XCTestCase {
                 URL(string: "https://picsum.photos/400")!,
                 URL(string: "https://picsum.photos/600")!,
                 URL(string: "https://picsum.photos/500")!,
-            ])
+            ]
+        )
         let stream = sut.fetchPhotos(of: spot)
 
         for try await (spot, photoData) in stream {
-//            print(spot)
-//            print("Size: \(photoData.count)")
+            Logger.info(spot)
+            Logger.info("Size: \(photoData.count)")
         }
     }
 

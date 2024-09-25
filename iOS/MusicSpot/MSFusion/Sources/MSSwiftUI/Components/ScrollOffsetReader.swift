@@ -10,7 +10,8 @@ import SwiftUI
 extension View {
     public func onScrollOffsetChange(
         for coordinateSpace: NamedCoordinateSpace,
-        _ handler: @escaping (CGPoint?) -> Void)
+        _ handler: @escaping (CGPoint?) -> Void
+    )
         -> some View
     {
         modifier(ScrollOffsetTracker(coordinateSpace: coordinateSpace, handler: handler))
@@ -29,8 +30,10 @@ private struct ScrollOffsetTracker: ViewModifier {
                 GeometryReader { proxy in
                     Color.clear.preference(
                         key: ScrollOffsetPreferenceKey.self,
-                        value: proxy.bounds(of: coordinateSpace)?.origin)
-                })
+                        value: proxy.bounds(of: coordinateSpace)?.origin
+                    )
+                }
+            )
             .onPreferenceChange(ScrollOffsetPreferenceKey.self, perform: handler)
     }
 }

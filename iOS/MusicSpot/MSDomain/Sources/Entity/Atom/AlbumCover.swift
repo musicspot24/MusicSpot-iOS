@@ -26,8 +26,8 @@ public struct AlbumCover {
         width: UInt32,
         height: UInt32,
         url: URL?,
-        backgroundColor: String?)
-    {
+        backgroundColor: String?
+    ) {
         self.width = width
         self.height = height
         self.url = url

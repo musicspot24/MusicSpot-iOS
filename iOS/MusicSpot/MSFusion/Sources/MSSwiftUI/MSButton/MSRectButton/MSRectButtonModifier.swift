@@ -47,13 +47,16 @@ struct MSRectButtonModifier: ViewModifier {
             .padding(scale.padding)
             .background(
                 colorStyle.backgroundColor.opacity(
-                    isPressed ? 0.5 : 1.0))
+                    isPressed ? 0.5 : 1.0
+                )
+            )
             .foregroundStyle(colorStyle.foregroundColor)
             .clipShape(RoundedRectangle(cornerRadius: scale.cornerRadius))
             .scaleEffect(isPressed ? Metric.scaleRatio : 1.0)
             .shadow(
                 color: colorStyle.foregroundColor.opacity(0.3),
-                radius: 2.5, x: .zero, y: 2.0)
+                radius: 2.5, x: .zero, y: 2.0
+            )
             .sensoryFeedback(.impact, trigger: isPressed) { oldValue, _ in
                 oldValue == false
             }

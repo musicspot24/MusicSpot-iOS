@@ -55,18 +55,22 @@ let package = Package(
             name: Target.journey,
             targets: [
                 Target.journey,
-            ]),
+            ]
+        ),
     ],
     dependencies: [
         .package(
             name: Dependency.MSDomain.package,
-            path: Dependency.MSDomain.package.fromRootPath),
+            path: Dependency.MSDomain.package.fromRootPath
+        ),
         .package(
             name: Dependency.MSFusion.package,
-            path: Dependency.MSFusion.package.fromRootPath),
+            path: Dependency.MSFusion.package.fromRootPath
+        ),
         .package(
             url: "https://github.com/realm/SwiftLint.git",
-            from: "0.56.1"),
+            from: "0.55.1"
+        ),
     ],
     targets: [
         .target(
@@ -74,14 +78,19 @@ let package = Package(
             dependencies: [
                 .product(
                     name: Dependency.MSDomain.package,
-                    package: Dependency.MSDomain.package),
+                    package: Dependency.MSDomain.package
+                ),
                 .product(
                     name: Dependency.MSFusion.msUIKit,
-                    package: Dependency.MSFusion.package),
+                    package: Dependency.MSFusion.package
+                ),
             ],
             plugins: [
                 .plugin(
                     name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"),
-            ]),
-    ])
+                    package: "SwiftLint"
+                ),
+            ]
+        ),
+    ]
+)

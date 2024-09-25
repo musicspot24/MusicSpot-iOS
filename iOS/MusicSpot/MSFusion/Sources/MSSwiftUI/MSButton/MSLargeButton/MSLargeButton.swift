@@ -53,7 +53,9 @@ public struct MSLargeButton<ColorStyle: ColorSet>: View {
         .buttonStyle(
             MSLargeButtonStyle(
                 cornerStyle: cornerStyle,
-                colorStyle: colorStyle))
+                colorStyle: colorStyle
+            )
+        )
     }
 
     // MARK: Internal

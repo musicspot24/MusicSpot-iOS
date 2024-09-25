@@ -87,7 +87,8 @@ public final class JourneyCell: UICollectionViewCell {
             location: model.location,
             date: model.date,
             title: nil,
-            artist: nil)
+            artist: nil
+        )
     }
 
     public func updateImages(with photoURLs: [URL], for indexPath: IndexPath) {
@@ -137,13 +138,16 @@ extension JourneyCell {
         NSLayoutConstraint.activate([
             infoView.topAnchor.constraint(
                 equalTo: topAnchor,
-                constant: Metric.verticalInset),
+                constant: Metric.verticalInset
+            ),
             infoView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             infoView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
         ])
 
         addSubview(scrollView)
@@ -151,16 +155,20 @@ extension JourneyCell {
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(
                 equalTo: infoView.bottomAnchor,
-                constant: Metric.spacing),
+                constant: Metric.spacing
+            ),
             scrollView.leadingAnchor.constraint(
                 equalTo: leadingAnchor,
-                constant: Metric.horizontalInset),
+                constant: Metric.horizontalInset
+            ),
             scrollView.trailingAnchor.constraint(
                 equalTo: trailingAnchor,
-                constant: -Metric.horizontalInset),
+                constant: -Metric.horizontalInset
+            ),
             scrollView.bottomAnchor.constraint(
                 equalTo: bottomAnchor,
-                constant: -Metric.verticalInset),
+                constant: -Metric.verticalInset
+            ),
         ])
 
         scrollView.addSubview(spotImageStack)
