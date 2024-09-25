@@ -13,20 +13,6 @@ import RewindService
 
 public struct RewindView: View {
 
-    // MARK: Properties
-
-    @Environment(RewindService.self) var service
-
-    @State var selectedIndex: Int = .zero
-
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init() { }
-
-    // MARK: Content
-
     // MARK: Nested Types
 
     // MARK: Private
@@ -44,6 +30,20 @@ public struct RewindView: View {
         /// 사진 하나의 출력 시간(s)
         static let progressDuration: CGFloat = 5.0
     }
+
+    // MARK: Properties
+
+    @Environment(RewindService.self) var service
+
+    @State var selectedIndex: Int = .zero
+    @State var currentIndex: Int = .zero
+    @State var contentOffsetX: CGFloat?
+
+    // MARK: Lifecycle
+
+    // MARK: - Initializer
+
+    public init() { }
 
     // MARK: Content
 
@@ -96,7 +96,7 @@ public struct RewindView: View {
                 }
                 .scrollTargetLayout()
                 .onScrollOffsetChange(for: .scrollView(axis: .horizontal)) { offset in
-                    self.contentOffsetX = offset?.x
+                    contentOffsetX = offset?.x
                 }
             }
             .coordinateSpace(.scrollView(axis: .horizontal))
@@ -112,8 +112,9 @@ public struct RewindView: View {
                             service.timerProgress = CGFloat(rangedIndex)
                             service.timer = Timer.publish(every: 0.1, on: .main, in: .default).autoconnect()
                         }
-                    })
-            .contentMargins(.horizontal, (consume width - Metric.carouselItemWidth) / 2)
+                    }
+            )
+            .contentMargins(.horizontal, (width - Metric.carouselItemWidth) / 2)
             .scrollTargetBehavior(.viewAligned)
             .scrollPosition(id: Binding($currentIndex))
             .scrollIndicators(.never)
@@ -127,11 +128,11 @@ public struct RewindView: View {
             let size = proxy.size
             let minX = round(proxy.frame(in: .scrollView).minX)
 
-            let offsetRatio = consume minX / (Metric.carouselItemWidth + Metric.carouselSpacing)
-            let normalizedDistance = min(abs(consume offsetRatio), 1.0)
+            let offsetRatio = minX / (Metric.carouselItemWidth + Metric.carouselSpacing)
+            let normalizedDistance = min(abs(offsetRatio), 1.0)
             let itemScaleFactorDistance = Metric.carouselItemMaxScaleFactor - Metric.carouselItemMinScaleFactor
-            let normalizedFactoredDistance = consume normalizedDistance * consume itemScaleFactorDistance
-            let scaleFactor = Metric.carouselItemMaxScaleFactor - consume normalizedFactoredDistance
+            let normalizedFactoredDistance = normalizedDistance * itemScaleFactorDistance
+            let scaleFactor = Metric.carouselItemMaxScaleFactor - normalizedFactoredDistance
 
             let increasedWidth = Metric.carouselItemWidth * (scaleFactor - 1)
 
@@ -150,14 +151,15 @@ public struct RewindView: View {
                     fatalError()
                 }
             }
-            .frame(width: Metric.carouselItemWidth * consume scaleFactor, height: size.height)
+            .frame(width: Metric.carouselItemWidth * scaleFactor, height: size.height)
             .clipShape(.rect(cornerRadius: 8.0))
             // 중앙 아이템의 넓이가 늘어난만큼(increasedWidth) 바로 다음 아이템의 offsetX가 증가
             // 그 다음 아이템들은 늘어나는 넓이의 최댓값만큼 고정 offsetX 증가
             .offset(
                 x: offsetRatio > 0
-                    ? (Metric.carouselItemWidth - consume increasedWidth)
-                    : .zero)
+                    ? (Metric.carouselItemWidth - increasedWidth)
+                    : .zero
+            )
         }
         .frame(width: Metric.carouselItemWidth, height: Metric.carouselHeight)
     }
