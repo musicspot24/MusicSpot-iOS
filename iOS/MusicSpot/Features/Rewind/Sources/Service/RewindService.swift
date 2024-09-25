@@ -70,12 +70,4 @@ public final class RewindService {
         }
     }
 
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    public init(journey: Journey) {
-        selectedJourney = journey
-    }
-
 }

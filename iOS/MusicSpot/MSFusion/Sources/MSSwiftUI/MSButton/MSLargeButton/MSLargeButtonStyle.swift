@@ -32,25 +32,6 @@ public struct MSLargeButtonStyle: ButtonStyle {
 
     package init(
         cornerStyle: CornerStyle,
-        colorStyle: ColorSet)
-    {
-        self.cornerStyle = cornerStyle
-        self.colorStyle = colorStyle
-    }
-
-    // MARK: Content
-
-    // MARK: Properties
-
-    private let cornerStyle: CornerStyle
-    private let colorStyle: ColorSet
-
-    // MARK: Lifecycle
-
-    // MARK: - Initializer
-
-    package init(
-        cornerStyle: CornerStyle,
         colorStyle: ColorSet
     ) {
         self.cornerStyle = cornerStyle
