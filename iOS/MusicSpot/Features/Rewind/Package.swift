@@ -42,6 +42,11 @@ private enum Dependency {
         static let package = "MSFusion"
         static let msSwiftUI = "MSSwiftUI"
     }
+
+    enum Dripper {
+        static let package = "Dripper"
+        static let dripper = "Dripper"
+    }
 }
 
 let package = Package(
@@ -68,6 +73,10 @@ let package = Package(
             path: Dependency.MSFusion.package.fromRootPath
         ),
         .package(
+            url: "https://github.com/musicspot24/Dripper.git",
+            from: "0.0.2"
+        ),
+        .package(
             url: "https://github.com/realm/SwiftLint.git",
             from: "0.55.1"
         ),
@@ -84,6 +93,10 @@ let package = Package(
                 .product(
                     name: Dependency.MSFusion.msSwiftUI,
                     package: Dependency.MSFusion.package
+                ),
+                .product(
+                    name: Dependency.Dripper.dripper,
+                    package: Dependency.Dripper.package
                 ),
             ],
             path: Target.presentation.fromSourcePath,
@@ -111,5 +124,5 @@ let package = Package(
             ]
         ),
     ],
-    swiftLanguageVersions: [.v6]
+    swiftLanguageModes: [.v6]
 )

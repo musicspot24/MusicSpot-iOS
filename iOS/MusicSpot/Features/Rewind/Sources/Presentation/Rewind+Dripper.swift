@@ -20,10 +20,10 @@ struct Rewind: Dripper {
     }
 
     var body: some DripperOf<Self> {
-        Drip { state, action in
+        Drip { _, action in
             switch action {
             case .hello:
-                state
+                .none
             }
         }
     }
