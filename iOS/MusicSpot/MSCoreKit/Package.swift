@@ -25,6 +25,7 @@ extension String {
 // MARK: - Target
 
 private enum Target {
+    static let tickr = "Tickr"
     static let msCacheStorage = "MSCacheStorage"
     static let msImageFetcher = "MSImageFetcher"
     static let msKeychainStorage = "MSKeychainStorage"
@@ -68,6 +69,10 @@ let package = Package(
     ],
     products: [
         .library(
+            name: Target.tickr,
+            targets: [Target.tickr]
+        ),
+        .library(
             name: Target.msLocationManager,
             targets: [Target.msLocationManager]
         ),
@@ -105,6 +110,10 @@ let package = Package(
     ],
     targets: [
         // Codes
+        .target(
+            name: Target.tickr,
+            plugins: [.swiftLint]
+        ),
         .target(
             name: Target.msLocationManager,
             dependencies: [
@@ -186,6 +195,12 @@ let package = Package(
         ),
 
         // Tests
+        .testTarget(
+            name: Target.tickr.testTarget,
+            dependencies: [
+                .target(name: Target.tickr),
+            ]
+        ),
         .testTarget(
             name: Target.msPersistentStorage.testTarget,
             dependencies: [
