@@ -12,15 +12,28 @@ public struct Heartbeat<C: Clock>: AsyncSequence {
     // MARK: Nested Types
 
     public struct HeartbeatIterator: AsyncIteratorProtocol {
+
+        // MARK: Properties
+
         var clock: C
         let duration: C.Duration
+        let deadline: C.Instant?
 
-        init(duration: C.Duration, clock: C) {
+        // MARK: Lifecycle
+
+        init(duration: C.Duration, deadline: C.Duration?, clock: C) {
             self.clock = clock
             self.duration = duration
+            self.deadline = deadline.map { clock.now.advanced(by: $0) } ?? nil
         }
 
+        // MARK: Functions
+
         public mutating func next() async -> C.Instant? {
+            if let deadline, clock.now >= deadline {
+                return nil
+            }
+
             do {
                 try await clock.sleep(for: duration)
             } catch {
@@ -35,17 +48,19 @@ public struct Heartbeat<C: Clock>: AsyncSequence {
 
     let clock: C
     let duration: C.Duration
+    let deadline: C.Duration?
 
     // MARK: Lifecycle
 
-    init(duration: C.Duration, clock: C) {
+    init(duration: C.Duration, deadline: C.Duration? = nil, clock: C) {
         self.clock = clock
         self.duration = duration
+        self.deadline = deadline
     }
 
     // MARK: Functions
 
     public func makeAsyncIterator() -> HeartbeatIterator {
-        HeartbeatIterator(duration: duration, clock: clock)
+        HeartbeatIterator(duration: duration, deadline: deadline, clock: clock)
     }
 }

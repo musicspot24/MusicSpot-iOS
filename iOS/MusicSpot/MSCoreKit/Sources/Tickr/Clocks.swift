@@ -10,11 +10,15 @@ import Foundation
 public struct Clocks {
     public init() { }
 
-    public func heartbeat(every duration: Duration) -> Heartbeat<ContinuousClock> {
-        Heartbeat(duration: duration, clock: .continuous)
+    public func heartbeat(
+        every duration: Duration,
+        upto deadline: Duration? = nil
+    ) -> Heartbeat<ContinuousClock> {
+        Heartbeat(duration: duration, deadline: deadline, clock: .continuous)
     }
 
-    public func countdown(to _: Duration) -> Countdown<ContinuousClock> {
-        Countdown(clock: .continuous)
+    public func countdown(to duration: Duration) -> Countdown<ContinuousClock> {
+        let _ = duration
+        return Countdown(clock: .continuous)
     }
 }

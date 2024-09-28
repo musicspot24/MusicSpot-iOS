@@ -21,7 +21,7 @@ struct HeartbeatTests {
     func example() async throws {
         var count = 0
 
-        for await _ in clock.heartbeat(every: .seconds(1)) {
+        for await _ in clock.heartbeat(every: .seconds(1), upto: .seconds(10)) {
             count += 1
             Logger().info("\(count)")
         }
