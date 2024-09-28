@@ -1,7 +1,7 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
+@preconcurrency import PackageDescription
 
 // MARK: - Constants
 
@@ -39,6 +39,24 @@ private enum Target {
 private enum Dependency {
     static let msLogger = "MSLogger"
     static let msFoundation = "MSFoundation"
+}
+
+// MARK: Package
+
+extension PackageDescription.Package.Dependency {
+    fileprivate static let swiftLint: PackageDescription.Package.Dependency = .package(
+        url: "https://github.com/realm/SwiftLint.git",
+        from: "0.57.0"
+    )
+}
+
+// MARK: - Plugin
+
+extension PackageDescription.Target.PluginUsage {
+    nonisolated fileprivate static let swiftLint: Self = .plugin(
+        name: "SwiftLintBuildToolPlugin",
+        package: "SwiftLint"
+    )
 }
 
 // MARK: - Package
@@ -83,10 +101,7 @@ let package = Package(
             name: Dependency.msFoundation,
             path: Dependency.msFoundation.fromRootPath
         ),
-        .package(
-            url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"
-        ),
+        .swiftLint,
     ],
     targets: [
         // Codes
@@ -98,12 +113,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msImageFetcher,
@@ -114,12 +124,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msPersistentStorage,
@@ -133,12 +138,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msNetworking,
@@ -148,12 +148,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msCacheStorage,
@@ -163,12 +158,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msKeychainStorage,
@@ -182,12 +172,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.versionManager,
@@ -197,12 +182,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
 
         // Tests
@@ -230,5 +210,6 @@ let package = Package(
                 .target(name: Target.versionManager),
             ]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )

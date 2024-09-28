@@ -10,6 +10,7 @@ import Foundation
 import MSCacheStorage
 import MSLogger
 
+@MainActor
 public final class MSImageFetcher {
 
     // MARK: Nested Types
