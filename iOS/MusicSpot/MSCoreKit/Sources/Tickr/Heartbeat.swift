@@ -21,7 +21,7 @@ public struct Heartbeat<C: Clock>: AsyncSequence {
 
         // MARK: Lifecycle
 
-        init(duration: C.Duration, deadline: C.Duration?, clock: C) {
+        init(clock: C, duration: C.Duration, deadline: C.Duration?) {
             self.clock = clock
             self.duration = duration
             self.deadline = deadline.map { clock.now.advanced(by: $0) } ?? nil
@@ -52,7 +52,7 @@ public struct Heartbeat<C: Clock>: AsyncSequence {
 
     // MARK: Lifecycle
 
-    init(duration: C.Duration, deadline: C.Duration? = nil, clock: C) {
+    init(clock: C, duration: C.Duration, deadline: C.Duration? = nil) {
         self.clock = clock
         self.duration = duration
         self.deadline = deadline
@@ -61,6 +61,6 @@ public struct Heartbeat<C: Clock>: AsyncSequence {
     // MARK: Functions
 
     public func makeAsyncIterator() -> HeartbeatIterator {
-        HeartbeatIterator(duration: duration, deadline: deadline, clock: clock)
+        HeartbeatIterator(clock: clock, duration: duration, deadline: deadline)
     }
 }

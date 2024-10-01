@@ -10,20 +10,33 @@ import Testing
 
 import Tickr
 
+@Suite("Heartbeat Tests")
 struct HeartbeatTests {
-    let clock: Clocks
+
+    // MARK: Properties
+
+    let clock: SuspendingClock
+
+    // MARK: Lifecycle
 
     init() async throws {
-        clock = Clocks()
+        clock = .suspending
     }
 
-    @Test
-    func example() async throws {
-        var count = 0
+    // MARK: Functions
 
-        for await _ in clock.heartbeat(every: .seconds(1), upto: .seconds(10)) {
-            count += 1
-            Logger().info("\(count)")
+    @Test("Heartbeat can iterate correctly", arguments: [3, 5, 10])
+    func iterateCorrectly(iteration: Int) async throws {
+        var count: Int = .zero
+
+        await confirmation(expectedCount: iteration) { confirmation in
+            for await _ in clock.heartbeat(every: .seconds(1), until: .seconds(iteration)) {
+                count += 1
+                Logger().info("\(count)")
+                confirmation.confirm()
+            }
         }
+
+        #expect(count == iteration)
     }
 }

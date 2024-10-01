@@ -10,10 +10,10 @@ import Testing
 import Tickr
 
 struct CountdownTests {
-    let clock: Clocks
+    let clock: SuspendingClock
 
     init() async throws {
-        clock = Clocks()
+        clock = .suspending
     }
 
     @Test
