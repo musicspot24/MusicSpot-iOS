@@ -17,8 +17,6 @@ public struct RewindView: View {
 
     // MARK: Private
 
-    // MARK: - Constants
-
     private enum Metric {
         static let carouselSpacing: CGFloat = 4.0
         static let carouselHeight: CGFloat = 60.0
