@@ -1,7 +1,7 @@
-// swift-tools-version: 5.9
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
+@preconcurrency import PackageDescription
 
 // MARK: - Constants
 
@@ -25,6 +25,7 @@ extension String {
 // MARK: - Target
 
 private enum Target {
+    static let tickr = "Tickr"
     static let msCacheStorage = "MSCacheStorage"
     static let msImageFetcher = "MSImageFetcher"
     static let msKeychainStorage = "MSKeychainStorage"
@@ -41,6 +42,24 @@ private enum Dependency {
     static let msFoundation = "MSFoundation"
 }
 
+// MARK: Package
+
+extension PackageDescription.Package.Dependency {
+    fileprivate static let swiftLint: PackageDescription.Package.Dependency = .package(
+        url: "https://github.com/realm/SwiftLint.git",
+        from: "0.57.0"
+    )
+}
+
+// MARK: - Plugin
+
+extension PackageDescription.Target.PluginUsage {
+    nonisolated fileprivate static let swiftLint: Self = .plugin(
+        name: "SwiftLintBuildToolPlugin",
+        package: "SwiftLint"
+    )
+}
+
 // MARK: - Package
 
 let package = Package(
@@ -49,6 +68,10 @@ let package = Package(
         .iOS(.v17),
     ],
     products: [
+        .library(
+            name: Target.tickr,
+            targets: [Target.tickr]
+        ),
         .library(
             name: Target.msLocationManager,
             targets: [Target.msLocationManager]
@@ -83,13 +106,14 @@ let package = Package(
             name: Dependency.msFoundation,
             path: Dependency.msFoundation.fromRootPath
         ),
-        .package(
-            url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"
-        ),
+        .swiftLint,
     ],
     targets: [
         // Codes
+        .target(
+            name: Target.tickr,
+            plugins: [.swiftLint]
+        ),
         .target(
             name: Target.msLocationManager,
             dependencies: [
@@ -98,12 +122,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msImageFetcher,
@@ -114,12 +133,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msPersistentStorage,
@@ -133,12 +147,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msNetworking,
@@ -148,12 +157,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msCacheStorage,
@@ -163,12 +167,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msKeychainStorage,
@@ -182,12 +181,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.versionManager,
@@ -197,15 +191,16 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
 
         // Tests
+        .testTarget(
+            name: Target.tickr.testTarget,
+            dependencies: [
+                .target(name: Target.tickr),
+            ]
+        ),
         .testTarget(
             name: Target.msPersistentStorage.testTarget,
             dependencies: [
@@ -230,5 +225,6 @@ let package = Package(
                 .target(name: Target.versionManager),
             ]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )
