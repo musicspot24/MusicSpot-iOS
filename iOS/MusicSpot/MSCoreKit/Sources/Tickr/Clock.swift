@@ -8,11 +8,22 @@
 import Foundation
 
 extension Clock {
+    /// Create `Heartbeat` sequence. Start heartbeat by using `for` loop on returned sequence.
+    ///
+    /// > Example:
+    /// > ```swift
+    /// > let heartbeat = clock.heartbeat(every: .seconds(1), until: .seconds(180), maxBeats: 60)
+    /// > var count = 0
+    /// > for await _ in heartbeat {
+    /// >     // count increase every 1 seconds for maximum 3 minutes or 60 beats.
+    /// >     count += 1
+    /// > }
     public func heartbeat(
         every duration: Self.Duration,
-        until deadline: Self.Duration? = nil
+        until deadline: Self.Duration? = nil,
+        maxBeats: Int? = nil
     ) -> Heartbeat<Self> {
-        Heartbeat(clock: self, duration: duration, deadline: deadline)
+        Heartbeat(clock: self, duration: duration, deadline: deadline, maxBeats: maxBeats)
     }
 
     /// Create `Countdown` sequence. Start countdown by using `for` loop on returned sequence.
