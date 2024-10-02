@@ -30,7 +30,7 @@ extension Clock {
     ///
     /// > Example:
     /// > ```swift
-    /// > let countdown = clock.countdown(to: .seconds(3), repeat: 3)
+    /// > let countdown = clock.countdown(duration: .seconds(3), repeat: 3)
     /// > var count = 0
     /// > for await _ in countdown {
     /// >     // takes 9 (3 × 3) seconds and count will be 3.
