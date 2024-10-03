@@ -37,6 +37,24 @@ private enum Dependency {
     static let msFoundation = "MSFoundation"
 }
 
+// MARK: Package
+
+extension PackageDescription.Package.Dependency {
+    fileprivate static let swiftLint: PackageDescription.Package.Dependency = .package(
+        url: "https://github.com/realm/SwiftLint.git",
+        from: "0.57.0"
+    )
+}
+
+// MARK: - Plugin
+
+extension PackageDescription.Target.PluginUsage {
+    nonisolated fileprivate static let swiftLint: Self = .plugin(
+        name: "SwiftLintBuildToolPlugin",
+        package: "SwiftLint"
+    )
+}
+
 // MARK: - Package
 
 let package = Package(
@@ -67,10 +85,7 @@ let package = Package(
             name: Dependency.msFoundation,
             path: Dependency.msFoundation.fromRootPath
         ),
-        .package(
-            url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"
-        ),
+        .swiftLint,
     ],
     targets: [
         .target(
@@ -78,21 +93,11 @@ let package = Package(
             resources: [
                 .process("../\(Target.msDesignSystem)/Resources"),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.combineCocoa,
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msSwiftUI,
@@ -107,12 +112,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
         .target(
             name: Target.msUIKit,
@@ -132,12 +132,7 @@ let package = Package(
                     package: Dependency.msFoundation
                 ),
             ],
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
     ]
 )

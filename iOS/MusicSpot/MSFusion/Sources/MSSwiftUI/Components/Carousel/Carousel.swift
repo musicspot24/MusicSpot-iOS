@@ -9,39 +9,39 @@ import SwiftUI
 
 // MARK: - Carousel
 
-struct Carousel<Content: View, Data: RandomAccessCollection>: View where Data.Element: Identifiable {
-
-    // MARK: Nested Types
-
-    struct Configuration {
-        var hasOpacity = false
-        var opacityValue: CGFloat = 0.4
-        var hasScale = false
-        var scaleValue: CGFloat = 0.1
-
-        var cardWidth: CGFloat = 100.0
-        var minimumCardWidth: CGFloat = 40.0
-        var spacing: CGFloat = 4.0
-        var cornerRadius: CGFloat = 10.0
-    }
+public struct Carousel<Content: View, Data: RandomAccessCollection>: View where Data.Element: Identifiable {
 
     // MARK: Properties
 
-    var data: Data
-    var configuration: Configuration
+    public var data: Data
+    public var configuration: Configuration
 
-    @Binding var selection: Data.Element.ID?
+    @Binding public var selection: Data.Element.ID?
 
-    @ViewBuilder var content: (Data.Element) -> Content
+    @ViewBuilder public var content: (Data.Element) -> Content
+
+    // MARK: Lifecycle
+
+    public init(
+        data: Data,
+        configuration: Configuration,
+        selection: Binding<Data.Element.ID?>,
+        @ViewBuilder content: @escaping (Data.Element) -> Content
+    ) {
+        self.data = data
+        self.configuration = configuration
+        _selection = selection
+        self.content = content
+    }
 
     // MARK: Content
 
-    var body: some View {
+    public var body: some View {
         GeometryReader {
             let size = $0.size
 
             ScrollView(.horizontal) {
-                HStack(alignment: .bottom, spacing: configuration.spacing) {
+                HStack(spacing: configuration.spacing) {
                     ForEach(data) { item in
                         ItemView(item)
                     }
@@ -114,7 +114,7 @@ private struct ImageData: Identifiable {
         URL(string: "https://picsum.photos/seed/picsum8/600/800"),
         URL(string: "https://picsum.photos/seed/picsum9/600/800"),
         URL(string: "https://picsum.photos/seed/picsum10/600/800"),
-    ].compactMap {
+    ].map {
         ImageData(url: $0)
     }
 
@@ -126,8 +126,9 @@ private struct ImageData: Identifiable {
                 data: images,
                 configuration: Carousel.Configuration(
                     hasOpacity: true,
+                    opacityValue: 0.4,
                     hasScale: true,
-                    cardWidth: 100.0
+                    scaleValue: 0.2
                 ),
                 selection: $activeID
             ) { item in
