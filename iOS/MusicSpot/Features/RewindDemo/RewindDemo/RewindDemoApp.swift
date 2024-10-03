@@ -7,11 +7,18 @@
 
 import SwiftUI
 
+import Dripper
+import Rewind
+
 @main
 struct RewindDemoApp: App {
+    private let station = Station(initialState: RewindDripper.State(selectedJourney: .sample)) {
+        RewindDripper()
+    }
+
     var body: some Scene {
         WindowGroup {
-            ContentView(selectedJourney: .sample)
+            ContentView(station: station)
         }
     }
 }

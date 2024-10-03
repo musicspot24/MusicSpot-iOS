@@ -7,23 +7,28 @@
 
 import SwiftUI
 
+import Dripper
 import Entity
-import RewindPresentation
-import RewindService
+import Rewind
 
 struct ContentView: View {
-    @State private var service: RewindService
+    private let station: StationOf<RewindDripper>
 
-    init(selectedJourney: Journey) {
-        service = RewindService(journey: selectedJourney)
+    init(station: StationOf<RewindDripper>) {
+        self.station = station
     }
 
     var body: some View {
-        RewindView()
-            .environment(service)
+        RewindView(station: station)
     }
 }
 
 #Preview {
-    ContentView(selectedJourney: .sample)
+    let station = Station(
+        initialState: RewindDripper.State(selectedJourney: .sample)
+    ) {
+        RewindDripper()
+    }
+
+    ContentView(station: station)
 }

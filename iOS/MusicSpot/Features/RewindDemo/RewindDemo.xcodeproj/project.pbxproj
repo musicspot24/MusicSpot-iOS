@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD20FA3F2CAEB3F100E8F9D9 /* Rewind in Frameworks */ = {isa = PBXBuildFile; productRef = FD20FA3E2CAEB3F100E8F9D9 /* Rewind */; };
 		FD95E6812C46CBAF005914D0 /* RewindDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD95E6802C46CBAF005914D0 /* RewindDemoApp.swift */; };
 		FD95E6832C46CBAF005914D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD95E6822C46CBAF005914D0 /* ContentView.swift */; };
 		FD95E6852C46CBB0005914D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FD95E6842C46CBB0005914D0 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 				FD95E6962C46CBC8005914D0 /* Rewind in Frameworks */,
 				FDFE0DBE2C5383E500FD251B /* Rewind in Frameworks */,
 				FDC5579A2C53F1250027EDAC /* Rewind in Frameworks */,
+				FD20FA3F2CAEB3F100E8F9D9 /* Rewind in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +95,7 @@
 				FD95E6952C46CBC8005914D0 /* Rewind */,
 				FDFE0DBD2C5383E500FD251B /* Rewind */,
 				FDC557992C53F1250027EDAC /* Rewind */,
+				FD20FA3E2CAEB3F100E8F9D9 /* Rewind */,
 			);
 			productName = RewindDemo;
 			productReference = FD95E67D2C46CBAF005914D0 /* RewindDemo.app */;
@@ -123,7 +126,7 @@
 			);
 			mainGroup = FD95E6742C46CBAF005914D0;
 			packageReferences = (
-				FDC557982C53F1250027EDAC /* XCLocalSwiftPackageReference "../Rewind" */,
+				FD20FA3D2CAEB3F100E8F9D9 /* XCLocalSwiftPackageReference "../Rewind" */,
 			);
 			productRefGroup = FD95E67E2C46CBAF005914D0 /* Products */;
 			projectDirPath = "";
@@ -370,13 +373,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		FDC557982C53F1250027EDAC /* XCLocalSwiftPackageReference "../Rewind" */ = {
+		FD20FA3D2CAEB3F100E8F9D9 /* XCLocalSwiftPackageReference "../Rewind" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = ../Rewind;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		FD20FA3E2CAEB3F100E8F9D9 /* Rewind */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Rewind;
+		};
 		FD95E6952C46CBC8005914D0 /* Rewind */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Rewind;

@@ -1,7 +1,7 @@
 // swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
-import PackageDescription
+@preconcurrency import PackageDescription
 
 // MARK: - Constants
 
@@ -43,10 +43,38 @@ private enum Dependency {
         static let msSwiftUI = "MSSwiftUI"
     }
 
+    enum MSCoreKit {
+        static let package = "MSCoreKit"
+        static let tickr = "Tickr"
+    }
+
     enum Dripper {
         static let package = "Dripper"
         static let dripper = "Dripper"
     }
+}
+
+// MARK: Package
+
+extension PackageDescription.Package.Dependency {
+    fileprivate static let swiftLint: PackageDescription.Package.Dependency = .package(
+        url: "https://github.com/realm/SwiftLint.git",
+        from: "0.57.0"
+    )
+
+    fileprivate static let dripper: PackageDescription.Package.Dependency = .package(
+        url: "https://github.com/musicspot24/Dripper.git",
+        from: "0.0.3"
+    )
+}
+
+// MARK: - Plugin
+
+extension PackageDescription.Target.PluginUsage {
+    nonisolated fileprivate static let swiftLint: Self = .plugin(
+        name: "SwiftLintBuildToolPlugin",
+        package: "SwiftLint"
+    )
 }
 
 let package = Package(
@@ -57,10 +85,7 @@ let package = Package(
     products: [
         .library(
             name: Target.rewind,
-            targets: [
-                Target.presentation,
-                Target.service,
-            ].map { Target.rewind + $0 }
+            targets: [Target.rewind]
         ),
     ],
     dependencies: [
@@ -73,19 +98,16 @@ let package = Package(
             path: Dependency.MSFusion.package.fromRootPath
         ),
         .package(
-            url: "https://github.com/musicspot24/Dripper.git",
-            from: "0.0.2"
+            name: Dependency.MSCoreKit.package,
+            path: Dependency.MSCoreKit.package.fromRootPath
         ),
-        .package(
-            url: "https://github.com/realm/SwiftLint.git",
-            from: "0.55.1"
-        ),
+        .dripper,
+        .swiftLint,
     ],
     targets: [
         .target(
-            name: Target.rewind + Target.presentation,
+            name: Target.rewind,
             dependencies: [
-                .target(name: Target.rewind + Target.service),
                 .product(
                     name: Dependency.MSDomain.entity,
                     package: Dependency.MSDomain.package
@@ -95,33 +117,15 @@ let package = Package(
                     package: Dependency.MSFusion.package
                 ),
                 .product(
+                    name: Dependency.MSCoreKit.tickr,
+                    package: Dependency.MSCoreKit.package
+                ),
+                .product(
                     name: Dependency.Dripper.dripper,
                     package: Dependency.Dripper.package
                 ),
             ],
-            path: Target.presentation.fromSourcePath,
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
-        ),
-        .target(
-            name: Target.rewind + Target.service,
-            dependencies: [
-                .product(
-                    name: Dependency.MSDomain.entity,
-                    package: Dependency.MSDomain.package
-                ),
-            ],
-            path: Target.service.fromSourcePath,
-            plugins: [
-                .plugin(
-                    name: "SwiftLintBuildToolPlugin",
-                    package: "SwiftLint"
-                ),
-            ]
+            plugins: [.swiftLint]
         ),
     ],
     swiftLanguageModes: [.v6]

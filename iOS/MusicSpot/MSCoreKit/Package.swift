@@ -69,10 +69,6 @@ let package = Package(
     ],
     products: [
         .library(
-            name: Target.tickr,
-            targets: [Target.tickr]
-        ),
-        .library(
             name: Target.msLocationManager,
             targets: [Target.msLocationManager]
         ),
@@ -95,6 +91,10 @@ let package = Package(
         .library(
             name: Target.msKeychainStorage,
             targets: [Target.msKeychainStorage]
+        ),
+        .library(
+            name: Target.tickr,
+            targets: [Target.tickr]
         ),
         .library(
             name: Target.versionManager,
