@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musicspot24/Dripper.git",
       "state" : {
-        "revision" : "4ede790432c05d55131fe3c8f755470f26910379",
-        "version" : "0.0.3"
+        "revision" : "9f0c8556fdc85ce6d61b623a550313e463096927",
+        "version" : "0.0.7"
       }
     },
     {

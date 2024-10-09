@@ -24,9 +24,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    let station = Station(
-        initialState: RewindDripper.State(selectedJourney: .sample)
-    ) {
+    let station = Station(initialState: RewindDripper.State(journey: .sample)) {
         RewindDripper()
     }
 

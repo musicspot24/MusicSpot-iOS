@@ -11,9 +11,7 @@ extension View {
     public func onScrollOffsetChange(
         for coordinateSpace: NamedCoordinateSpace,
         _ handler: @escaping (CGPoint?) -> Void
-    )
-        -> some View
-    {
+    ) -> some View {
         modifier(ScrollOffsetTracker(coordinateSpace: coordinateSpace, handler: handler))
     }
 }

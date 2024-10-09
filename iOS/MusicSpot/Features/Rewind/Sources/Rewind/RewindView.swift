@@ -11,22 +11,13 @@ import Dripper
 import Entity
 import MSSwiftUI
 
-// MARK: - ImageData
-
-struct ImageData: Identifiable {
-    let id = UUID()
-    let image: URL
-}
-
 // MARK: - RewindView
 
 public struct RewindView: View {
 
     // MARK: Properties
 
-    let station: StationOf<RewindDripper>
-
-    @State var selectedItem: UUID?
+    var station: StationOf<RewindDripper>
 
     // MARK: Lifecycle
 
@@ -37,21 +28,34 @@ public struct RewindView: View {
     // MARK: Content
 
     public var body: some View {
-        let imageDatas = station.selectedJourney.photoURLs.map { ImageData(image: $0) }
-
         ZStack {
-            AsyncImage(url: imageDatas[0].image) { image in
-                image.resizable()
-                    .aspectRatio(contentMode: .fit)
-            } placeholder: {
-                ProgressView()
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(station.items) { item in
+                        AsyncImage(url: item.imageURL) { image in
+                            image.resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } placeholder: {
+                            Color.black
+                                .ignoresSafeArea()
+                                .overlay {
+                                    ProgressView()
+                                }
+                        }
+                        .containerRelativeFrame(.horizontal)
+                        .clipShape(.rect(cornerRadius: 12.0))
+                    }
+                }
+                .scrollTargetLayout()
             }
-            .ignoresSafeArea()
+            .scrollPosition(id: station.bind(\.currentItem))
+            .scrollIndicators(.never)
+            .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
 
             VStack {
                 Spacer()
                 Carousel(
-                    data: station.selectedJourney.photoURLs.map { ImageData(image: $0) },
+                    data: station.items,
                     configuration: Carousel.Configuration(
                         hasOpacity: true,
                         hasScale: true,
@@ -59,10 +63,10 @@ public struct RewindView: View {
                         minimumCardWidth: 40.0,
                         spacing: 8.0
                     ),
-                    selection: $selectedItem
+                    selection: station.bind(\.currentCardItem)
                 ) { item in
                     GeometryReader { _ in
-                        AsyncImage(url: item.image) { image in
+                        AsyncImage(url: item.imageURL) { image in
                             image.resizable()
                                 .aspectRatio(contentMode: .fill)
                         } placeholder: {
@@ -79,15 +83,27 @@ public struct RewindView: View {
             }
         }
         .background(.black)
+        .onAppear {
+            // TODO: 타이머 시작
+            station.pour(.timerStarted)
+        }
+        .onChange(of: station.currentItem) { _, newValue in
+            guard let newValue else { return }
+            withAnimation(.interpolatingSpring) {
+                station.pour(.itemUpdated(newValue))
+            }
+        }
+        .onChange(of: station.currentCardItem) { _, newValue in
+            guard let newValue else { return }
+            withAnimation(.interpolatingSpring) {
+                station.pour(.cardItemUpdated(newValue))
+            }
+        }
     }
 }
 
 #Preview {
-    let station = Station(
-        initialState: RewindDripper.State(
-            selectedJourney: .sample
-        )
-    ) {
+    let station = Station(initialState: RewindDripper.State(journey: .sample)) {
         RewindDripper()
     }
 

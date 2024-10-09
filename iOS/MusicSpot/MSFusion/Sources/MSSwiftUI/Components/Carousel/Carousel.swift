@@ -48,7 +48,9 @@ public struct Carousel<Content: View, Data: RandomAccessCollection>: View where 
                 }
                 .scrollTargetLayout()
             }
-            .safeAreaPadding(.horizontal, max((size.width - configuration.cardWidth) / 2, 0))
+            .safeAreaPadding(
+                .horizontal, max((size.width - configuration.cardWidth) / 2, 0)
+            )
             .scrollPosition(id: $selection)
             .scrollTargetBehavior(.viewAligned(limitBehavior: .always))
             .scrollIndicators(.never)

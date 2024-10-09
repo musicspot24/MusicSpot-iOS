@@ -12,7 +12,7 @@ import Rewind
 
 @main
 struct RewindDemoApp: App {
-    private let station = Station(initialState: RewindDripper.State(selectedJourney: .sample)) {
+    private let station = Station(initialState: RewindDripper.State(journey: .sample)) {
         RewindDripper()
     }
 
