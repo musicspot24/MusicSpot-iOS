@@ -64,7 +64,7 @@ extension PackageDescription.Package.Dependency {
 
     fileprivate static let dripper: PackageDescription.Package.Dependency = .package(
         url: "https://github.com/musicspot24/Dripper.git",
-        from: "0.0.3"
+        from: "0.0.7"
     )
 }
 
